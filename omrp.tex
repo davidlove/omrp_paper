@@ -567,13 +567,26 @@ This can be achieved either by almost sure or mean-square convergence, which giv
 \label{sec:comp}
 
 We empirically tested the effectiveness of OMRP on four problems.
-The first test problem is a newsvendor problem with demand distributed uniformly on $\{0, 0.0001, 0.0002, \dots, 10\}$, the second is a capacity expansion planning problem, denoted CEP1, with random demand vector $\xit$ of dimension 3, with 216 total realizations, the third is a stochastic knapsack problem denoted 10D, with 10 stochastic parameters and 10 binary decision variables, and the final is a stochastic vehicle routing problem denoted DB1, with 46 stochastic parameters and a total of $4.5 \cdot 10^{25}$ realizations.
+The first test problem is a newsvendor problem with demand distributed uniformly on $\{0, 0.0001, 0.0002, \dots, 10\}$.
+The second is a capacity expansion planning problem, denoted CEP1, with random demand vector $\xit$ of dimension 3, with 216 total realizations.
+The third is a stochastic knapsack problem denoted 10D, with 10 stochastic parameters and 10 binary decision variables.
+The final problem is a stochastic vehicle routing problem denoted DB1, with 46 stochastic parameters and a total of $4.5 \cdot 10^{25}$ realizations.
 Descriptions of CEP1, 10D, and DB1 can be found in \cite{higle1996}, \cite{kleywegt2002sample}, and \cite{donohue1995upper}, respectively.
 The instance of the newsvendor problem as well as the candidate solutions used for both problems can be found in \cite{Bayraksan2006}, except here we used a discrete uniform demand distribution for the newsvendor problem.  
 The problems CEP1, DB1 and newsvendor can be written as two-stage stochastic linear programs with recourse.
 CEP1 and DB1 were solved with the regularized decomposition algorithm of \cite{ruszczynski1986regularized}, using the accelerated version of the algorithm implemented in C++ \cite{ruszczynski1997accelerating}. 
 The newsvendor problem was solved using the quicksort algorithm in C++, and 10D was solved using dynamic programming.  
 In all cases, we used the Mersenne Twister algorithm to generate random samples \cite{wagner_twister_09}.
+
+We made several considerations in selecting the test problems.
+Newsvendor can be solved very quickly, which allows for solving a large number of independent runs for examining the small sample behavior of OMRP.
+CEP1 is also easy to solve, and obtains the optimal solution $\xs$ with high probability even for small sample sizes.
+This feature shows the behavior $VG$ when the gap size is determined mostly by sampling error, rather than bias.
+10D demonstrates the behavior of OMRP when $|X|$ is finite.
+Furthermore, 10D has a high condition number \cite{kleywegt2002sample}, making it unlikely that the optimal solution $\xs$ is found when using a sampling solution, thus demonstrating the behavior of OMRP with the bias of the gap is significant.
+The optimal solutions of both 10D and CEP1 are known, allowing for explicitly checking the computational results.
+In contrast, DB1 is a large scale example, with an unknown optimal solution.
+This final problems allows us to show that OMRP works on more computationally difficult problems.
 
 We used a total sample size of $n = 30 m$, with several values of the batch size $m$. 
 Then, at each value of $m$, we formed OMRP estimators, with varying amounts of overlap. 
@@ -614,8 +627,8 @@ Summary of results from these experiments are depicted in Figures~\ref{fig:nv} a
 	   \includegraphics[width=.32\textwidth]{images/db1_varvar}}
 		\caption{
 		Variance Reduction for
-		(a) CEP1 and 
-		(b) 10D
+		(a) CEP1,
+		(b) 10D, and
 		(c) DB1
 		for various values of $\gamma / m$.
 		}
