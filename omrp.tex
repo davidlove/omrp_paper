@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 
 
 \usepackage{latexsym}
@@ -13,7 +13,9 @@
 \usepackage{amsbsy}
 \usepackage{amsthm}
 \usepackage[pdftex,colorlinks=true,urlcolor=blue,citecolor=black,anchorcolor=black,linkcolor=black]{hyperref}
+\usepackage{setspace}
 
+\onehalfspacing
 
 \newtheorem{theorem}{Theorem}
 \renewcommand{\thetheorem}{ \arabic{theorem}}
@@ -81,6 +83,7 @@
 {\small{\em Keywords\/}: #1}}
 
 
+
 %#########################################################
 %*
 %*  The Document.
@@ -91,15 +94,17 @@
 
 \author{David~Love$^{a}$\ \ and G\"{u}zin~Bayraksan$^{b}$\thanks{Corresponding author. Tel.: +1 614-292-1695. Fax:+1 614-292-7852}\\[6pt]
 {\small
-      $^{a}$ Program in Applied Mathematics, University of Arizona, Tucson, AZ 85721, USA, \texttt{dlove@math.arizona.edu}} \\
+      $^{a}$ Program in Applied Mathematics, University of Arizona, Tucson, AZ 85721, USA,}\\
+{\small \ \ \ \ \ \texttt{dlove@math.arizona.edu}} \\
 {\small 
-      $^{b}$ Integrated Systems Engineering, The Ohio State University, Columbus, OH 43210, USA, \texttt{bayraksan.1@osu.edu}}}
+      $^{b}$ Integrated Systems Engineering, The Ohio State University, Columbus, OH 43210, USA,}\\
+{\small \ \ \ \  \   \texttt{bayraksan.1@osu.edu}}}
 \date{}
 
 \maketitle
 
 \begin{abstract}
-The method of Overlapping Batch Means (OBM) has long been used in simulation as a method of reusing data to generate estimators with asymptotically lower variance.
+\noindent The method of Overlapping Batch Means (OBM) has long been used in simulation as a method of reusing data to generate estimators with asymptotically lower variance.
 In this paper, we extend the OBM method to stochastic programming by formulating a variant of the multiple replications procedure used for assessing solution quality.
 We show conditions under which the resulting optimality gap estimators are strongly consistent, and have the same asymptotically lower variance as the classical results.
 Computational results for several test problems are presented, examining the small-sample behavior of the overlapping batches method.\smallskip
