@@ -116,7 +116,19 @@ Computational experiments for several test problems are presented, examining the
 \section{Introduction}
 \label{sec:intro}
 
-We wish to assess the quality of a candidate solution $\xh \in X$, which may have been found in any way, of a stochastic program of the form
+Overlapping Batch Means (OBM) method is widely used in simulation to obtain variance estimators with lower variances. 
+In this paper we show that the same benefits can be obtained from overlapping batches when used in a stochastic optimization setting.  
+A natural setting where batch means are used in stochastic optimization (esp. in stochastic programming) is for assessing solution quality. 
+Assessing solution quality in stochastic programming typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
+Because the optimality gap estimators can be difficult to analyze statistically, a common approach is to use nonovelapping batches of data to generate a number of optimality gap estimators. 
+These individual estimators are then used to form point and interval estimators using the classical nonoverlapping batches method.
+This is referred to as the Multiple Replications Procedure (MRP).   
+In this paper, we formulate an ovelapping batches version of MRP, allowing for partial overlap, and provide conditions under which the same variance reduction results can be achieved by overlapping like in the classical setting. 
+We also show that the resulting point estimators are strongly consistent and the interval estimators are asymptotically valid. 
+We present computational results to examine small-sample behavior. 
+Our experiments indicate that the asymptotic variance reduction is achieved with small sample sizes, while bias and coverage probability are unaffected.
+
+We consider a stochastic optimization problem of the form 
 \begin{align} \tag{SP} \label{eq:sto_prog} 
 	z^* & = \min_{\x \in X} \e{f(\x,\xit)},
 \end{align}
@@ -124,7 +136,13 @@ where $\x$ is a vector of decision variables, $\xit$ is a vector of random varia
 Further, it is assumed that the distribution of $\xit$ is known and that we can sample from it.
 Even though we will impose a more restrictive moment condition later, we assume that $\e{f(\x,\xit)}$ is well defined and finite for all $\x \in X$ and (\ref{eq:sto_prog}) has a finite optimal solution achieved on $X$.
 
-The quality of the candidate solution $\xh$ is defined by its optimality gap $\e{f(\xh,\xit)} - \zs$.
+
+We wish to assess the quality of a candidate solution $\xh \in X$. 
+We define its quality by its optimality gap $\e{f(\xh,\xit)} - \zs$. 
+The lower the optimality gap, the higher the quality of the solution and a zero optimality gap implies that the solution is optimal. 
+Note that the candidate solution $\xh \in X$ may have been found in any way. 
+We assume this solution is given. 
+
 Assessing solution quality is important in practice since (\ref{eq:sto_prog}) typically cannot be solved exactly, so one only has an approximate solution $\xh$ without verification of its quality.
 Assessing solution quality is also a critical component of stopping criteria in algorithms.
 In many fields of optimization, it is common to evaluate an upper bound on the optimality gap through relaxations such as integrality or Lagrangian relations.
@@ -169,6 +187,25 @@ The contributions of this paper are:
 	\item Present computational results on two-stage stochastic linear and integer programs with recourse to examine small sample behavior.  
 		Our experiments indicate that the asymptotic variance reduction is achieved with small sample sizes, while bias and coverage probability are unaffected.
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   %    %    %    %    %    %
+
+\bigskip 
+
+ We present variants of . .  
+
+\bigskip 
+
+Batch means have been used in stochastic programming to assess solution quality and we show that. . . 
+\bigskip 
+
+
+What happens when overlapping batches are used in a stochastic optimization setting?  Can we obtain the same benefits from overlapping batches as we do in a non-optimized setting?  In this paper, we answer the second question in the affirmative. We provide conditions under which the same benefits can be obtained by overlapping for a class of stochastic optimization problems. A natural setting where batch means is used in stochastic optimization is solution validation. This is referred to as the Multiple Replication Procedure, where each replication is essentially a batch means.  
+
+\bigskip 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   %    %    %    %    %    %
+
 
 The rest of the paper is organized as follows.  
 In the next section, we review relevant background information.  
