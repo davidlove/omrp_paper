@@ -310,7 +310,7 @@ We defer this discussion on partial overlap to \S \ref{ssec:overlap} and continu
 %Given a candidate solution $\xh \in \X$ to (\ref{eq:sto_prog}), the task is to estimate its optimality gap $\e{f(\xh,\xit)} - \zs$.  
 %Recall that MRP uses the upper bound on the optimality gap, $\e{f(\xh,\xit)} - \e{\zs_m}$ (for a given sample size $m$), to construct a point estimator and a CI using the nonoverlapping batches method described above.  
 
-Taking $n$ observations of the random variables $\xit$ and splitting them into $k$ batches of batch size $m$, define 
+Taking $n$ observations of the random variables $\xit$ and splitting them into $k$ nonoverlapping batches of size $m$, define 
 \begin{align} 
 	\gb_j =\  & \frac{1}{m} \sum_{i = 1}^{m} f(\xh, \xit^{m(j-1)+i}) - \min_{\x \in X} \frac{1}{m} \sum_{i=1}^{m} f(\x, \xit^{m(j-1)+i}),& \ \ \ \ j = 1,2, \dots, k \label{eq:mrp_gap}\\
          =\  & \frac{1}{m} \sum_{i = 1}^{m} \left[ f(\xh, \xit^{m(j-1)+i}) -  f(\xs_j, \xit^{m(j-1)+i}) \right],& \ \ \ \ j = 1,2, \dots, k, \notag
@@ -340,7 +340,7 @@ We begin our discussion with variably overlapping batches and then define the es
 
 As before, let $m$ denote the batch size, $n$ the total sample size and $k = \lfloor \tfrac{n}{m} \rfloor$ be the number of nonoverlapping batches.  
 In this paper, we use the {\it batch nonoverlap parameter} $1 \leq \gamma \leq m$ to denote how much neighboring batches do {\it not} overlap.  
-For instance, $\gamma = m$ corresponds to the classical case of nonoverlapping batches and $\gamma = 1$ corresponds to the maximally overlapping case of Meketon and Schmeiser \citep{Meketon1984}.  
+For instance, $\gamma = m$ corresponds to the classical case of nonoverlapping batches and $\gamma = 1$ corresponds to the maximally overlapping case of \citet{Meketon1984}.  
 The sample mean of each batch estimator is calculated similarly, 
 $
 \yb_j = \frac{1}{m} \sum_{i=1}^m y^{\gamma(j-1) + i},\ \  j = 1, 2, \dots, \nb, 
@@ -356,16 +356,16 @@ The amount of asymptotic variance reduction in this estimator depends on the asy
 For example, when $\gamma = 1$ (or $\gammab=0$; the maximally overlapping case), the variance is reduced to two-thirds ($66.67\%$) of the original nonoverlapping case, as given in (\ref{eq:asym_var}).  
 When 75\% of observations overlap (i.e., when $\gamma = m/4$ or $\gammab = 1/4$), the variance is $33/48$th of the original ($68.75\%$), which is near-optimal.   
 When only half of the observations overlap ($\gammab = 1/2$) the variance is 75\% of original.  
-In general, from the spectral analysis given in Welch \citep{Welch1987}, the variance is reduced to
+In general, from the spectral analysis given in \citep{Welch1987}, the variance is reduced to
 \begin{equation} \label{eq:var_reduct_formula}
-	\gammab \left( 1 + 2 \sum_{j=1}^{\cogb-1} (1-j\gammab)^2 \right) = -\gammab\left( 1 - 2\gammab\cogb + \gammab^2\cogb^2 \right) + 2\gammab\cogb\left(1-\gammab\cogb\right) + \frac{2}{3}\gammab^3\cogb^3 + \frac{1}{3}\gammab^3\cogb
+	\gammab \left( 1 + 2 \sum_{j=1}^{\cogb-1} (1-j\gammab)^2 \right) %= -\gammab\left( 1 - 2\gammab\cogb + \gammab^2\cogb^2 \right) + 2\gammab\cogb\left(1-\gammab\cogb\right) + \frac{2}{3}\gammab^3\cogb^3 + \frac{1}{3}\gammab^3\cogb
 \end{equation}
 of the nonoverlapping case.  
-If $\ogb$ is an integer, the terms in parentheses vanish and (\ref{eq:var_reduct_formula}) simplifies to $\frac{2+\gammab^2}{3}$.
+If $\ogb$ is an integer, (\ref{eq:var_reduct_formula}) simplifies to $\frac{2+\gammab^2}{3}$.
 
 
 A $(1-\alpha)$-level approximate CI on the mean can be formed using variably overlapping batches by $\ybb \pm t_{d_{\gamma}(k-1),\alpha/2}$ $\sqrt{\vartg{\ybb}}$, where the degrees of freedom increase $d_{\gamma}$ is the multiplicative inverse of (\ref{eq:var_reduct_formula}) \citep{Welch1987}.  
-If $\ogb$ is an integer, $d_{\gamma} = \frac{3}{2+\gammab^2}$ and for maximally overlapping batches, $d_{\gamma} = \frac{3}{2}$.
+If $\ogb$ is an integer, $d_{\gamma} = \frac{3}{2+\gammab^2}$.  For maximally overlapping batches, the degrees of freedom is $d_{\gamma} = \frac{3}{2}$.
  
 
 \subsection{Definition of Estimators for OMRP}
@@ -374,7 +374,7 @@ Toward this end, let $B(i)$ denote the set of batches $j \in \left\{1, 2, \dots,
 See Figure \ref{fig:overlap_nonint} for an example with $n=18$, $m = 6$ and $\gamma = 2$.  
 Here, the first batch uses observations $\xit^1, \xit^2, \xit^3, \xit^4, \xit^5, \xit^6$, the second batch uses $\xit^3, \xit^4, \xit^5, \xit^6, \xit^7, \xit^8$, and so on.  
 So, $B(1) = \{1\}$, $B(3) = \{1,2\}$, and $B(7)=\{2,3,4\}$.  
-We use $\xs_j$ to denote an optimal solution to sampling problem (SP$_m$) formed using the $j$th batch; $\xs_j \in \argmin_{\x \in X} \frac{1}{m} \sum_{i=1}^m f(\x,\xit^{\gamma(j-1) + i})$, $j = 1, 2, \dots, \nb$.
+As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$_m$) formed using the $j$th batch; $\xs_j \in \argmin_{\x \in X} \frac{1}{m} \sum_{i=1}^m f(\x,\xit^{\gamma(j-1) + i})$, $j = 1, 2, \dots, \nb$.
 
 \begin{figure}[htb!]
 	\centering
