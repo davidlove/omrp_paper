@@ -180,7 +180,10 @@ Here, we assume the same observations $\xit^1, \dots, \xit^m$ are used in both t
 Computing the above optimality gap estimate involves solving an optimization problem (\ref{eq:sto_prog_m}) to obtain a lower bound estimator of $\zs$, $\zs_m$, which complicates the statistical analysis. 
 As mentioned above, to enable statistical inference, the MRP of \citet{Mak1999} generates $k$ independent estimators, each using sample size $m$ ($k$ nonoverlapping batches of size $m$) and averages them to obtain a point estimator.  
 To form confidence intervals, the sample variance of these estimators is calculated (we further review MRP in \S \ref{ssec:mrp}.)  
-
+An advantage of MRP is its applicability to a wide range of problems.  
+With i.i.d.\ sampling, $f$ can be linear or nonlinear, $\X$ can include integrality constraints or not.  
+It is also easy to implement, thus, has been applied to a variety of problems, including finance, supply chain network design, etc.\; see e.g., \citep{bertocchi_etal_99,janjarassuk_linderoth_08,santoso_ahmed_etal_05}.  
+Recently, the approach of (nonoverlapping) batching has been used for assessing solution quality of stochastic programs with finitely many expected value \citep{wang_ahmed_08} and stochastic dominance \citep{hu2010sample} constraints.
 
 %When this confidendence interval on the optimality gap is too large, it can be due to three reasons. First, $\xh$ can be far from optimal; second, bias can be large; third, the sampling error can be large. 
 %We note that for some problems, bias is a more prominent issue and for others, sampling error is the larger issue. 
@@ -245,7 +248,7 @@ Second, in many solution methods, warm-starting can be used to quickly solve the
 The rest of the paper is organized as follows.  
 In the next section, we review relevant background information.  
 We first discuss the overlapping batch means in \S \ref{ssec:obm} and then briefly go over the multiple replications procedure in \S \ref{ssec:mrp}.  
-In \S \ref{sec:omrp}, we present the overlapping multiple replications procedure (OMRP) with variable overlap.  
+In \S \ref{sec:omrp}, we present the overlapping multiple replications procedure (OMRP) with partial overlap.  
 In \S \ref{sec:theory}, we show strong consistency of the OMRP point estimators, asymptotic validity of the OMRP confidence intervals, and the variance reduction results as in the classical case.
 In \S \ref{sec:comp}, we test the performance of OMRP on four problems and end in \S \ref{sec:concl} with a summary and conclusions.
 
@@ -254,9 +257,9 @@ In \S \ref{sec:comp}, we test the performance of OMRP on four problems and end i
 \label{sec:background}
 
 \subsection{Overlapping Batch Means} \label{ssec:obm}
-Consider a covariance stationary stochastic process which has mean $\mu$ and variance $\sigma^2$.  
+Consider a covariance stationary stochastic process with mean $\mu$ and variance $\sigma^2$.  
 The task is to estimate $\mu$ given some realization of the stochastic process $\y = (y^1, y^2, \dots, y^n)$.  
-Typically, this involves forming a confidence interval of the form $[L_\alpha(\y), U_\alpha(\y)]$ for a given level of significance $\alpha$ such that $\p{L_\alpha(\y) \leq \mu \leq U_\alpha(\y)} = 1 - \alpha$.  
+Typically, this involves forming a confidence interval of the form $[L_\alpha(\y), U_\alpha(\y)]$ for a given level of significance $\alpha$ such that $\p{L_\alpha(\y) \leq \mu \leq U_\alpha(\y)} = 1 - \alpha$ or that this probability is approximately $1 - \alpha$ for large enough sample sizes.  
 The usual estimator for $\mu$ is the sample mean $\ybb = \frac{1}{n} \sum_{i=1}^n y^i$, which is an unbiased estimator even in the presence of correlated data.  
 However, the usual variance estimator $\frac{1}{n-1} \sum_{i=1}^n (y^i - \ybb)^2$ can be inappropriate to use in the presence of correlated data, resulting in inaccurate interval estimators.  
 To overcome this difficulty, various variance estimators have been proposed in the simulation literature; see, e.g., \citep{law_07}.  
@@ -276,75 +279,59 @@ and the $(1-\alpha)$-level approximate confidence interval (CI) is formed by $\y
 Under appropriate conditions, $n\varhat(\ybb)$ is a consistent estimator of $\sigma^2$.
 
 
-%%%%%%%%%%%%%%
+Overlapping batch means modifies this idea by taking batches given by $\yb_j(m) = \frac{1}{m} \sum_{i=1}^{m}$ $y^{(j-1)+i}$, for $j = 1, \dots, n-m+1$.
 As an example, suppose each batch contains $m$ observations and that there are a total of $2m$ observations.
-In the nonoverlapping case, there are only two batches: the first batch contains observations $\xit^1, \xit^2, \dots, \xit^m$ and the second batch contains observations $\xit^{m+1}, \xit^{m+2}, \dots, \xit^{2m}$.   
-Meketon and Schmeiser \citep{Meketon1984} overlap the batches so that the first batch is as before, the second batch now consists of $\xit^2, \xit^3, \dots, \xit^{m+1}$, the third batch contains observations $\xit^3, \xit^4, \dots, \xit^{m+2}$ and so on. 
-As a result, the corresponding batch means are no longer independent. 
-However, by simply reusing the data in this fashion, and seemingly in a contradictory way that induces dependence, one obtains a better variance estimator: a variance estimator that asymptotically has two-thirds of the variance of the usual batch means variance estimator but the bias of the two estimators is approximately the same.  
-%%%%%%%%%%%%%%%%
-
-Overlapping batch means modifies this idea by taking batches given by $\yb_j(m) = \frac{1}{m} \sum_{i=1}^{m} y^{(j-1)+i}$, for $j = 1, \dots, n-m+1$.  
+In the nonoverlapping case, there are only two batches: the first batch contains observations $y^1, y^2, \dots, y^m$ and the second batch contains observations $y^{m+1}, y^{m+2}, \dots, y^{2m}$.   
+In the overlapping batches of \citet{Meketon1984}, the first batch is as before, the second batch now consists of $y^2, y^3, \dots, y^{m+1}$, the third batch contains observations $y^3, y^4, \dots, y^{m+2}$ and so on.  
 This is what we call the \emph{maximally-overlapping} batch means method, because $m-1$ observations are common to---and only one observation changes between---adjacent batches.  
-Given this, the sample variance estimator is updated to
+
+The sample variance estimator is updated to
 \begin{equation} \label{eq:overlap_variance_def}
 	\vart{\ybb} = \frac{1}{(\tfrac{n}{m}-1)(n - m + 1)}\sum_{j=1}^{n-m+1} (\yb_j(m) - \ybb)^2.
 \end{equation}
-Meketon and Schmeiser \citep{Meketon1984} show several attractive properties of the overlapping batches variance estimator, the two most important of which are: (i) the overlapping variance estimator has nearly the same bias as the standard nonoverlapping variance estimator, and (ii) the overlapping estimator has only two-thirds of the asymptotic variance of the nonoverlapping one.  
+Note that the corresponding batch means are no longer independent. 
+However, by simply reusing the data in this fashion, and seemingly in a contradictory way that induces dependence, one obtains a better variance estimator. 
+\citet{Meketon1984} show several attractive properties of the overlapping batches variance estimator, the two most important of which are: (i) the overlapping variance estimator has nearly the same bias as the standard nonoverlapping variance estimator, and (ii) the overlapping estimator has only two-thirds of the asymptotic variance of the nonoverlapping one.  
 That is, 
 \begin{equation} \label{eq:asym_var}
 	\frac{ \var{\vart{\ybb}} }{ \var{\varhat(\ybb)} } \rightarrow \frac{2}{3}
 \end{equation}
-in the limit as batch size $m$ and then the number of batches $(n/m)$ tend to infinity.  
+in the limit as batch size $m$ and the number of batches $(n/m)$ tend to infinity.  
 Note that the degrees of freedom in (\ref{eq:overlap_variance_def}) is slightly different than in \citep{Meketon1984}.  
 The degrees of freedom in (\ref{eq:overlap_variance_def}) makes $\vart{\ybb}$ an unbiased estimator for i.i.d.\ data for all finite $m$ and $n$ with the same asymptotic benefits \citep{Song1992}.  
 The $(1-\alpha)$-level approximate CI is similarly formed by $\ybb \pm t_{3(k-1)/2,\alpha/2} \sqrt{\vart{\ybb}}$, with an adjustment to the degrees of freedom.
 
-Welch \citep{Welch1987} established the relationship between OBM and spectral estimators and also considered partial overlap, see also \citep{Song1992}.  
-In our application to assessment of solution quality, we also consider varying the amount of overlap between neighboring batches.  
-We defer this discussion on variable overlap to \S \ref{ssec:overlap} and continue with a brief review of MRP.
+\citet{Welch1987} established the relationship between OBM and spectral estimators and also considered partial overlap, see also \citep{Song1992}.  
+%In our application to assessment of solution quality, we also consider varying the amount of overlap between neighboring batches.  
+We defer this discussion on partial overlap to \S \ref{ssec:overlap} and continue with a brief review of MRP.
 
 \subsection{Multiple Replications Procedure} \label{ssec:mrp}
 
-Given a candidate solution $\xh \in \X$ to (\ref{eq:sto_prog}), the task is to estimate its optimality gap $\e{f(\xh,\xit)} - \zs$.  
-Recall that MRP uses the upper bound on the optimality gap, $\e{f(\xh,\xit)} - \e{\zs_m}$ (for a given sample size $m$), to construct a point estimator and a CI using the nonoverlapping batches method described above.  
-Again, taking $n$ observations of the random variables and splitting them into $k$ batches of batch size $m$, define 
-\begin{equation} \label{eq:mrp_gap}
-	\gb_j = \frac{1}{m} \sum_{i = 1}^{m} f(\xh, \xit^{m(j-1)+i}) - \min_{\x \in X} \frac{1}{m} \sum_{i=1}^{m} f(\x, \xit^{m(j-1)+i}), \ \ \ \ j = 1,2, \dots, k.
-\end{equation}
-Since we are assessing the quality of a given solution $\xh \in \X$, we suppress it from the notation. 
-$\gb_j$ is similar to $\yb_j$ except that the second term on the right-hand side of (\ref{eq:mrp_gap}) minimizes a sample mean.  
+%Given a candidate solution $\xh \in \X$ to (\ref{eq:sto_prog}), the task is to estimate its optimality gap $\e{f(\xh,\xit)} - \zs$.  
+%Recall that MRP uses the upper bound on the optimality gap, $\e{f(\xh,\xit)} - \e{\zs_m}$ (for a given sample size $m$), to construct a point estimator and a CI using the nonoverlapping batches method described above.  
+
+Taking $n$ observations of the random variables $\xit$ and splitting them into $k$ batches of batch size $m$, define 
+\begin{align} 
+	\gb_j =\  & \frac{1}{m} \sum_{i = 1}^{m} f(\xh, \xit^{m(j-1)+i}) - \min_{\x \in X} \frac{1}{m} \sum_{i=1}^{m} f(\x, \xit^{m(j-1)+i}),& \ \ \ \ j = 1,2, \dots, k \label{eq:mrp_gap}\\
+         =\  & \frac{1}{m} \sum_{i = 1}^{m} \left[ f(\xh, \xit^{m(j-1)+i}) -  f(\xs_j, \xit^{m(j-1)+i}) \right],& \ \ \ \ j = 1,2, \dots, k, \notag
+\end{align}
+where $\xs_j$ denotes an optimal solution to (\ref{eq:sto_prog_m}) of batch $j$ given on the right-hand side of (\ref{eq:mrp_gap}).    
+Since we are assessing the quality of a given solution $\xh \in \X$, we suppress it from the notation $\gb_j$.
+The optimality gap estimator $\gb_j$ is similar to $\yb_j$ with individual observations $y^{m(j-1)+i} = f(\xh,\xit^{m(j-1)+i}) - f(\xs_j,\xit^{m(j-1)+i})$, for $i=1,\ldots,m$ and $j=1,\ldots, k$.
+Notice that, in this case, $y^i$ not only depends on observation $i$ of batch $j$, $\xit^{m(j-1)+i}$, but all the observations in that batch $\xit^{m(j-1)+1},\xit^{m(j-1)+2},\ldots,\xit^{m(j-1)+m}$ because $\xs_j$ is the optimal solution to (\ref{eq:sto_prog_m}) given in (\ref{eq:mrp_gap}).   
 As before, after $k$ estimates are obtained, the overall mean of these estimates $\gbb = \frac{1}{k} \sum_{j=1}^k \gb_j$ provides a point estimator of the optimality gap.  
 The sample variance is obtained as in (\ref{eq:var}) by $\varh{\gbb} = \frac{1}{k} \frac{1}{k-1} \sum_{j=1}^k (\gb_j - \gbb)^2$, which results in a one-sided CI $\left[0, \gbb + t_{k-1,\alpha} \sqrt{\varh{\gbb}} \right]$ that has a level of significance which is approximately $\alpha$.
 
 Notice that the minimization in the second term on the right-hand side of (\ref{eq:mrp_gap}) gives rise to a biased gap estimator (recall the upper bound on the optimality gap).  
 Thus, we can expect that the true probability of the optimality gap residing within the confidence interval to be greater than the $1 - \alpha$ suggested by the above calculation.  
-This is shown empirically in Bayraksan and Morton \citep{Bayraksan2006}, which also suggests additional methods for using a smaller number of replications (e.g., 1 or 2) with an alternative variance estimator to compute a confidence interval.  
+This is shown empirically in \citep{Bayraksan2006}, which also suggests additional methods for using a smaller number of replications (e.g., 1 or 2) with an alternative variance estimator to compute a confidence interval.  
 See also \citep{bayraksan_morton_09,partani2006jackknife,partani_07} for variations of MRP aimed to reduce bias and variance.
 
-An advantage of MRP is its applicability to a wide range of problems.  
-With i.i.d.\ sampling, (\ref{eq:sto_prog}) can be linear or nonlinear, $\X$ can include integrality constraints or not.  
-It is also easy to implement, thus, has been applied to a variety of problems, see e.g., \citep{bertocchi_etal_99,janjarassuk_linderoth_08,santoso_ahmed_etal_05}.  
-Recently, the approach of (nonoverlapping) batching has been used for assessing solution quality of stochastic programs with finitely many expected value \citep{wang_ahmed_08} and stochastic dominance \citep{hu2010sample} constraints.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overlapping Multiple Replications Procedure} 
 \label{sec:omrp}
-
-Our aim is to apply the idea of overlapping batches to MRP.  
-We note several differences in this setting compared to the simulation setting.  
-In simulation, the point of interest is estimating the variance of the sample mean of a covariance stationary process.  
-We are interested in estimating the variance of an optimality gap estimator.  
-Notice that an optimality gap estimator not only has a sample mean $(\frac{1}{m} \sum_{i=1}^m f(\xh,\xiti))$ but also a minimized sample mean $(\zs_m)$.  
-First, minimization changes the statistical properties of sample means.  
-For instance, the central limit theorem may not hold for a minimized sample mean even though it holds for each $\x \in \X$.  
-We overcome this difficulty by approximating the optimality gap estimators by their nonoptimized counterparts (see \S \ref{sec:theory}).  
-The nonoptimized counterparts have the desired statistical properties and we establish convergence of the optimality gap estimators to their nonoptimized counterparts. 
-Second, once the data is generated through a simulation, it can be reused without much additional computational effort to obtain the OBM variance estimator.  
-In our setting, due to the solution of a sampling problem (SP$_m$), the computational effort can increase with data reuse.  
-Fortunately, near-optimal variance reduction can be obtained by partially overlapping the batches.  
-Partial overlap results in a fewer number of batches, hence fewer number of optimization problems need to be solved.  
-Moreover, in many solution methods, warm-starting can be used to solve sampling approximations with overlapping samples, considerably reducing solution time.
 
 We begin our discussion with variably overlapping batches and then define the estimators of OMRP.
 
