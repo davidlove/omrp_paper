@@ -305,15 +305,16 @@ The $(1-\alpha)$-level approximate CI is similarly formed by $\ybb \pm t_{3(k-1)
 %In our application to assessment of solution quality, we also consider varying the amount of overlap between neighboring batches.  
 We defer this discussion on partial overlap to \S \ref{ssec:overlap} and continue with a brief review of MRP.
 
-\subsection{Multiple Replications Procedure} \label{ssec:mrp}
+\subsection{Multiple Replications Procedure} 
+\label{ssec:mrp}
 
 %Given a candidate solution $\xh \in \X$ to (\ref{eq:sto_prog}), the task is to estimate its optimality gap $\e{f(\xh,\xit)} - \zs$.  
 %Recall that MRP uses the upper bound on the optimality gap, $\e{f(\xh,\xit)} - \e{\zs_m}$ (for a given sample size $m$), to construct a point estimator and a CI using the nonoverlapping batches method described above.  
 
 Taking $n$ observations of the random variables $\xit$ and splitting them into $k$ nonoverlapping batches of size $m$, define 
 \begin{align} 
-	\gb_j =\  & \frac{1}{m} \sum_{i = 1}^{m} f(\xh, \xit^{m(j-1)+i}) - \min_{\x \in X} \frac{1}{m} \sum_{i=1}^{m} f(\x, \xit^{m(j-1)+i}),& \ \ \ \ j = 1,2, \dots, k \label{eq:mrp_gap}\\
-         =\  & \frac{1}{m} \sum_{i = 1}^{m} \left[ f(\xh, \xit^{m(j-1)+i}) -  f(\xs_j, \xit^{m(j-1)+i}) \right],& \ \ \ \ j = 1,2, \dots, k, \notag
+	\gb_j  & = \frac{1}{m} \sum_{i = 1}^{m} f(\xh, \xit^{m(j-1)+i}) - \min_{\x \in X} \frac{1}{m} \sum_{i=1}^{m} f(\x, \xit^{m(j-1)+i}), \ \ \ \ j = 1,2, \dots, k \label{eq:mrp_gap}\\
+         & = \frac{1}{m} \sum_{i = 1}^{m} \left[ f(\xh, \xit^{m(j-1)+i}) -  f(\xs_j, \xit^{m(j-1)+i}) \right], \ \ \ \ j = 1,2, \dots, k, \notag
 \end{align}
 where $\xs_j$ denotes an optimal solution to (\ref{eq:sto_prog_m}) of batch $j$ given on the right-hand side of (\ref{eq:mrp_gap}).    
 Since we are assessing the quality of a given solution $\xh \in \X$, we suppress it from the notation $\gb_j$.
@@ -411,11 +412,11 @@ Now we are ready to define the estimators for OMRP.
 The optimality gap estimator for each batch $\gb_{lj}$ is defined like (\ref{eq:mrp_gap}) for general values of the nonoverlap parameter $\gamma_l$.  
 We just removed the minimization in (\ref{eq:mrp_gap}) and used directly an optimal solution of $\xs_j$ of batch $j$.  
 The overall mean, $\gbb_l$, is defined a little differently.  
-Here, $\gbb_l$ still uses each observation $i = 1, 2, \dots, n_l$ but also makes use of all the information collected throughout the batches.  
+Here, $\gbb_l$ still uses each observation $i = 1, 2, \dots, n_l$ but also makes use of {\it all} the information collected throughout the batches.  
 That is, if observation $\xiti$ is used in $|B(i)|$ number of batches, all the optimal solutions $\xs_j$ corresponding to each batch $j \in B(i)$ are used for the lower bound estimator.  
 Then, $VG_l$ is defined in a similar fashion for the variably overlapping batches variance estimator (\ref{eq:variance_gamma}).
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Theoretical Results} 
 \label{sec:theory}
 
@@ -439,9 +440,9 @@ We make the following assumptions:
 First, we restrict our attention to i.i.d.\ sampling by A1.
 The classical variance-reduction results for overlapping batches show that $\var{n_l VG_l}$ is reduced by overlapping, thus requiring at least finite fourth moments. 
 Finally, our proof relies on an exponential rate of convergence of sampled solution to the true solution of the problem.  
-Assumption A3 can be satisfied in several ways.  
-Shapiro and Homem-de-Mello \citep{shapiro2000rate} establish rates of convergence for a class of (\ref{eq:sto_prog}), which include two-stage stochastic linear programs with recourse when the support of $\xit$ is finite and the optimal solution is unique.   
-Kleywegt, Shapiro,and Homem-de-Mello \citep{kleywegt2002sample} show that assumption A3 can be satisfied for discrete stochastic programs (i.e., when $X$ is a finite set) under the condition of a unique optimal solution $\xs$, and that the moment generating function of $f(\xs,\xit) - f(\x,\xit)$ for $x \in X \backslash \{\xs\}$ is finite valued on $\R$.  
+Assumption A3 can be satisfied for different classes of problems with unique optimal solutions.  
+\citet{shapiro2000rate} establish exponential rates of convergence for a class of (\ref{eq:sto_prog}), which include two-stage stochastic linear programs with recourse when the support of $\xit$ is finite.   
+\citet{kleywegt2002sample} show that assumption A3 can be satisfied for discrete stochastic programs (i.e., when $X$ is a finite set) under the condition that the moment generating function of $f(\xs,\xit) - f(\x,\xit)$ for $x \in X \backslash \{\xs\}$ is finite valued on $\R$.  
 This class of problems includes stochastic integer programs with recourse.
   We present computational results on both stochastic linear and integer programs with recourse in \S \ref{sec:comp}.
 
@@ -461,6 +462,7 @@ This class of problems includes stochastic integer programs with recourse.
 
 The internal optimization in the batches in (\ref{eq:gbar}) makes a straightforward statistical analysis of the behavior of the estimators difficult.  
 To overcome this problem, we introduce the following unbiased optimality gap estimators:
+
 \begin{align}
 	\db_{lj} & = \frac{1}{m_l} \sum_{i=1}^{m_l} f(\xh,\xit^{\gamma_l(j-1)+i}) - \frac{1}{m_l} \sum_{i=1}^{m_l} f(\xs,\xit^{\gamma_l(j-1)+i}),\ \ \ j = 1, 2, \dots, \nbl, \label{eq:dbar} \\
 	\dbb_l & = \frac{1}{n_l} \sum_{i=1}^{n_l} \left[ f(\xh,\xiti) - f(\xs,\xiti) \right], \label{eq:dbb} \\
@@ -479,11 +481,13 @@ $m_l$, and $\gamma_l$.  \smallskip
 \subsection{Consistency}
 \label{subsec:conv} 
 
+We begin with two lemmas that establish exponential rates of convergence of certain intermediate quantities.
+
 \begin{lemma} \label{lem:gbb_prob}
 	Under assumptions A1 and A3, $\p{\dbb_l - \gbb_l \neq 0} \rightarrow 0$ exponentially fast as $l \rightarrow \infty$.
 \end{lemma}
 
-\begin{proof}
+\begin{proof} Let $E^C$ denote the complement of event $E$. Note that
 	\begin{align}
 		\p{\dbb_l - \gbb_l \neq 0} & \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C} \notag \\
 		& = \p{ \bigcup_{j=1}^{\nbl} \{\xs_{j} \neq \xs\}} \notag \\
@@ -514,13 +518,17 @@ $m_l$, and $\gamma_l$.  \smallskip
 	With the expectation term on the right-hand side again bounded by A2, and the probability term converges to zero exponentially fast by Lemma \ref{lem:gbb_prob}.
 \end{proof}
 
+We are now ready to show that the resulting point estimators are strongly consistent. 
+We use the abbreviation a.s.\ to denote almost sure convergence. 
+We also use $\mu_{\xh} := \e{\left[f(\xh,\xit) - f(\xs,\xit)\right]}$ to denote the optimality gap of $\xh$ and $\sigma^2_{\xh} := \var{f(\xh,\xit) - f(\xs,\xit)}$ to denote the associated variance term. 
+
 \begin{theorem} \label{thm:strong_consistency}
-	Under assumptions A1--A3, (i) $\gbb_l - \dbb_l \rightarrow 0$, a.s, and (ii) $n_l VG_l - n_l VD_l \rightarrow 0$, a.s. as $l \rightarrow \infty$.  
-        Thus, $\gbb_l$ is a consistent estimator of $\mu_{\xh} = \e{\left[f(\xh,\xit) - f(\xs,\xit)\right]}$, and if $n_l VD_l$ is a consistent estimator of $\sigma^2_{\xh} := \var{f(\xh,\xit) - f(\xs,\xit)}$, then $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$.
+	Under assumptions A1--A3, (i) $\gbb_l - \dbb_l \rightarrow 0$, a.s., and (ii) $n_l VG_l - n_l VD_l \rightarrow 0$, a.s.\ as $l \rightarrow \infty$.  
+        Therefore, $\gbb_l$ is a consistent estimator of $\mu_{\xh}$, and if $n_l VD_l$ is a consistent estimator of $\sigma^2_{\xh}$, then $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$.
 \end{theorem}
 
 \begin{proof}
-	(i) By Lemma \ref{lem:gbb_prob} we saw that $\p{\dbb_l - \gbb_l \neq 0} \rightarrow 0$ exponentially fast.  
+	(i) By Lemma \ref{lem:gbb_prob}, $\p{\dbb_l - \gbb_l \neq 0}$ $\rightarrow 0$ exponentially fast.  
         Thus $\sum_l \p{\dbb_l - \gbb_l \neq 0} < \infty$.  
         The desired result follows by the Borel-Cantelli Lemma.
 %
@@ -529,18 +537,20 @@ Note that
 	\[
 		\p{n_l VD_l -n_l VG_l \neq 0} \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C}
 	\]
-	and by the proof of Lemma \ref{lem:gbb_prob}, $\p{n_l VD_l -n_l VG_l \neq 0} \rightarrow 0$ exponentially fast, and thus $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$ if $n_l VD_l$ is, by the Borel-Cantelli Lemma.
+	and by the proof of Lemma \ref{lem:gbb_prob}, $\p{n_l VD_l -n_l VG_l \neq 0} \rightarrow 0$ exponentially fast, and thus $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$, if $n_l VD_l$ is, by the Borel-Cantelli Lemma.
 \end{proof}
 
-Part (i) of Theorem 1 provides conditions under which the point estimator $\gbb$ of OMRP is a consistent estimator of the optimality gap, by establishing almost sure convergence of $\gbb_l - \dbb_l$ to $0$ as $l \rightarrow \infty$. 
-Notice that under assumption A1, $\dbb_l \rightarrow \mu_\xh$, a.s. by the strong law of large numbers; as a result, $\gbb \rightarrow \mu_\xh$, a.s.
-
+Part (i) of Theorem \ref{thm:strong_consistency} provides conditions under which the point estimator $\gbb$ of OMRP is a consistent estimator of the optimality gap, by establishing almost sure convergence of $\gbb_l - \dbb_l$ to $0$ as $l \rightarrow \infty$. 
+Notice that under assumption A1, $\dbb_l \rightarrow \mu_\xh$, a.s. by the strong law of large numbers; as a result, $\gbb \rightarrow \mu_\xh$, a.s. 
+Similarly, part (ii) of Theorem \ref{thm:strong_consistency} establishes almost sure convergence of $n_l VG_l - n_l VD_l$ to $0$ as $l \rightarrow \infty$. 
+As a result, if $n_l VD_l$ is a consistent estimator of $\sigma^2_{\xh}$, so is $n_l VG_l$.  
 Strong consistency of the variance estimator $n_l VD_l$ have been studied in \citep{damerdji1994strong} for the cases of nonoverlapping and maximally overlapping batches.  
 Under the additional moment assumption
 \begin{description}
 	\item[A2$^\prime$]  $\exists \epsilon > 0$ such that $\sup_{\x \in X} \e{f(\x,\xi)^{4+\epsilon}} < \infty$,
 \end{description}
 for a sampling scheme of $m_l = \lfloor n_l^r \rfloor$, Corollaries 3.4 and 4.2 of \citep{damerdji1994strong} show that $n_l VD_l$ is consistent if $\tfrac{2}{4+\epsilon} < r < 1$ for nonoverlapping batches and $\tfrac{2}{4+\epsilon} < r < \tfrac{1}{2}$ for maximally overlapping batches. 
+
 
 \subsection{Variance Reduction}
 \label{ssec:var_reduct}
