@@ -6,6 +6,8 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{booktabs}
 %\usepackage{mathptmx}
 \usepackage[square]{natbib}
 \usepackage{amsmath}
@@ -654,20 +656,51 @@ The degrees of freedom $d_l$ is the inverse of (\ref{eq:var_reduct_formula}) usi
 The asymptotic validity of the OMRP confidence interval requires $n_l VD_l$ to converge in probability to $\sigma^{2}_{\xh}$. 
 This can be achieved either by almost sure or mean-square convergence, which gives a larger range of $r$ in the batching structure.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computational Results}
 \label{sec:comp}
 
-We empirically tested the effectiveness of OMRP on four problems.
+In the previous section, we proved asymptotic results regarding the OMRP estimators. 
+In this section, we apply OMRP to several test problems and examine its small-sample behavior. 
+We begin our discussion by introducing the test problems used for numerically evaluating OMRP in \S \ref{ssec:test}, followed by experimental setup in \S \ref{ssec:expS}. Then, we present and discuss our numerical experiments in \S \ref{ssec:results}. 
+
+\subsection{Test Problems}
+\label{ssec:test}
+
+
+We empirically tested the effectiveness of OMRP on four test problems.
+All test problems are two-stage stochastic programs with recourse and were selected to study the behavior of OMRP under a variety of different situations, as we will shortly discuss below.
+The characteristics of these problems are given in Table \ref{tb:test_problems}. 
 The first test problem is a newsvendor problem with demand distributed uniformly on $\{0, 0.0001, 0.0002, \dots, 10\}$.
-The second is a capacity expansion planning problem, denoted CEP1, with random demand vector $\xit$ of dimension 3, with 216 total realizations.
-The third is a stochastic knapsack problem denoted 10D, with 10 stochastic parameters and 10 binary decision variables.
-The final problem is a stochastic vehicle routing problem denoted DB1, with 46 stochastic parameters and a total of $4.5 \cdot 10^{25}$ realizations.
-Descriptions of CEP1, 10D, and DB1 can be found in \citep{higle1996}, \citep{kleywegt2002sample}, and \citep{donohue1995upper}, respectively.
+We denote this problem as NVD.
+The instance of the newsvendor problem can be found in \citep{Bayraksan2006}, except here we used a discrete uniform demand distribution.
+The second is a capacity expansion planning problem, denoted CEP1, with random demand vector $\xit$ of dimension 3, with 216 total realizations \citep{higle1996}.
+The third is a stochastic knapsack problem denoted 10D, with 10 stochastic parameters and 10 binary decision variables \citep{kleywegt2002sample}.
+The final problem is a stochastic vehicle routing problem denoted DB1, with 46 stochastic parameters and a total of $4.5 \cdot 10^{25}$ realizations \citep{donohue1995upper}.
+
+
+\begin{table}[ht]
+\centering
+\scriptsize
+\begin{tabular}{lcccc}
+\hline
+& \# of 1st Stage & \# of 2nd Stage & \# of Stochastic & \multirow{2}{*}{\# of Scenarios} \\
+Problem & Variables & Variables & Parameters & \\
+\cmidrule(r){1-1} \cmidrule(l){2-5}
+NVD 	& 1     	& 1     	& 1   	& $10^5 + 1$ \\
+CEP1 	& 8     	& 15   	& 3   	& $216$ \\
+10D 	& 10     & 1     	& 10   	& $\infty$ \\
+DB1 	& 5   	& 102   	& 46   	& $4.5\times 10^{25}$ \\
+\hline
+\end{tabular}
+\caption{Test problem characteristics}
+\label{tb:test_problems}
+\end{table}
+
+
 The instance of the newsvendor problem as well as the candidate solutions used for both problems can be found in \citep{Bayraksan2006}, except here we used a discrete uniform demand distribution for the newsvendor problem.  
-The problems CEP1, DB1 and newsvendor can be written as two-stage stochastic linear programs with recourse.
-CEP1 and DB1 were solved with the regularized decomposition algorithm of \citep{ruszczynski1986regularized}, using the accelerated version of the algorithm implemented in C++ \citep{ruszczynski1997accelerating}. 
-The newsvendor problem was solved using the quicksort algorithm in C++, and 10D was solved using dynamic programming.  
-In all cases, we used the Mersenne Twister algorithm to generate random samples \citep{wagner_twister_09}.
+
+
 
 We made several considerations in selecting the test problems.
 Newsvendor can be solved very quickly, which allows for solving a large number of independent runs for examining the small sample behavior of OMRP.
@@ -679,10 +712,26 @@ The optimal solutions of both 10D and CEP1 are known, allowing for explicitly ch
 In contrast, DB1 is a large scale example, with an unknown optimal solution.
 This final problems allows us to show that OMRP works on more computationally difficult problems.
 
-We used a total sample size of $n = 30 m$, with several values of the batch size $m$. 
+
+\subsection{Experimental Setup}
+\label{ssec:expS}
+
+
+We used a total sample size of $n = 30 m$, with several values of the batch size $m=100, 200, \ldots$. 
 Then, at each value of $m$, we formed OMRP estimators, with varying amounts of overlap. 
 We also formed 90\% confidence intervals on the optimality gap using ORMP estimators. 
 Results for the newsvendor problem were compiled over 10,000 independent runs, while the CEP1 and 10D results were taken over 1,000 independent runs, and DB1 results were generated over 500 independent runs.
+
+While NVD can be written as a two-stage stochastic linear program with recourse, it can be solved quickly by sorting the demand values. 
+We solved it using the quicksort algorithm in C++. 
+The problems CEP1 and DB1 are two-stage stochastic linear programs with recourse and were solved with the regularized decomposition algorithm of \citep{ruszczynski1986regularized}, using the accelerated version of the algorithm implemented in C++ \citep{ruszczynski1997accelerating}. 
+10D is a stochastic integer program and was solved using dynamic programming.  
+In all cases, we used the Mersenne Twister algorithm to generate random samples \citep{wagner_twister_09}.
+
+
+\subsection{Results of Experiments}
+\label{ssec:results}
+
 Summary of results from these experiments are depicted in Figures~\ref{fig:nv} and \ref{fig:varvar}.
 
 \begin{figure}[htb!]
