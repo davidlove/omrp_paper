@@ -729,8 +729,8 @@ We solved the sampling approximations of the test problems as follows.
 While NVD can be written as a two-stage stochastic linear program with recourse, it can be solved quickly by sorting the demand values. 
 We solved it using the quicksort algorithm in C++. 
 The problems CEP1 and DB1 are two-stage stochastic linear programs with recourse and were solved with the regularized decomposition algorithm of \citet{ruszczynski1986regularized}, using the accelerated version of the algorithm implemented in C++ \citep{ruszczynski1997accelerating}. 
-10D is a stochastic knapsack problem and was solved efficiently using dynamic programming.  
-In all cases, we used the Mersenne Twister algorithm to generate random samples \citep{wagner_twister_09}.
+10D is a stochastic knapsack problem and was solved using dynamic programming.  
+In all cases, we used the Mersenne Twister algorithm of \citet{matsumoto_nishimura_98} to generate the random samples, using an implementation in C++ \citep{wagner_twister_09}.
 
 
 
@@ -804,22 +804,22 @@ The coverage probabilities from applying the (nonoverlapping) MRP algorithm to t
 Coverage probability for 10D and DB1 (not shown) were very high, more than $0.99$.  
 The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much more significant than the variance.
 
-Because variance reduction drops quickly as $\gammab$ drops below $1$, the authors recommend using an intermediate value of $\gammab$, such as $1/3$ or $1/4$, to gain the majority of the variance reduction, while reducing the number of optimization problems to be solved. 
+Because variance reduction drops quickly as $\gammab$ drops below $1$, we recommend using an intermediate value of $\gammab$, such as $1/3$ or $1/4$, to gain the majority of the variance reduction, while reducing the number of optimization problems to be solved. 
 Warm-starting the algorithm to solve the sampling problems, when such as scheme is available, can significantly reduce the computation times.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions} \vspace*{-0.1in}
+\label{sec:concl}
 
-\section{Conclusions} \label{sec:concl}
-We have extended previous work from simulation analysis to assessing solution quality in stochastic programming by means of variably overlapping batches \citep{Meketon1984,Song1992,Welch1987} for Monte Carlo sampling-based estimators of optimality gaps in stochastic programs \citep{Mak1999}. 
+We have extended previous work from simulation output analysis to assessing solution quality in stochastic programming by means of variably overlapping batches \citep{Meketon1984,Song1992,Welch1987} for Monte Carlo simulation-based estimators of optimality gaps in stochastic programs \citep{Mak1999}. 
 We have provided conditions under which the resulting point estimator of the optimality gap and its associated sample variance are consistent, the same variance reduction can be achieved, and asymptotically valid confidence intervals can be formed. 
 Empirical results with small sample sizes indicate that the asymptotic reductions in variance of the variance estimator show a similar decrease in OMRP, while bias and coverage probability remain unaffected. 
 
 
-\section*{Acknowledgments}
+\section*{Acknowledgments}\vspace*{-0.1in}
 The authors thank Andrzej Ruszczy{\'{n}}ski and Artur {\'{S}}wietanowski for
 access to their regularized decomposition code, which was used to solve CEP1 and DB1. 
-This research is supported
-in part by the National Science Foundation under Grants DMS-0602173 and
-EFRI-0835930.  
+%This research is supported in part by the National Science Foundation under Grants DMS-0602173 and EFRI-0835930.  
 An earlier version of this paper appeared in \citep{love2011overlapping}.
 
 % Please don't exchange the bibliographystyle style 
