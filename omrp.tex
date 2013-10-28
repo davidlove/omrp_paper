@@ -121,6 +121,7 @@ Computational experiments for several test problems are presented, examining the
 
 Overlapping Batch Means (OBM) method, proposed by \citet{Meketon1984}, is commonly used in simulation to obtain variance estimators with lower variances. 
 While OBM is often used for variance estimators of means, it can also be used for variance estimators of non-means \citep{SAH90} and more recently, it has been extended to estimators based on standardized time series (e.g., area, Cram\'{e}r-von Mises) \citep{Alexopoulos01012007,Alexopoulos2007} and their folded versions \citep{Meterelliyoz_etal_12}.
+To the best of our knowledge, OBM has never been studied in a stochastic optimization context before. 
 In this paper we show that the same benefits can be obtained from overlapping batches when used in a stochastic optimization setting.  
 A natural setting where batch means are used in stochastic optimization (esp. in stochastic programming) is for assessing solution quality. 
 Assessing solution quality in stochastic programming typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
@@ -130,7 +131,7 @@ This is referred to as the Multiple Replications Procedure (MRP) and was initial
 In this paper, we formulate an ovelapping batches version of MRP, allowing for partial overlap, and provide conditions under which the same variance reduction results can be achieved by overlapping like in the classical setting. 
 We also show that the resulting point estimators are strongly consistent and the interval estimators are asymptotically valid. 
 We present computational results to examine small-sample behavior. 
-Our experiments indicate that the asymptotic variance reduction is achieved with small sample sizes, while bias and coverage probability are unaffected.
+Our experiments indicate that variance reduction is achieved with small sample sizes, while bias and coverage probability are unaffected.
 
 We consider a stochastic optimization problem of the form 
 \begin{align} \tag{SP} \label{eq:sto_prog} 
@@ -194,6 +195,7 @@ Recently, the approach of (nonoverlapping) batching has been used for assessing 
 
 Our aim is to apply the idea of overlapping batches to MRP.  
 Overlapping could help to obtain better variance estimators with simple data reuse, resulting in improved confidence intervals.
+Especially for problems where sampling error is dominant, this simple data reuse method could yield better estimators.
 We note several differences in this setting compared to the classical setting.  
 In simulation output analysis, the point of interest is estimating the variance of the sample mean of a covariance stationary process.  
 We are interested in estimating the variance of an optimality gap estimator.  
@@ -249,8 +251,8 @@ Second, in many solution methods, warm-starting can be used to quickly solve the
 
 The rest of the paper is organized as follows.  
 In the next section, we review relevant background information.  
-We first discuss the overlapping batch means in \S \ref{ssec:obm} and then briefly go over the multiple replications procedure in \S \ref{ssec:mrp}.  
-In \S \ref{sec:omrp}, we present the overlapping multiple replications procedure (OMRP) with variable amounts of overlap.  
+We first discuss the overlapping batch means in \S \ref{ssec:obm} and then briefly go over MRP in \S \ref{ssec:mrp}.  
+In \S \ref{sec:omrp}, we present the Overlapping Multiple Replications Procedure (OMRP) with variable amounts of overlap.  
 In \S \ref{sec:theory}, we show strong consistency of the OMRP point estimators, asymptotic validity of the OMRP confidence intervals, and the variance reduction results as in the classical case.
 In \S \ref{sec:comp}, we test the performance of OMRP on four problems and end in \S \ref{sec:concl} with a summary and conclusions.
 
@@ -740,8 +742,8 @@ Figures~\ref{fig:nv}(a) and \ref{fig:varvar} show the reduction of variance, wit
 The solid lines in these figures show the theoretical variance reduction from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
 Empirical results agree with the theoretical values well, with more variability observed in CEP1, 10D, and DB1. 
 These experiments suggest that similar variance reduction can be achieved in stochastic programming by overlapping the batches, even with small sample sizes.
-We note that the variance reduction in DB1 can be less than the asymptotic amount for the small sample sizes used in these experiments. 
-%Even with the relatively small sample sizes, compared to the size of this problem, overlapping appears to achieve some variance reduction. 
+We note that the variance reduction in DB1 can be less than the asymptotic amount. %for the small sample sizes used in these experiments. 
+Even with the relatively small sample sizes compared to the size of this problem, however, overlapping appears to achieve some variance reduction. 
 
 
 \begin{figure}[htb!]
