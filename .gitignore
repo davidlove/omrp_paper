@@ -1,5 +1,12 @@
 # .gitignore
 
+# Temporary Files #
+###################
+*.undo
+*.*.undo
+*.bak
+*.*.bak
+
 # LaTex #
 #########
 *.aux
