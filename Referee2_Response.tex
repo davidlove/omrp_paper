@@ -1,0 +1,639 @@
+\documentclass[11pt,notitlepage,onecolumn]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{makeidx}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{chicago}
+\usepackage[singlespacing]{setspace}
+
+\setcounter{MaxMatrixCols}{10}
+
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\oddsidemargin}{0.0in}
+
+\newcommand{\noi}{\noindent}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\singlespacing
+
+\baselineskip0.26in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagebreak
+
+\
+\begin{center}
+\textbf{\Large Response to Referee 2} 
+\medskip
+
+{\large Overlapping Batches for the Assessment of Solution Quality in Stochastic Programs}
+\medskip
+
+{\footnotesize by D. Love and G. Bayraksan}
+\end{center}
+
+\bigskip
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We thank the referee for the helpful comments and suggestions. 
+We incorporated all of the recommended changes and believe the paper is improved as a result. 
+Below, we go through in detail these changes. 
+\medskip
+
+\bigskip 
+
+%%%%%%%%%%%%%%%%%
+%% Need to be careful with the minor changes. Will these be affected?
+%% Need to CHECK AT THE VERY END... FOR ANY CHANGES on TOP OF these...
+%%    - GB
+%%%%%%%%%%%%%%%%%
+
+\noi  
+{\large \bf General Comments:}
+\medskip 
+
+
+\begin{itemize}
+\item[1.] \textit{The main contributions of the paper need to be stated more clearly and succinctly.}
+\end{itemize}
+
+\noindent 
+xxx  We agree. 
+We changed the introduction to clearly state the contributions of the paper and \ldots 
+\medskip 
+
+
+\begin{itemize}
+\item[2.] \textit{It is not necessary to go into such detail in the OBM review.}
+\end{itemize}
+
+\noindent 
+xxx  We shortened the section on OBM review by combining \ldots 
+\medskip 
+
+\begin{itemize}
+\item[3.] \textit{The English needs to be tightened up somewhat.}
+\end{itemize}
+
+\noindent  
+xxxx
+You are right. 
+We went through the paper and tightened up the prose. 
+We also incorporated all the changes you suggested below and hope the exposition of the paper is improved as a result.
+We hope that any remaining English issues could be corrected by the English editor of the journal. (IS THERE ONE????) 
+xxxx
+\medskip 
+
+\bigskip 
+
+
+\noi  
+{\large \bf Specific Comments:}
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{Page 1, Line 32 (and elsewhere): I believe that you ``apply the OBM method to stochastic programming'' rather than extend it.}
+\end{itemize}
+
+\noi
+xxx  I actually prefer 'extend' but I am not going to argue over such small stuff. 
+So, I will change this sentence and might look for others. 
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{1, 35 (and elsewhere): ``We give conditions'' instead of ``We show conditions''}
+\end{itemize}
+
+\noi
+xxx  Changed
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{1, 37: What are the classical results? Reference?}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{1, 49: Suggested rewrite to reduce ambiguity: ``The overlapping batch means (OBM) \ldots to obtain variance estimators having variances that are comparatively lower than their nonoverlapped counterparts. 
+In the context of steady-state simulation, OBM is often used to estimate the variance of the sample mean, which is itself an estimator for the mean. 
+Schmeiser et al.\ [1990] use overlapping estimators to estimate the
+variance of estimators for non-means. 
+More recently, overlapping estimators based on standardized time series (as opposed to batch means) have been evaluated [Alexopoulos et al., 2007a,b].'' 
+In this rewrite, note the use of active and passive referencing formats.}
+\end{itemize}
+
+\noi
+xxxx  Thank you for this suggestion of rewrite. 
+We rewrote this paragraph based on your corrections and paying attention to referencing formats. 
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 5: ``never before been studied . . . context.''}
+\end{itemize}
+
+\noi
+xxx  Changed.
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 7: By ``same benefits'', you mean moderate bias and comparatively low variance, right?}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 8: Start a new paragraph with ``A natural setting\ldots ''.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 10: ``especially'' instead of ``esp.''. 
+Also, ``This'' instead of ``Assessing solution quality in stochastic programming'' (since it's repetitive)}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 13: ``Because optimality gap''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 24: ``under which the resulting gap estimators exhibit reduced variance when compared to their counterparts obtained via nonoverlapping batches.''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 24 (and elsewhere): Note: I would be careful about the use of the term ``variance reduction'', which usually refers to the class of techniques such as common random numbers, antithetics, importance sampling, etc. 
+I view what you're doing in this paper as simply proposing a new estimator whose variance is lower than that of a competing estimator.}
+\end{itemize}
+
+\noi
+xxx  You are right. 
+Thanks for pointing this out. We corrected the wording throughout the paper. 
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 27: ``and that the interval \ldots valid. 
+We also present''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 28: ``Our experiments indicate that the use of overlapping estimators results in gap estimators achieving lower variance than their nonoverlapping counterparts, along with comparable bias and interval coverage --- for both small- and large-sample cases.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 34 (and elsewhere): Might want to boldface all vectors.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 42 (and elsewhere): ``more-restrictive moment'' (hyphenate certain non-adverbial compound adjectives)}
+\end{itemize}
+
+\noi
+xxx  Thank you; we went through the paper and hyphenated all the compound adjectives.
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{2, 51: You can delete ``(SAA)'', since the notation isn't used again in the paper.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{3, 11: ``solution; and''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{3, 24 (and elsewhere): ``Lagrangian, or'' (comma after penultimate entry in a conjunctive list)}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{3, 37: ``we can simply use $z_m^*$''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{3, 38: ``estimator of the optimality''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{3, 53: ``The sample variance of these estimators is used to form confidence intervals for the optimality gap (we further review MRP in \S 2.2).''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 5 (and elsewhere): ``see, e.g., Bertocchi et al. [2000]; \ldots ''}
+\end{itemize}
+
+\noi
+xxx  I don't think I agree with this. 
+These need to be in parentheses! 
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 14: Delete the sentence ``Especially \ldots '' since it doesn't really add anything to the discussion.}
+\end{itemize}
+
+\noi
+xxx  Deleted.
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 17: ``interest is that of estimating''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 20--27: Even though I believe everything, these lines are a bit awkward and confusing.}
+\end{itemize}
+
+\noi
+xxx   DAVID-- NEED YOUR HELP with this. 
+I don't know how to reword it to make it less awkward.
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 31: What are the desired statistical properties?}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 33: ``Another difference is that''. By the way, what is ``difference'' referring to?}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 36: ``due to the need to solve sampling problem"}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 42: ``Partial overlapping results in a smaller number of batches; hence, fewer optimization''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 45: The sentence ``Second, \ldots '' needs some clarification, since it states a conclusion that hasn't so far been justified.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 51: ``discuss overlapping''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{4, 54 (and elsewhere): When you refer to ``variable amounts of overlap'', that is really nothing new. Certainly, any overlapping estimator will have end effects in which the overlap amounts differ from those in the ``middle'' region of the data.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{4, 57 (and elsewhere): ``classical case'' refers to nonoverlapping batch means, right?}
+\end{itemize}
+
+\noi
+xxx  Yes. 
+We reworded this sentence to make it clear.
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{5, 12: Does $\sigma^2$ refer to the marginal variance or the ``variance parameter'' (sum of the covariances at all lags)?}
+\end{itemize}
+
+\noi
+xxx   CHECK -- DON'T REMEMBER
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{5, 14: ``realization of the univariate stochastic''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{5, 35 (and elsewhere): Careful! This isn't quite the sample variance! This is actually the sample variance multiplied by $m/n$.}
+\end{itemize}
+
+\noi
+xxx  Thanks for catching this! We corrected this and others.
+\medskip 
+
+
+\begin{itemize}
+\item[] \textit{5, 43: You could have introduced the notation ``CI'' earlier.}
+\end{itemize}
+
+\noi
+xxx  You are right. 
+We now do introduce it earlier in the paper -- GIVE PAGE NO.
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{5: You can significantly reduce the discussion on OBM here and in \S 3.1. 
+Just let the reader know the main results that you'll use.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{6, 13: ``corresponding overlapping batch means''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{6, 29: Note that you use ``Note that'' too often.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{6, 30: Explicitly say what the d.f.\ in (2) is.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{7, 46: Does $\gamma$ need to be an integer? 
+You seem to be using it that way, so maybe state the requirement.}
+\end{itemize}
+
+\noi
+xxx  CHECK THIS
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{8, 4 (and elsewhere): Define notations such as floor and ceiling functions.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{8, 11: In addition to the fact that I don't think ``variance reduction'' is quite the right term, the phrase ``variance reduction in this estimator'' is awkward.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{8, 53--57: The various OBM references should have been discussed earlier.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{10, 11 (and elsewhere): ``$E[f(x, \xi)^4]$'' instead of ``$Ef(x, \xi)^4$'' (never hurts to use some brackets to reduce ambiguity)}
+\end{itemize}
+
+\noi
+xxx Changed. 
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{11, 33: It might be helpful to add a step before the first inequality in the proof.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{12, 52: ``$n_l VD_l$' has been studied''}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{13, 12 (and elsewhere): I may have missed this, but has the notation $\sigma_{\hat{x}}$ been established yet? 
+In any case, some of the verbiage in this paragraph is a bit repetitive.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{13, 44: Is the expression for d.f. too big?}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{13, 53: The reader might need another step besides C-S to get that inequality.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{15, 25: Do you discuss $t_{d_l,\alpha}$ at all in Theorem 3?}
+\end{itemize}
+
+\noi
+xxx  CHECK. DON'T RECALL.
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{18: Your figures are very difficult to read, even with the pdf file.}
+\end{itemize}
+
+\noi
+xxx  
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{20, 47: ``4th edition''}
+\end{itemize}
+
+\noi
+Done.
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{21, 23: ``\it Jackknife''}
+\end{itemize}
+
+\noi
+Corrected. Thank you. 
+
+
+\end{document}
