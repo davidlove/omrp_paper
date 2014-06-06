@@ -108,9 +108,9 @@
 
 \begin{abstract}
 \noindent Overlapping Batch Means (OBM) has long been used in simulation as a method of reusing data to generate variance estimators with asymptotically lower variance.
-In this paper, we extend the OBM method to stochastic programming by formulating a variant of the multiple replications procedure used for assessing solution quality.
-We show conditions under which the resulting optimality gap estimators are strongly consistent and have the same asymptotically lower variance as the classical results.
-Computational experiments for several test problems are presented, examining the small-sample behavior of the overlapping batches method in this context.\medskip
+In this paper, we apply the OBM method to stochastic programming by formulating a variant of the multiple replications procedure used for assessing solution quality.
+We give conditions under which the resulting optimality gap estimators are strongly consistent and have the same asymptotically lower variance as the classical OBM estimators \citep{Meketon1984,Welch1987}.
+Computational experiments for several test problems are presented, examining the small-sample behavior and the computational efficiency of the overlapping batches method in this context.\medskip
 
 \Keywords{Sample average approximation (SAA); Overlapping batch means;   Stochastic programming; Optimality gap estimation}
 \end{abstract}
@@ -119,16 +119,19 @@ Computational experiments for several test problems are presented, examining the
 \section{Introduction}
 \label{sec:intro}
 
-Overlapping Batch Means (OBM) method, proposed by \citet{Meketon1984}, is commonly used in simulation to obtain variance estimators with lower variances. 
-While OBM is often used for variance estimators of means, it can also be used for variance estimators of non-means \citep{SAH90} and more recently, it has been extended to estimators based on standardized time series (e.g., area, Cram\'{e}r-von Mises) \citep{Alexopoulos01012007,Alexopoulos2007} and their folded versions \citep{Meterelliyoz_etal_12}.
-To the best of our knowledge, OBM has never been studied in a stochastic optimization context before. 
-In this paper we show that the same benefits can be obtained from overlapping batches when used in a stochastic optimization setting.  
-A natural setting where batch means are used in stochastic optimization (esp. in stochastic programming) is for assessing solution quality. 
-Assessing solution quality in stochastic programming typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
-Because the optimality gap estimators can be difficult to analyze statistically, a common approach is to use nonovelapping batches of data to generate a number of optimality gap estimators. 
+The overlapping batch means (OBM) method, proposed by \citet{Meketon1984}, is commonly used in simulation to obtain variance estimators having variances that are comparatively lower than their nonoverlapped counterparts. 
+In the context of steady-state simulation, OBM is often used to estimate the variance of the sample mean, which is itself an estimator for the mean. 
+\cite{SAH90} use overlapping estimators to estimate the variance of estimators for non-means. 
+More recently, overlapping estimators based on standardized time series (as opposed to nonoverlapping batch means) have been evaluated \citep{Alexopoulos01012007,Alexopoulos2007}; see also \citep{Meterelliyoz_etal_12}.
+To the best of our knowledge, OBM has never before been studied in a stochastic optimization context. 
+In this paper we show that the same benefits can be obtained from overlapping batches when used in a stochastic optimization setting.
+  
+A natural setting where batch means are used in stochastic optimization (especially in stochastic programming) is for assessing solution quality. 
+This typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
+Because optimality gap estimators can be difficult to analyze statistically, a common approach is to use nonovelapping batches of data to generate a number of optimality gap estimators. 
 These individual estimators are then used to form point and interval estimators applying the classical nonoverlapping batch means method.
 This is referred to as the Multiple Replications Procedure (MRP) and was initially discussed in \citep{Mak1999}.   
-In this paper, we formulate an ovelapping batches version of MRP, allowing for partial overlap, and provide conditions under which the same variance reduction results can be achieved by overlapping like in the classical setting. 
+In this paper, we formulate an ovelapping batches version of MRP, allowing for partial overlap, and provide conditions under which the resulting gap estimators exhibit reduced variance when compared to their counterparts obtained via nonoverlapping batches.
 We also show that the resulting point estimators are strongly consistent and the interval estimators are asymptotically valid. 
 We present computational results to examine small-sample behavior. 
 Our experiments indicate that variance reduction is achieved with small sample sizes, while bias and coverage probability are unaffected.
