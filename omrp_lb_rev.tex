@@ -190,7 +190,7 @@ As mentioned above, to enable statistical inference, the MRP of \citet{Mak1999} 
 The sample variance of these estimators is used to form confidence intervals for the optimality gap (we further review MRP in \S \ref{ssec:mrp}).  
 An advantage of MRP is its applicability to a wide range of problems.  
 With i.i.d.\ sampling, $f$ can be linear or nonlinear, $\X$ can include integrality constraints or not.  
-It is also easy to implement; thus, MRP has been applied to a wide variety of problems, including finance, supply chain network design, etc.; see e.g., \citep{bertocchi_etal_99,janjarassuk_linderoth_08,santoso_ahmed_etal_05}.  
+It is also easy to implement; thus, MRP has been applied to a wide variety of problems, including finance, supply chain network design, etc.; see, e.g., \citep{bertocchi_etal_99,janjarassuk_linderoth_08,santoso_ahmed_etal_05}.  
 Recently, the approach of (nonoverlapping) batching has been used for assessing solution quality of stochastic programs with finitely many expected value \citep{wang_ahmed_08} and stochastic dominance \citep{hu2010sample} constraints.
 
 %When this confidendence interval on the optimality gap is too large, it can be due to three reasons. First, $\xh$ can be far from optimal; second, bias can be large; third, the sampling error can be large. 
@@ -200,21 +200,22 @@ Recently, the approach of (nonoverlapping) batching has been used for assessing 
 
 Our aim is to apply the idea of overlapping batches to MRP.  
 Overlapping could help to obtain better variance estimators with simple data reuse, resulting in improved confidence intervals.
-Especially for problems where sampling error is dominant, this simple data reuse method could yield better estimators.
+%Especially for problems where sampling error is dominant, this simple data reuse method could yield better estimators.
 We note several differences in this setting compared to the classical setting.  
-In simulation output analysis, the point of interest is estimating the variance of the sample mean of a covariance stationary process.  
+In simulation output analysis, the point of interest is that of estimating the variance of the sample mean of a covariance stationary process.  
 We are interested in estimating the variance of an optimality gap estimator.  
 Notice that an optimality gap estimator not only has a sample mean $(\frac{1}{m} \sum_{i=1}^m f(\xh,\xiti))$ but also a minimized sample mean $(\zs_m)$.  
 Minimization changes the statistical properties of sample means.  
 For instance, the central limit theorem may not hold for a minimized sample mean, even though it holds for each $\x \in \X$.  
 Therefore, analysis of the asymptotic benefits of overlapping becomes more complicated.
 We overcome this technical difficulty by approximating the optimality gap estimators by their nonoptimized counterparts (see \S \ref{sec:theory}).  
-The nonoptimized counterparts have the desired statistical properties and we establish convergence of the optimality gap estimators that use overlapping to their nonoptimized counterparts. 
-Another difference is, once the data is generated through a simulation, it can be reused without much additional computational effort to obtain the OBM variance estimator.  
-In this setting, due to the solution of a sampling problem (SP$_m$), the computational effort may increase with data reuse.  
+The nonoptimized counterparts are (regular) overlapping batch means estimators (without any optimization present); therefore, they have the desired statistical properties of approximately the same bias and lower variances compared to their nonoverlapping versions. 
+We establish convergence of the optimality gap estimators that use overlapping to their nonoptimized counterparts. 
+Another difference between our setting and simulation output analysis is that once the data are generated through a simulation, it can be reused without much additional computational effort to obtain the OBM variance estimator.  
+In this setting, due to the need to solve a sampling problem (SP$_m$), the computational effort may increase with data reuse.  
 This can be alleviated in two ways. 
 First, near-optimal variance reduction can be obtained by partially overlapping the batches \citep{Welch1987,Song1992}.  
-Partial overlap results in a fewer number of batches, hence fewer number of optimization problems need to be solved.
+Partial overlapping results in a smaller number of batches; hence, fewer optimization problems need to be solved.
 In this paper, we consider variable amounts of overlap and examine this both theoretically and empirically. 
 Second, in many solution methods, warm-starting can be used to quickly solve the sampling approximations with overlapping samples, considerably reducing solution time.
 
@@ -256,8 +257,8 @@ Second, in many solution methods, warm-starting can be used to quickly solve the
 
 The rest of the paper is organized as follows.  
 In the next section, we review relevant background information.  
-We first discuss the overlapping batch means in \S \ref{ssec:obm} and then briefly go over MRP in \S \ref{ssec:mrp}.  
-In \S \ref{sec:omrp}, we present the Overlapping Multiple Replications Procedure (OMRP) with variable amounts of overlap.  
+We first discuss overlapping batch means in \S \ref{ssec:obm} and then briefly go over MRP in \S \ref{ssec:mrp}.  
+In \S \ref{sec:omrp}, we present the Overlapping Multiple Replications Procedure (OMRP) with a parametrized degree of overlap.  
 In \S \ref{sec:theory}, we show strong consistency of the OMRP point estimators, asymptotic validity of the OMRP confidence intervals, and the variance reduction results as in the classical case.
 In \S \ref{sec:comp}, we test the performance of OMRP on four problems and end in \S \ref{sec:concl} with a summary and conclusions.
 
