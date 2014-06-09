@@ -187,7 +187,7 @@ Here, we assume the same observations $\xit^1, \dots, \xit^m$ are used in both t
 
 Computing the above optimality gap estimate involves solving an optimization problem (\ref{eq:sto_prog_m}) to obtain a lower bound estimator of $\zs$, $\zs_m$, which complicates the statistical analysis. 
 As mentioned above, to enable statistical inference, the MRP of \citet{Mak1999} generates $k$ independent estimators, each using sample size $m$ ($k$ nonoverlapping batches of size $m$) and averages them to obtain a point estimator.  
-The sample variance of these estimators is used to form confidence intervals for the optimality gap (we further review MRP in \S \ref{ssec:mrp}).  
+The sample variance of these estimators is used to form confidence intervals (CIs) for the optimality gap (we further review MRP in \S \ref{ssec:mrp}).  
 An advantage of MRP is its applicability to a wide range of problems.  
 With i.i.d.\ sampling, $f$ can be linear or nonlinear, $\X$ can include integrality constraints or not.  
 It is also easy to implement; thus, MRP has been applied to a wide variety of problems, including finance, supply chain network design, etc.; see, e.g., \citep{bertocchi_etal_99,janjarassuk_linderoth_08,santoso_ahmed_etal_05}.  
@@ -199,7 +199,7 @@ Recently, the approach of (nonoverlapping) batching has been used for assessing 
 
 
 Our aim is to apply the idea of overlapping batches to MRP.  
-Overlapping could help to obtain better variance estimators with simple data reuse, resulting in improved confidence intervals.
+Overlapping could help to obtain better variance estimators with simple data reuse, resulting in improved CIs.
 %Especially for problems where sampling error is dominant, this simple data reuse method could yield better estimators.
 We note several differences in this setting compared to the classical setting.  
 In simulation output analysis, the point of interest is that of estimating the variance of the sample mean of a covariance stationary process.  
@@ -259,7 +259,7 @@ The rest of the paper is organized as follows.
 In the next section, we review relevant background information.  
 We first discuss overlapping batch means in \S \ref{ssec:obm} and then briefly go over MRP in \S \ref{ssec:mrp}.  
 In \S \ref{sec:omrp}, we present the Overlapping Multiple Replications Procedure (OMRP) with a parametrized degree of overlap.  
-In \S \ref{sec:theory}, we show strong consistency of the OMRP point estimators, asymptotic validity of the OMRP confidence intervals, and the variance reduction results as in the classical case.
+In \S \ref{sec:theory}, we show strong consistency of the OMRP point estimators, asymptotic validity of the OMRP CIs, and that the OMRP variance estimators have lower variances than their nonoverlapping counterparts---the MRP estimators.
 In \S \ref{sec:comp}, we test the performance of OMRP on four problems and end in \S \ref{sec:concl} with a summary and conclusions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -268,8 +268,8 @@ In \S \ref{sec:comp}, we test the performance of OMRP on four problems and end i
 
 \subsection{Overlapping Batch Means} \label{ssec:obm}
 Consider a covariance stationary stochastic process with mean $\mu$ and variance $\sigma^2$.  
-The task is to estimate $\mu$ given some realization of the stochastic process $\y = (y^1, y^2, \dots, y^n)$.  
-Typically, this involves forming a confidence interval of the form $[L_\alpha(\y), U_\alpha(\y)]$ for a given level of significance $\alpha$ such that $\p{L_\alpha(\y) \leq \mu \leq U_\alpha(\y)} = 1 - \alpha$ or that this probability is approximately $1 - \alpha$ for large enough sample sizes.  
+The task is to estimate $\mu$ given some realization of the univariate stochastic process $\y = (y^1, y^2, \dots, y^n)$.  
+Typically, this involves forming a CI of the form $[L_\alpha(\y), U_\alpha(\y)]$ for a given level of significance $\alpha$ such that $\p{L_\alpha(\y) \leq \mu \leq U_\alpha(\y)} = 1 - \alpha$ or that this probability is approximately $1 - \alpha$ for large enough sample sizes.  
 The usual estimator for $\mu$ is the sample mean $\ybb = \frac{1}{n} \sum_{i=1}^n y^i$, which is an unbiased estimator even in the presence of correlated data.  
 However, the usual variance estimator $\frac{1}{n-1} \sum_{i=1}^n (y^i - \ybb)^2$ can be inappropriate to use in the presence of correlated data, resulting in inaccurate interval estimators.  
 To overcome this difficulty, various variance estimators have been proposed in the simulation literature; see, e.g., \citep{law_07}.  
@@ -281,11 +281,11 @@ $
 	\yb_j = \frac{1}{m} \sum_{i=1}^{m} y^{m(j-1)+i}, j = 1,2, \dots, k,
 $
 and the overall sample mean $\ybb = \frac{1}{k} \sum_{j=1}^k \yb_j = \frac{1}{n} \sum_{i=1}^n y^i$ provides a point estimator of $\mu$.  
-The sample variance of the batch means is calculated as
+The variance estimator of the batch means, which is $n/m$ times the sample variance, is calculated as
 \begin{equation} \label{eq:var}
-	\varhat(\ybb) = \frac{m}{n}\frac{1}{k-1} \sum_{j=1}^k \left( \yb_j - \ybb \right)^2,
+	\varhat(\ybb) = \frac{m}{n}\frac{1}{k-1} \sum_{j=1}^k \left( \yb_j - \ybb \right)^2.
 \end{equation}
-and the $(1-\alpha)$-level approximate confidence interval (CI) is formed by $\ybb \pm t_{k-1,\alpha/2} \sqrt{\varhat(\ybb)}$, where $t_{k-1,\alpha/2}$ denotes the $1-\alpha/2$ quantile of the Student's t distribution with $k-1$ degrees of freedom.  
+The $(1-\alpha)$-level approximate CI is then formed by $\ybb \pm t_{k-1,\alpha/2} \sqrt{\varhat(\ybb)}$, where $t_{k-1,\alpha/2}$ denotes the $1-\alpha/2$ quantile of the Student's t distribution with $k-1$ degrees of freedom.  
 Under appropriate conditions, $n\varhat(\ybb)$ is a consistent estimator of $\sigma^2$.
 
 
@@ -299,7 +299,7 @@ The sample variance estimator is updated to
 \begin{equation} \label{eq:overlap_variance_def}
 	\vart{\ybb} = \frac{1}{(\tfrac{n}{m}-1)(n - m + 1)}\sum_{j=1}^{n-m+1} (\yb_j(m) - \ybb)^2.
 \end{equation}
-Note that the corresponding batch means are no longer independent. 
+Note that the corresponding overlapping batch means are no longer independent. 
 However, by simply reusing the data in this fashion---and seemingly in a contradictory way that induces dependence---one obtains a better variance estimator. 
 \citet{Meketon1984} show that: (i) the overlapping variance estimator has nearly the same bias as the standard nonoverlapping variance estimator, and (ii) the overlapping estimator has only two-thirds of the asymptotic variance of the nonoverlapping one.  
 That is, 
@@ -334,8 +334,8 @@ As before, after $k$ estimates are obtained, the overall mean of these estimates
 The sample variance is obtained as in (\ref{eq:var}) by $\varh{\gbb} = \frac{1}{k} \frac{1}{k-1} \sum_{j=1}^k (\gb_j - \gbb)^2$, which results in a one-sided CI $\left[0, \gbb + t_{k-1,\alpha} \sqrt{\varh{\gbb}} \right]$ that has a level of significance, which is approximately $\alpha$.
 
 Notice that the minimization in the second term on the right-hand side of (\ref{eq:mrp_gap}) gives rise to a biased gap estimator (recall the upper bound on the optimality gap).  
-Thus, we can expect that the true probability of the optimality gap residing within the confidence interval to be greater than the $1 - \alpha$ suggested by the above calculation.  
-This is shown empirically in \citep{Bayraksan2006}, which also investigates additional methods for using a smaller number of replications (e.g., 1 or 2) with an alternative variance estimator to compute a confidence interval.  
+Thus, we can expect that the true probability of the optimality gap residing within the CI to be greater than the $1 - \alpha$ suggested by the above calculation.  
+This is shown empirically in \citep{Bayraksan2006}, which also investigates additional methods for using a smaller number of replications (e.g., 1 or 2) with an alternative variance estimator to compute a CI.  
 See also \citep{bayraksan_morton_09,partani2006jackknife,partani_07} for variations of MRP aimed to reduce bias and variance.
 
 
@@ -639,8 +639,8 @@ We will empirically examine the variance reduction for small sample sizes in \S 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Asymptotic Validity of the Confidence Intervals}
 
-The overlapping variance estimator for stochastic programs displays the same desirable properties as in simulation, but we must still check that it results in a valid confidence interval.  
-Let $I^G_l = \gbb_l + t_{d_l,\alpha} \sqrt{VG_l}$ be the width of the one-sided confidence interval generated by OMRP. 
+The overlapping variance estimator for stochastic programs displays the same desirable properties as in simulation, but we must still check that it results in a valid CI.  
+Let $I^G_l = \gbb_l + t_{d_l,\alpha} \sqrt{VG_l}$ be the width of the one-sided CI generated by OMRP. 
 The degrees of freedom $d_l$ is the inverse of (\ref{eq:var_reduct_formula}) using $\frac{\gamma_l}{m_l}$ instead of $\gammab$.
 
 \begin{theorem} \label{thm:conf_int}
@@ -659,7 +659,7 @@ The degrees of freedom $d_l$ is the inverse of (\ref{eq:var_reduct_formula}) usi
         Thus, by Slutsky's theorem, $Y_lZ_l \Rightarrow N(0,1)$.
 \end{proof}
 
-The asymptotic validity of the OMRP confidence interval requires $n_l VD_l$ to converge in probability to $\sigma^{2}_{\xh}$. 
+The asymptotic validity of the OMRP CI requires $n_l VD_l$ to converge in probability to $\sigma^{2}_{\xh}$. 
 This can be achieved either by almost sure or mean-square convergence, which gives a larger range of $r$ in the batching structure.
 Also, a hypothesis of Theorem~\ref{thm:conf_int} is that $\xh \neq \xs$.  For $\xh = \xs$, we have $\lim_{l\rightarrow\infty} \p{\mu_\xh \leq I^G_l} = 1$. 
 
@@ -728,7 +728,7 @@ Because the optimal solution of DB1 is unknown, a Latin hypercube sample of size
 Our experiments were conducted as follows. 
 We used a total sample size of $n = 30 m$, with several values of the batch size $m=100, 200, \ldots$. 
 Then, at each value of $m$, we formed the OMRP estimators with varying amounts of overlap. 
-We also set $\alpha=0.10$, forming 90\% confidence intervals on the optimality gap using the ORMP estimators. 
+We also set $\alpha=0.10$, forming 90\% CIs on the optimality gap using the ORMP estimators. 
 Results for NVD were compiled over 10,000 independent runs, while the CEP1 and 10D results were taken over 1,000 independent runs, and DB1 results were generated over 500 independent runs.
 
 We solved the sampling approximations of the test problems as follows.
@@ -769,7 +769,7 @@ Even with the relatively small sample sizes compared to the size of this problem
 		Summary of results for NVD. 
 		(a) Reduction in variance of $nVG$,
 		(b) estimates of $\e{nVG}$, and 
-		(c) coverage probability of the confidence intervals for various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches).
+		(c) coverage probability of the CIs for various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches).
 	}
 \label{fig:nv}
 \end{figure}
@@ -804,7 +804,7 @@ Although the estimate of $\e{nVG}$ looks large for $m=100$, the error from $\sig
 Estimates for $\e{nVG}$ showed a similar pattern for CEP1, 10D, and DB1.  
 Those graphs are omitted for brevity.
 
-Finally, Figure~\ref{fig:nv}(c) shows the coverage probability of confidence intervals generated by OMRP for several values of $m$ across varying values of $\gamma/m$ for the newsvendor problem.  
+Finally, Figure~\ref{fig:nv}(c) shows the coverage probability of CIs generated by OMRP for several values of $m$ across varying values of $\gamma/m$ for the newsvendor problem.  
 The results of the classical overlapping batches estimators show that coverage probability does not change with the amount of overlap, which we can  empirically see in this figure for OMRP for NVD.
 We observed the same for CEP1, 10D, and DB1.  
 The coverage probabilities from applying the (nonoverlapping) MRP algorithm to these problems presented in \citep{Bayraksan2006} agree with our results: for the newsvendor problem, coverage probability drops as $m$ increases and the coverage probability of CEP1 (not shown) remains fairly constant around the desired value of $90\%$. 
@@ -819,7 +819,7 @@ Warm-starting the algorithm to solve the sampling problems, when such as scheme 
 \label{sec:concl}
 
 We have extended previous work from simulation output analysis to assessing solution quality in stochastic programming by means of variably overlapping batches \citep{Meketon1984,Song1992,Welch1987} for Monte Carlo simulation-based estimators of optimality gaps in stochastic programs \citep{Mak1999}. 
-We have provided conditions under which the resulting point estimator of the optimality gap and its associated sample variance are consistent, the same variance reduction can be achieved, and asymptotically valid confidence intervals can be formed. 
+We have provided conditions under which the resulting point estimator of the optimality gap and its associated sample variance are consistent, the same variance reduction can be achieved, and asymptotically valid CIs can be formed. 
 Empirical results with small sample sizes indicate that the asymptotic reductions in variance of the variance estimator show a similar decrease in OMRP, while bias and coverage probability remain unaffected. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
