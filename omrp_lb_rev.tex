@@ -43,8 +43,7 @@
 
 % Commands for probability
 \newcommand{\p}[1]{\mathbb{P} \left\{ #1 \right\}}
-\newcommand{\e}[1]{\mathbb{E} %\left[ 
-#1 %\right]
+\newcommand{\e}[1]{\mathbb{E} \left[ #1 \right]
 }
 \newcommand{\ee}[2]{\mathbb{E}_{#1} \left[ #2 \right]}
 \newcommand{\var}[1]{\mathrm{Var} \left( #1 \right)}
@@ -352,6 +351,8 @@ We begin our discussion with variably overlapping batches and then define the es
 As before, let $m$ denote the batch size, $n$ the total sample size and $k = \lfloor \tfrac{n}{m} \rfloor$ be the number of nonoverlapping batches.  
 In this paper, we use the {\it batch nonoverlap parameter} $1 \leq \gamma \leq m$ to denote how much neighboring batches do {\it not} overlap.  
 For instance, $\gamma = m$ corresponds to the classical case of nonoverlapping batches and $\gamma = 1$ corresponds to the maximally overlapping case of \citet{Meketon1984}.  
+In general, $\gamma$ can take any integer value between and including $[1,m]$. 
+Let $\lfloor \cdot \rfloor$ be the greatest integer that is less than or equal to its argument. 
 The sample mean of each batch estimator is calculated similarly, 
 $
 \yb_j = \frac{1}{m} \sum_{i=1}^m y^{\gamma(j-1) + i},\ \  j = 1, 2, \dots, \nb, 
@@ -367,6 +368,7 @@ The amount of asymptotic variance reduction in this estimator depends on the asy
 For example, when $\gamma = 1$ (or $\gammab=0$; the maximally overlapping case), the variance is reduced to two-thirds ($66.67\%$) of the original nonoverlapping case, as given in (\ref{eq:asym_var}).  
 When 75\% of observations overlap (i.e., when $\gamma = m/4$ or $\gammab = 1/4$), the variance is $33/48$th of the original ($68.75\%$), which is near-optimal.   
 When only half of the observations overlap ($\gammab = 1/2$) the variance is 75\% of original.  
+Let $\lceil \cdot \rceil$ be the smallest integer that is greater than or equal to its argument. 
 In general, from the spectral analysis given in \citep{Welch1987}, the variance is reduced to
 \begin{equation} \label{eq:var_reduct_formula}
 	\gammab \left( 1 + 2 \sum_{j=1}^{\cogb-1} (1-j\gammab)^2 \right) %= -\gammab\left( 1 - 2\gammab\cogb + \gammab^2\cogb^2 \right) + 2\gammab\cogb\left(1-\gammab\cogb\right) + \frac{2}{3}\gammab^3\cogb^3 + \frac{1}{3}\gammab^3\cogb
@@ -495,7 +497,10 @@ We begin with two lemmas that establish exponential rates of convergence of cert
 	Under assumptions A1 and A3, $\p{\dbb_l - \gbb_l \neq 0} \rightarrow 0$ exponentially fast as $l \rightarrow \infty$.
 \end{lemma}
 
-\begin{proof} Let $E^C$ denote the complement of event $E$. Note that
+\begin{proof} When the sampling problems used in the calculation of $\gbb$ all have optimal solutions that solve (SP), i.e., when $\xs_{j} = \xs$, for all $j=1,2,\ldots, \nbl$, then $\gbb_l = \dbb_l$. 
+Therefore, complement of this event provides an upper bound on the probability that $\dbb_l - \gbb_l \neq 0$. 
+Let $E^C$ denote the complement of event $E$. 
+Using this upper bound and continuing on, we obtain
 	\begin{align}
 		\p{\dbb_l - \gbb_l \neq 0} & \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C} \notag \\
 		& = \p{ \bigcup_{j=1}^{\nbl} \{\xs_{j} \neq \xs\}} \notag \\
@@ -552,7 +557,7 @@ Part (i) of Theorem \ref{thm:strong_consistency} provides conditions under which
 Notice that under assumption A1, $\dbb_l \rightarrow \mu_\xh$, a.s. by the strong law of large numbers; as a result, $\gbb \rightarrow \mu_\xh$, a.s. 
 Similarly, part (ii) of Theorem \ref{thm:strong_consistency} establishes almost sure convergence of $n_l VG_l - n_l VD_l$ to $0$ as $l \rightarrow \infty$. 
 As a result, if $n_l VD_l$ is a consistent estimator of $\sigma^2_{\xh}$, so is $n_l VG_l$.  
-Strong consistency of the variance estimator $n_l VD_l$ have been studied in \citep{damerdji1994strong} for the cases of nonoverlapping and maximally overlapping batches.  
+Strong consistency of the variance estimator $n_l VD_l$ has been studied in \citep{damerdji1994strong} for the cases of nonoverlapping and maximally overlapping batches.  
 Under the additional moment assumption
 \begin{description}
 	\item[A2$^\prime$]  $\exists \epsilon > 0$ such that $\sup_{\x \in X} \e{f(\x,\xi)^{4+\epsilon}} < \infty$,
@@ -588,13 +593,13 @@ for which it suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \ri
 
 \begin{proof}
 	For simplicity of exposition, we drop the subscript $l$ and the $\frac{n_l}{m_l}$ for now and add them in later.  
-        Further, we use abbreviations $n_b = \nbl$ to denote the number of batches and $df = \left(\tfrac{n_l}{m_l} - 1\right) \left(\nbl\right)$ to denote the denominator term in $VG_l$ and $VD_l$. Note that
+        Further, we use abbreviations $n_b = \nbl$ to denote the number of batches and $dt = \left(\tfrac{n_l}{m_l} - 1\right) \left(\nbl\right)$ to denote the denominator term in $VG_l$ and $VD_l$. Note that
 	\begin{align}
-		\e{(nVG - nVD)^2} & = \left( \frac{n}{df} \right)^2 \e{ \left( \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right] \right)^2 } \notag \\
-		& \leq \left( \frac{n}{df} \right)^2 \e{ n_b \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \label{eq:vvar_conv_pf_1}
+		\e{(nVG - nVD)^2} & = \left( \frac{n}{dt} \right)^2 \e{ \left( \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right] \right)^2 } \notag \\
+		& \leq \left( \frac{n}{dt} \right)^2 \e{ n_b \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \label{eq:vvar_conv_pf_1}
 	\end{align}
-	by the Cauchy-Schwartz inequality.  
-        By examining the batch structure in Figure \ref{fig:overlap_nonint} and the definition of $\gbb$ in (\ref{eq:gbb}) one can see that the terms of the expectation are not identically distributed.  
+	by the Cauchy-Schwartz inequality, where the second vector in the Cauchy-Schwartz inequality is taken as a vector of ones.  
+        By examining the batch structure in Figure \ref{fig:overlap_nonint} and the definition of $\gbb$ in (\ref{eq:gbb}), one can see that the terms of the expectation in (\ref{eq:vvar_conv_pf_1}) are not identically distributed.  
         We will separate these into identically distributed ``center'' batches and ``fringe'' batches.  
         For example, in Figure \ref{fig:overlap_nonint}, only batch 4 is a center batch, while the others are fringe batches.  
         Notice in Figure \ref{fig:overlap_nonint}, we see $\left\lceil \gammab^{-1} \right\rceil = 3$ sets of nonoverlapping batches $\{1,4,7\}$, $\{2,5\}$, and $\{3,6\}$, each of which has two fringe batches.  
@@ -605,16 +610,16 @@ for which it suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \ri
         We know this because we could reverse the order of the i.i.d.\ sample and perform the batching again to get the exact same batch structure.  
         Rewriting to take this into account, letting $A_j = (\gb_j - \gbb)^2 - (\db_j - \dbb)^2$, and continuing from (\ref{eq:vvar_conv_pf_1}),
 	\begin{align*}
-		& \left( \frac{n}{df} \right)^2 n_b \e{ \sum_{1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
-		 =  & \left( \frac{n}{df} \right)^2 n_b \e{\left[ \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \left[ A_j \right]^2 \
+		& \left( \frac{n}{dt} \right)^2 n_b \e{ \sum_{1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
+		 =  & \left( \frac{n}{dt} \right)^2 n_b \e{\left[ \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \left[ A_j \right]^2 \
 		 + \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \left[ A_j \right]^2 \
 		 + \sum_{j=n_b-\left\lceil \gammab^{-1} \right\rceil+1}^{n_b} \left[ A_j \right]^2 \right]\
 		} \\
-		 = & \left( \frac{n}{df} \right)^2 n_b \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \e{ \left[ A_j \right]^2 } + \left( \frac{n}{df} \right)^2 (n_b) 2\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left[ A_j \right]^2 } \\
-		 = & \left( \frac{n}{df} \right)^2 n_b \left(n_b - 2\left\lceil \gammab^{-1} \right\rceil \right) \e{ \left[ A_j \right]^2 }
-		+ \left( \frac{n}{df} \right)^2 (n_b) 2\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left[ A_j \right]^2 }.
+		 = & \left( \frac{n}{dt} \right)^2 n_b \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \e{ \left[ A_j \right]^2 } + \left( \frac{n}{dt} \right)^2 (n_b) 2\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left[ A_j \right]^2 } \\
+		 = & \left( \frac{n}{dt} \right)^2 n_b \left(n_b - 2\left\lceil \gammab^{-1} \right\rceil \right) \e{ \left[ A_j \right]^2 }
+		+ \left( \frac{n}{dt} \right)^2 (n_b) 2\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left[ A_j \right]^2 }.
 	\end{align*}	
-	We have $\left\lceil \gammab^{-1} \right\rceil + 1$ expectation terms, each of which has a coefficient that is less than $\left(\frac{n}{df}\right)^2n_b^2 < (2m)^2$.  
+	We have $\left\lceil \gammab^{-1} \right\rceil + 1$ expectation terms, each of which has a coefficient that is less than $\left(\frac{n}{dt}\right)^2n_b^2 < (2m)^2$.  
         So each expectation can be bounded by
 	\begin{align}
 		\left( 2m \right)^2 \e{ \left[ A_j \right]^2 } & = \left( 2m \right)^2 \e{ \left[(\gb_j - \gbb) - (\db_j - \dbb)\right]^2 \left[(\gb_j - \gbb) + (\db_j - \dbb)\right]^2 } \notag \\
@@ -650,8 +655,10 @@ The degrees of freedom $d_l$ is the inverse of (\ref{eq:var_reduct_formula}) usi
 
 \begin{proof} 
 %        With $\xh \neq \xs$, 
-			Let $X_l = \frac{\dbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, $Y_l = \frac{\gbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, and $Z_l = \frac{\sigma^2_\xh}{\sqrt{n_lVD_l}} \frac{\sqrt{n_lVD_l}}{\sqrt{n_lVG_l}}$.  
-        It is suffices to show $Y_lZ_l = \frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, where $\Rightarrow$ denotes convergence in distribution.  
+			Let $X_l = \frac{\dbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, $Y_l = \frac{\gbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, and $Z_l = \frac{\sigma^2_\xh}{\sqrt{n_lVD_l}} \frac{\sqrt{n_lVD_l}}{\sqrt{n_lVG_l}}$. 
+			Also let $z_{\alpha}$ denote the $1-\alpha$ quantile of the standard normal distribution. 
+        It is suffices to show $Y_lZ_l = \frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, where $\Rightarrow$ denotes convergence in distribution.
+			If $\frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, because $t_{d_l,\alpha} \rightarrow z_{\alpha}$ as $l \rightarrow \infty$, we obtain the desired result by rearranging the terms in $\p{\mu_\xh \leq I^G_l}$ and taking the limit as $l \rightarrow \infty$.
         First, we show that $|X_l - Y_l| \rightarrow 0$, a.s.  Note that $|X_l - Y_l| > 0$ if and only if $|\dbb_l - \gbb_l| > 0$.  
         In the proof of Theorem \ref{thm:strong_consistency} we showed that $\left\{ \dbb_l - \gbb_l \neq 0 \right\}$ happens only finitely many times, so $|X_l - Y_l| \rightarrow 0$, a.s.\ by the Borel-Cantelli Lemma. 
         Next, since $X_l \Rightarrow N(0,1)$  by the central limit theorem and $|X_l - Y_l| \rightarrow 0$ in probability, $Y_l \Rightarrow N(0,1)$.  
@@ -661,7 +668,8 @@ The degrees of freedom $d_l$ is the inverse of (\ref{eq:var_reduct_formula}) usi
 
 The asymptotic validity of the OMRP CI requires $n_l VD_l$ to converge in probability to $\sigma^{2}_{\xh}$. 
 This can be achieved either by almost sure or mean-square convergence, which gives a larger range of $r$ in the batching structure.
-Also, a hypothesis of Theorem~\ref{thm:conf_int} is that $\xh \neq \xs$.  For $\xh = \xs$, we have $\lim_{l\rightarrow\infty} \p{\mu_\xh \leq I^G_l} = 1$. 
+Also, a hypothesis of Theorem~\ref{thm:conf_int} is that $\xh \neq \xs$.  
+For $\xh = \xs$, $\mu_\xh = 0$, and therefore, we have $\lim_{l\rightarrow\infty} \p{\mu_\xh \leq I^G_l} = 1$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computational Results}
