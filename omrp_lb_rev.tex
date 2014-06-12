@@ -498,7 +498,7 @@ We begin with two lemmas that establish exponential rates of convergence of cert
 \end{lemma}
 
 \begin{proof} When the sampling problems used in the calculation of $\gbb$ all have optimal solutions that solve (SP), i.e., when $\xs_{j} = \xs$, for all $j=1,2,\ldots, \nbl$, then $\gbb_l = \dbb_l$. 
-Therefore, complement of this event provides an upper bound on the probability that $\dbb_l - \gbb_l \neq 0$. 
+Therefore, probability of the complement of this event provides an upper bound on the probability that $\dbb_l - \gbb_l \neq 0$. 
 Let $E^C$ denote the complement of event $E$. 
 Using this upper bound and continuing on, we obtain
 	\begin{align}
@@ -752,8 +752,8 @@ In all cases, we used the Mersenne Twister algorithm of \citet{matsumoto_nishimu
 \subsection{Results of Experiments}
 \label{ssec:results}
 
-A summary of results from these experiments is depicted in Figures~\ref{fig:nv} and \ref{fig:varvar}.
-Figures~\ref{fig:nv}(a) and \ref{fig:varvar} show the reduction of variance, with each term being normalized with respect to $\var{nVG}$ of the nonoverlapping case (MRP). 
+A summary of results from these experiments is depicted in Figures~\ref{fig:varvar1}--\ref{fig:nv}.
+Figures~\ref{fig:varvar1} and \ref{fig:varvar2} show the reduction of variance, with each term being normalized with respect to $\var{nVG}$ of the nonoverlapping case (MRP). 
 The solid lines in these figures show the theoretical variance reduction from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
 Empirical results agree with the theoretical values well, with more variability observed in CEP1, 10D, and DB1. 
 These experiments suggest that similar variance reduction can be achieved in stochastic programming by overlapping the batches, even with small sample sizes.
@@ -764,60 +764,76 @@ Even with the relatively small sample sizes compared to the size of this problem
 
 \begin{figure}[htb!]
 	\centering
-	\subfloat[][Variance Reduction]{
+	\subfloat[][NVD]{
 	   \label{fig:nv_varvar}
-	   \includegraphics[width=.32\textwidth]{images/nv_varvar_discrete}}
-	\subfloat[][Expected Variance]{
-	   \label{fig:nv_avgvar}
-	   \includegraphics[width=.32\textwidth]{images/nv_avgvar_discrete}}
-	\subfloat[][Coverage Probability]{
-	   \label{fig:nv_cover}
-	   \includegraphics[width=.32\textwidth]{images/nv_cover_discrete}}
+	   \includegraphics[width=.5\textwidth]{images/nv_varvar_discrete}}
+	\subfloat[][CEP1]{
+	   \label{fig:cep1_varvar}
+	   \includegraphics[width=.5\textwidth]{images/cep1_varvar}}
 	\caption{
-		Summary of results for NVD. 
-		(a) Reduction in variance of $nVG$,
-		(b) estimates of $\e{nVG}$, and 
-		(c) coverage probability of the CIs for various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches).
+		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problem
+		(a) NVD, and
+		(b) CEP1
 	}
-\label{fig:nv}
+\label{fig:varvar1}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-	\subfloat[][CEP1]{
-	   \label{fig:cep1_varvar}
-	   \includegraphics[width=.32\textwidth]{images/cep1_varvar}}
 	\subfloat[][10D]{
 	   \label{fig:10d_varvar}
-	   \includegraphics[width=.32\textwidth]{images/10D_varvar}}
+	   \includegraphics[width=.5\textwidth]{images/10D_varvar}}
 	\subfloat[][DB1]{
 	   \label{fig:db1_varvar}
-	   \includegraphics[width=.32\textwidth]{images/db1_varvar}}
+	   \includegraphics[width=.5\textwidth]{images/db1_varvar}}
 		\caption{
-		Variance Reduction for
-		(a) CEP1,
-		(b) 10D, and
-		(c) DB1
-		for various values of $\gamma / m$.
+		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problem
+		(a) 10D, and
+		(b) DB1
 		}
-\label{fig:varvar}
+\label{fig:varvar2}
 \end{figure}
 
 
+\begin{figure}[htb!]
+	\centering
+	\subfloat[][Expected Variance]{
+	   \label{fig:nv_avgvar}
+	   \includegraphics[width=.5\textwidth]{images/nv_avgvar_discrete}}
+	\subfloat[][Coverage Probability]{
+	   \label{fig:nv_cover}
+	   \includegraphics[width=.5\textwidth]{images/nv_cover_discrete}}
+	\caption{ 
+		Estimates of
+		(a) $\e{nVG}$, and 
+		(c) coverage probability of the CIs for various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches)
+		 for NVD
+	}
+\label{fig:nv}
+\end{figure}
 
 
-Figure~\ref{fig:nv}(b) shows estimates of $\e{nVG}$ in the newsvendor problem for changing batch size and amount of overlap. 
+Figure~\ref{fig:nv}(a) shows estimates of $\e{nVG}$ in the newsvendor problem for changing batch size and amount of overlap. 
 We can see that the expectation of the variance estimator is not changed with increasing overlap. 
 Although the estimate of $\e{nVG}$ looks large for $m=100$, the error from $\sigma^2_\xh$ is never more than 1\%.  
 Estimates for $\e{nVG}$ showed a similar pattern for CEP1, 10D, and DB1.  
 Those graphs are omitted for brevity.
 
-Finally, Figure~\ref{fig:nv}(c) shows the coverage probability of CIs generated by OMRP for several values of $m$ across varying values of $\gamma/m$ for the newsvendor problem.  
+Finally, Figure~\ref{fig:nv}(b) shows the coverage probability of CIs generated by OMRP for several values of $m$ across varying values of $\gamma/m$ for the newsvendor problem.  
 The results of the classical overlapping batches estimators show that coverage probability does not change with the amount of overlap, which we can  empirically see in this figure for OMRP for NVD.
 We observed the same for CEP1, 10D, and DB1.  
 The coverage probabilities from applying the (nonoverlapping) MRP algorithm to these problems presented in \citep{Bayraksan2006} agree with our results: for the newsvendor problem, coverage probability drops as $m$ increases and the coverage probability of CEP1 (not shown) remains fairly constant around the desired value of $90\%$. 
 Coverage probability for 10D (not shown) and {\it estimated} coverage probability for DB1 (also not shown) were very high, more than $0.99$.  
 The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much more significant than the variance.
+
+\subsection{Computational Efficiency}
+\label{ssec:compeff}
+
+xxx Add new graphs here \bigskip 
+
+xxx Write new text, etc. \bigskip 
+
+xxx Revise the recommendations on gammabar \bigskip 
 
 Because variance reduction drops quickly as $\gammab$ drops below $1$, we recommend using an intermediate value of $\gammab$, such as $1/3$ or $1/4$, to gain the majority of the variance reduction, while reducing the number of optimization problems to be solved. 
 Warm-starting the algorithm to solve the sampling problems, when such as scheme is available, can significantly reduce the computation times.
@@ -834,7 +850,8 @@ Empirical results with small sample sizes indicate that the asymptotic reduction
 \section*{Acknowledgments}
 The authors thank Andrzej Ruszczy{\'{n}}ski and Artur {\'{S}}wietanowski for
 access to their regularized decomposition code, which was used to solve CEP1 and DB1. 
-%This research is supported in part by the National Science Foundation under Grants DMS-0602173 and EFRI-0835930.  
+The authors are also grateful to the associate editor and two anonymous referees for valuable suggestions that significantly improved both the content and the presentation of the paper. 
+%This research has been supported in part by the National Science Foundation under Grant(s)  EFRI-0835930 and CMMI-1345626 ??? 
 An earlier version of this paper appeared in \citep{love2011overlapping}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
