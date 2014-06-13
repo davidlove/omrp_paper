@@ -128,7 +128,7 @@ In this paper we show that the same benefits can be obtained from overlapping ba
 A natural setting where batch means are used in stochastic optimization (especially in stochastic programming) is for assessing solution quality. 
 This typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
 Because optimality gap estimators can be difficult to analyze statistically, a common approach is to use nonoverlapping batches of data to generate a number of optimality gap estimators. 
-These individual estimators are then used to form point and interval estimators applying the classical nonoverlapping batch means method.
+These individual estimators are then used to form point and interval estimators applying the nonoverlapping batch means method.
 This is referred to as the Multiple Replications Procedure (MRP) and was initially discussed in \citep{Mak1999}.   
 In this paper, we formulate an overlapping batches version of MRP, allowing for partial overlap, and provide conditions under which the resulting gap estimators exhibit reduced variance when compared to their counterparts obtained via nonoverlapping batches.
 We also show that the resulting point estimators are strongly consistent and the interval estimators are asymptotically valid. 
@@ -200,7 +200,7 @@ Recently, the approach of (nonoverlapping) batching has been used for assessing 
 Our aim is to apply the idea of overlapping batches to MRP.  
 Overlapping could help to obtain better variance estimators with simple data reuse, resulting in improved CIs.
 %Especially for problems where sampling error is dominant, this simple data reuse method could yield better estimators.
-We note several differences in this setting compared to the classical setting.  
+We note several differences in this setting compared to the classical simulation setting.  
 In simulation output analysis, the point of interest is that of estimating the variance of the sample mean of a covariance stationary process.  
 We are interested in estimating the variance of an optimality gap estimator.  
 Notice that an optimality gap estimator not only has a sample mean $(\frac{1}{m} \sum_{i=1}^m f(\xh,\xiti))$ but also a minimized sample mean $(\zs_m)$.  
@@ -350,7 +350,7 @@ We begin our discussion with variably overlapping batches and then define the es
 
 As before, let $m$ denote the batch size, $n$ the total sample size and $k = \lfloor \tfrac{n}{m} \rfloor$ be the number of nonoverlapping batches.  
 In this paper, we use the {\it batch nonoverlap parameter} $1 \leq \gamma \leq m$ to denote how much neighboring batches do {\it not} overlap.  
-For instance, $\gamma = m$ corresponds to the classical case of nonoverlapping batches and $\gamma = 1$ corresponds to the maximally overlapping case of \citet{Meketon1984}.  
+For instance, $\gamma = m$ corresponds to the case of nonoverlapping batches and $\gamma = 1$ corresponds to the maximally overlapping case of \citet{Meketon1984}.  
 In general, $\gamma$ can take any integer value between and including $[1,m]$. 
 Let $\lfloor \cdot \rfloor$ be the greatest integer that is less than or equal to its argument. 
 The sample mean of each batch estimator is calculated similarly, 
@@ -444,17 +444,18 @@ We make the following assumptions:
 
 \begin{description}
 	\item[A1] Samples of the random variable $\xit$ are i.i.d.
-	\item[A2] $\sup_{\x \in X} \e{f(\x,\xi)^{4}} < \infty$.
+	\item[A2] $\sup_{\x \in X} \e{f(\x,\xit)^{4}} < \infty$.
 	\item[A3] (\ref{eq:sto_prog}) has a unique optimal solution $\xs$ and $\p{\xs_m \neq \xs} \rightarrow 0$ exponentially fast as $m \rightarrow \infty$.  
            That is, there exists constants $M > 0$ and $c > 0$ such that $\log(\p{\xs_m \neq \xs}) \leq -cm$ for all $m > M$.
 \end{description}
 
 First, we restrict our attention to i.i.d.\ sampling by A1.
-The classical variance-reduction results for overlapping batches show that $\var{n_l VG_l}$ is reduced by overlapping, thus requiring at least finite fourth moments. 
-Finally, our proof relies on an exponential rate of convergence of the sampled solution to the true solution of the problem.  
+The results for overlapping batches from the simulation output analysis indicate that $\var{n_l VG_l}$ may be reduced by overlapping, thus requiring at least finite fourth moments. 
+We will formally show this result in Section~\ref{ssec:var_reduct}.
+Our proof relies on an exponential rate of convergence of the sampled solution to the true solution of the problem, specified by A3.  
 Assumption A3 can be satisfied for different classes of problems with unique optimal solutions.  
 \citet{shapiro2000rate} establish exponential rates of convergence for a class of (\ref{eq:sto_prog}), which include two-stage stochastic linear programs with recourse when the support of $\xit$ is finite.   
-\citet{kleywegt2002sample} show that assumption A3 can be satisfied for discrete stochastic programs (i.e., when $X$ is a finite set) under the condition that the moment generating function of $f(\xs,\xit) - f(\x,\xit)$ for $x \in X \backslash \{\xs\}$ is finite valued on $\R$.  
+\citet{kleywegt2002sample} show that assumption A3 can be satisfied for discrete stochastic programs (i.e., when $X$ is a finite set) under the condition that the moment generating function of $f(\xs,\xit) - f(\x,\xit)$ for $\x \in X \backslash \{\xs\}$ is finite valued on $\R$.  
 This class of problems includes stochastic integer programs with recourse.
   We present computational results on both stochastic linear and integer programs with recourse in \S \ref{sec:comp}.
 
@@ -638,7 +639,7 @@ for which it suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \ri
 \end{proof} 
 
 
-Theorem \ref{thm:varvar_conv} shows conditions under which the same asymptotic variance reduction results are achieved for the OMRP optimality gap variance estimator. 
+Theorem \ref{thm:varvar_conv} gives conditions under which the same asymptotic variance reduction results are achieved for the OMRP optimality gap variance estimator. 
 We will empirically examine the variance reduction for small sample sizes in \S \ref{sec:comp}. 
 %We end our theoretical properties in the next section by examining the CIs formed using OMRP. 
 
@@ -822,9 +823,9 @@ Estimates for $\e{nVG}$ showed a similar pattern for CEP1, 10D, and DB1.
 Those graphs are omitted for brevity.
 
 Finally, Figure~\ref{fig:nv}(b) shows the coverage probability of CIs generated by OMRP for several values of $m$ across varying values of $\gamma/m$ for the newsvendor problem.  
-The results of the classical overlapping batches estimators show that coverage probability does not change with the amount of overlap, which we can  empirically see in this figure for OMRP for NVD.
+The results of the overlapping batches estimators from the simulation literature show that coverage probability does not change with the amount of overlap, which we can  empirically see in this figure for OMRP for NVD.
 We observed the same for CEP1, 10D, and DB1.  
-The coverage probabilities from applying the (nonoverlapping) MRP algorithm to these problems presented in \citep{Bayraksan2006} agree with our results: for the newsvendor problem, coverage probability drops as $m$ increases and the coverage probability of CEP1 (not shown) remains fairly constant around the desired value of $90\%$. 
+The coverage probabilities from applying the (nonoverlapping) MRP algorithm to these problems presented in \citep{Bayraksan2006} agree with our results: for the newsvendor problem, coverage probability drops as $m$ increases and the coverage probability of CEP1 (not shown for brevity) remains fairly constant around the desired value of $90\%$. 
 Coverage probability for 10D (not shown) and {\it estimated} coverage probability for DB1 (also not shown) were very high, more than $0.99$.  
 The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much more significant than the variance.
 
@@ -844,7 +845,7 @@ Warm-starting the algorithm to solve the sampling problems, when such a scheme i
 \section{Conclusions}
 \label{sec:concl}
 
-We have extended previous work from simulation output analysis to assessing solution quality in stochastic programming by means of variably overlapping batches \citep{Meketon1984,Song1992,Welch1987} for Monte Carlo simulation-based estimators of optimality gaps in stochastic programs \citep{Mak1999}. 
+We have applied the overlapping batch means method from simulation output analysis \citep{Meketon1984,Song1992,Welch1987} to assessing solution quality in stochastic programming, in particular, to Monte Carlo simulation-based estimators of optimality gaps \citep{Mak1999}. 
 We have provided conditions under which the resulting point estimator of the optimality gap and its associated sample variance are consistent, the same variance reduction can be achieved, and asymptotically valid CIs can be formed. 
 Empirical results with small sample sizes indicate that the asymptotic reductions in variance of the variance estimator show a similar decrease in OMRP, while bias and coverage probability remain unaffected. 
 
