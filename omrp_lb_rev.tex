@@ -127,10 +127,10 @@ In this paper we show that the same benefits can be obtained from overlapping ba
   
 A natural setting where batch means are used in stochastic optimization (especially in stochastic programming) is for assessing solution quality. 
 This typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
-Because optimality gap estimators can be difficult to analyze statistically, a common approach is to use nonovelapping batches of data to generate a number of optimality gap estimators. 
+Because optimality gap estimators can be difficult to analyze statistically, a common approach is to use nonoverlapping batches of data to generate a number of optimality gap estimators. 
 These individual estimators are then used to form point and interval estimators applying the classical nonoverlapping batch means method.
 This is referred to as the Multiple Replications Procedure (MRP) and was initially discussed in \citep{Mak1999}.   
-In this paper, we formulate an ovelapping batches version of MRP, allowing for partial overlap, and provide conditions under which the resulting gap estimators exhibit reduced variance when compared to their counterparts obtained via nonoverlapping batches.
+In this paper, we formulate an overlapping batches version of MRP, allowing for partial overlap, and provide conditions under which the resulting gap estimators exhibit reduced variance when compared to their counterparts obtained via nonoverlapping batches.
 We also show that the resulting point estimators are strongly consistent and the interval estimators are asymptotically valid. 
 We also present computational results to examine small-sample behavior. 
 Our experiments indicate that the use of overlapping estimators results in gap estimators achieving lower variance than their nonoverlapping counterparts, along with comparable bias and interval coverage---for both small- and large-sample cases.
@@ -168,7 +168,7 @@ We assume that this solution is given as input to our procedures, and hence fixe
 
 The optimality gap $\e{f(\xh,\xit)} - \zs$ often cannot be calculated exactly. First, for a given candidate solution $\xh \in X$, evaluation of $\e{f(\xh,\xit)}$ typically involves a difficult multidimensional integral. 
 Second, we do not know $\zs$. 
-In many fields of optimization, the second problem is alleviated by obtaining lower bounds on $\zs$ through relaxations such as integrality, Lagrangian, or semidefinite relations.
+In many fields of optimization, the second problem is alleviated by obtaining lower bounds on $\zs$ through relaxations such as integrality, Lagrangian, or semidefinite relaxations.
 As a result, it is common to evaluate an upper bound on the optimality gap. 
 This motivates estimating the upper bound on the optimality gap in stochastic programming by using Monte Carlo simulation.
 Given a sample size $m$, an upper bound on the optimality gap can be obtained by $$
@@ -210,7 +210,7 @@ Therefore, analysis of the asymptotic benefits of overlapping becomes more compl
 We overcome this technical difficulty by approximating the optimality gap estimators by their nonoptimized counterparts (see \S \ref{sec:theory}).  
 The nonoptimized counterparts are (regular) overlapping batch means estimators (without any optimization present); therefore, they have the desired statistical properties of approximately the same bias and lower variances compared to their nonoverlapping versions. 
 We establish convergence of the optimality gap estimators that use overlapping to their nonoptimized counterparts. 
-Another difference between our setting and simulation output analysis is that once the data are generated through a simulation, it can be reused without much additional computational effort to obtain the OBM variance estimator.  
+Another difference between our setting and simulation output analysis is that once the data are generated through a simulation, they can be reused without much additional computational effort to obtain the OBM variance estimator.  
 In this setting, due to the need to solve a sampling problem (SP$_m$), the computational effort may increase with data reuse.  
 This can be alleviated in two ways. 
 First, near-optimal variance reduction can be obtained by partially overlapping the batches \citep{Welch1987,Song1992}.  
@@ -307,7 +307,7 @@ That is,
 \end{equation}
 in the limit as batch size $m$ and the number of batches $(n/m)$ tend to infinity.  
 Note that the degrees of freedom in (\ref{eq:overlap_variance_def}) is slightly different than in \citep{Meketon1984}.  
-The degrees of freedom in (\ref{eq:overlap_variance_def}) makes $\vart{\ybb}$ an unbiased estimator for i.i.d.\ data for all finite $m$ and $n$ with the same asymptotic benefits \citep{Song1992}.  
+The degrees of freedom in (\ref{eq:overlap_variance_def}) make $\vart{\ybb}$ an unbiased estimator for i.i.d.\ data for all finite $m$ and $n$ with the same asymptotic benefits \citep{Song1992}.  
 The $(1-\alpha)$-level approximate CI is similarly formed by $\ybb \pm t_{3(k-1)/2,\alpha/2} \sqrt{\vart{\ybb}}$, with an adjustment to the degrees of freedom.
 
 \citet{Welch1987} established the relationship between OBM and spectral estimators and also considered variable amounts of overlap, see also \citep{Song1992}.  
@@ -330,7 +330,7 @@ Since we are assessing the quality of a given solution $\xh \in \X$, we suppress
 The optimality gap estimator $\gb_j$ is similar to $\yb_j$ with individual observations $y^{m(j-1)+i} = f(\xh,\xit^{m(j-1)+i}) - f(\xs_j,\xit^{m(j-1)+i})$, for $i=1,\ldots,m$ and $j=1,\ldots, k$.
 Notice that, in this case, $y^i$ not only depends on observation $i$ of batch $j$, $\xit^{m(j-1)+i}$, but all the observations in that batch $\xit^{m(j-1)+1},\xit^{m(j-1)+2},\ldots,\xit^{m(j-1)+m}$ because $\xs_j$ is the optimal solution to (\ref{eq:sto_prog_m}) given in (\ref{eq:mrp_gap}).   
 As before, after $k$ estimates are obtained, the overall mean of these estimates $\gbb = \frac{1}{k} \sum_{j=1}^k \gb_j$ provides a point estimator of the optimality gap.  
-The sample variance is obtained as in (\ref{eq:var}) by $\varh{\gbb} = \frac{1}{k} \frac{1}{k-1} \sum_{j=1}^k (\gb_j - \gbb)^2$, which results in a one-sided CI $\left[0, \gbb + t_{k-1,\alpha} \sqrt{\varh{\gbb}} \right]$ that has a level of significance, which is approximately $\alpha$.
+The sample variance is obtained as in (\ref{eq:var}) by $\varh{\gbb} = \frac{1}{k} \frac{1}{k-1} \sum_{j=1}^k (\gb_j - \gbb)^2$, which results in an approximate $(1-\alpha)$-level one-sided CI $\left[0, \gbb + t_{k-1,\alpha} \sqrt{\varh{\gbb}} \right]$.
 
 Notice that the minimization in the second term on the right-hand side of (\ref{eq:mrp_gap}) gives rise to a biased gap estimator (recall the upper bound on the optimality gap).  
 Thus, we can expect that the true probability of the optimality gap residing within the CI to be greater than the $1 - \alpha$ suggested by the above calculation.  
@@ -382,6 +382,7 @@ If $\ogb$ is an integer, $d_{\gamma} = \frac{3}{2+\gammab^2}$.  For maximally ov
  
 
 \subsection{Definition of Estimators for OMRP}
+
 In order to apply overlapping batches to MRP, we need to keep track of solutions to sampling problems (SP$_m$) for each batch of size $m$.  
 Toward this end, let $B(i)$ denote the set of batches $j \in \left\{1, 2, \dots, \nb \right\}$ observation $\xiti$ is used in, $i = 1, 2, \dots, n$.  
 See Figure \ref{fig:overlap_nonint} for an example with $n=18$, $m = 6$ and $\gamma = 2$.  
@@ -450,7 +451,7 @@ We make the following assumptions:
 
 First, we restrict our attention to i.i.d.\ sampling by A1.
 The classical variance-reduction results for overlapping batches show that $\var{n_l VG_l}$ is reduced by overlapping, thus requiring at least finite fourth moments. 
-Finally, our proof relies on an exponential rate of convergence of sampled solution to the true solution of the problem.  
+Finally, our proof relies on an exponential rate of convergence of the sampled solution to the true solution of the problem.  
 Assumption A3 can be satisfied for different classes of problems with unique optimal solutions.  
 \citet{shapiro2000rate} establish exponential rates of convergence for a class of (\ref{eq:sto_prog}), which include two-stage stochastic linear programs with recourse when the support of $\xit$ is finite.   
 \citet{kleywegt2002sample} show that assumption A3 can be satisfied for discrete stochastic programs (i.e., when $X$ is a finite set) under the condition that the moment generating function of $f(\xs,\xit) - f(\x,\xit)$ for $x \in X \backslash \{\xs\}$ is finite valued on $\R$.  
@@ -605,12 +606,12 @@ for which it suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \ri
         Notice in Figure \ref{fig:overlap_nonint}, we see $\left\lceil \gammab^{-1} \right\rceil = 3$ sets of nonoverlapping batches $\{1,4,7\}$, $\{2,5\}$, and $\{3,6\}$, each of which has two fringe batches.  
         In general, there are $\left\lceil \gammab^{-1} \right\rceil$ sets of nonoverlapping batches, each of which will have two fringe batches, and $n_b - 2\left\lceil \gammab^{-1} \right\rceil$ center batches.
 	
-	The fringe batches will come in identically distributed pairs.  
-        The first and last batch would be identically distributed, as would the second and second-to-last, etc.  
+	The fringe batches come in identically distributed pairs.  
+        The first and last batch are identically distributed, as are the second and second-to-last, etc.  
         We know this because we could reverse the order of the i.i.d.\ sample and perform the batching again to get the exact same batch structure.  
         Rewriting to take this into account, letting $A_j = (\gb_j - \gbb)^2 - (\db_j - \dbb)^2$, and continuing from (\ref{eq:vvar_conv_pf_1}),
 	\begin{align*}
-		& \left( \frac{n}{dt} \right)^2 n_b \e{ \sum_{1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
+		& \left( \frac{n}{dt} \right)^2 n_b \e{ \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
 		 =  & \left( \frac{n}{dt} \right)^2 n_b \e{\left[ \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \left[ A_j \right]^2 \
 		 + \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \left[ A_j \right]^2 \
 		 + \sum_{j=n_b-\left\lceil \gammab^{-1} \right\rceil+1}^{n_b} \left[ A_j \right]^2 \right]\
@@ -667,9 +668,9 @@ The degrees of freedom $d_l$ is the inverse of (\ref{eq:var_reduct_formula}) usi
 \end{proof}
 
 The asymptotic validity of the OMRP CI requires $n_l VD_l$ to converge in probability to $\sigma^{2}_{\xh}$. 
-This can be achieved either by almost sure or mean-square convergence, which gives a larger range of $r$ in the batching structure.
+This can be achieved either by almost sure or mean-square convergence, where the latter gives a larger range of $r$ in the batching structure.
 Also, a hypothesis of Theorem~\ref{thm:conf_int} is that $\xh \neq \xs$.  
-For $\xh = \xs$, $\mu_\xh = 0$, and therefore, we have $\lim_{l\rightarrow\infty} \p{\mu_\xh \leq I^G_l} = 1$. 
+For $\xh = \xs$, $\mu_\xh = 0$; therefore, in this case, we have $\lim_{l\rightarrow\infty} \p{\mu_\xh \leq I^G_l} = 1$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computational Results}
@@ -757,8 +758,9 @@ Figures~\ref{fig:varvar1} and \ref{fig:varvar2} show the reduction of variance, 
 The solid lines in these figures show the theoretical variance reduction from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
 Empirical results agree with the theoretical values well, with more variability observed in CEP1, 10D, and DB1. 
 These experiments suggest that similar variance reduction can be achieved in stochastic programming by overlapping the batches, even with small sample sizes.
-We note that the variance reduction in DB1 can be less than the asymptotic amount. %for the small sample sizes used in these experiments. 
-Due its size, DB1 has not yet been solved to optimality, therefore, it may lack a unique optimal solution. 
+We note that the variance reduction in DB1 can be less than the asymptotic amount %for the small sample sizes used in these experiments. 
+because due its size, DB1 has not yet been solved to optimality; therefore, it may lack a unique optimal solution. 
+%, violating assumption A3. (?)
 Even with the relatively small sample sizes compared to the size of this problem, however, overlapping appears to achieve some variance reduction. 
 
 
@@ -836,7 +838,7 @@ xxx Write new text, etc. \bigskip
 xxx Revise the recommendations on gammabar \bigskip 
 
 Because variance reduction drops quickly as $\gammab$ drops below $1$, we recommend using an intermediate value of $\gammab$, such as $1/3$ or $1/4$, to gain the majority of the variance reduction, while reducing the number of optimization problems to be solved. 
-Warm-starting the algorithm to solve the sampling problems, when such as scheme is available, can significantly reduce the computation times.
+Warm-starting the algorithm to solve the sampling problems, when such a scheme is available, can significantly reduce the computation times.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
