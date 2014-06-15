@@ -832,14 +832,39 @@ The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much 
 \subsection{Computational Efficiency}
 \label{ssec:compeff}
 
-xxx Add new graphs here \bigskip 
+\begin{figure}[htb!]
+	\centering
+	\subfloat[][]{
+	   \label{fig:efficiency_theory}
+	   \includegraphics[width=.5\textwidth]{images/comp_efficiency_theory}}
+	\subfloat[][]{
+	   \label{fig:efficiency_nv}
+	   \includegraphics[width=.5\textwidth]{images/nv_comp_efficiency}}
+		\caption{
+		Theoretical computational efficiency results for overlapping batches (left) and a comparison with measured computational efficiency for the Newsvendor problem using insertion sort (right).
+		Both graphs are scaled so that nonoverlapping batches produces a computational efficiency of 1.
+		}
+\label{fig:efficiency}
+\end{figure}
 
-xxx Write new text, etc. \bigskip 
+The increased computational workload from solving overlapping batches raises the question of the computational efficiency of this method to estimate $VG$.
+In this setting, computational efficiency may be defined as $[T(\gammab)\var{VG}]$ where $T(\gammab)$ is the computational time.
+Because variance reduction is known from (\ref{eq:var_reduct_formula}) we need only examine the computational time, which can be decomposed as $T(\gammab) = t(\gammab)\left(\nb\right)$ where $t(\gammab)$ is the average computation time per batch.
+Warm-starting an algorithm may be used to decrease the batch solution time for $\gammab < 1$, leading to a possible increase in computational efficiency.
 
-xxx Revise the recommendations on gammabar \bigskip 
+To investigate this, we assumed that computation time per batch can be approximated as $t(\gammab) \propto \gammab^p$ for some $p \geq 0$.
+Results for some values of $p$ are shown in Figure \ref{fig:efficiency_theory}.
+Efficiency gains increase with larger exponent $p$, but are positive even for small values of $p$ when $\gammab$ is sufficiently close to 1.
+At $p=1$, i.e., for problems where computational time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches.
 
-Because variance reduction drops quickly as $\gammab$ drops below $1$, we recommend using an intermediate value of $\gammab$, such as $1/3$ or $1/4$, to gain the majority of the variance reduction, while reducing the number of optimization problems to be solved. 
-Warm-starting the algorithm to solve the sampling problems, when such a scheme is available, can significantly reduce the computation times.
+We tested this theoretical relationship using the Newsvendor problem solved with insertion sort.
+The average computation time per batch was found empirically to be well approximated by power law with $p = 0.71$.
+The measured computational efficiency is compared to the theoretical result in Figure \ref{fig:efficiency_nv}.
+
+In cases where the exponent $p$ can be estimated the above theoretical method may be used to determine a reasonable value for $\gammab$.
+We can see in Figure \ref{fig:efficiency} that for some values of $p$ efficiency gian is nearly flat over a region of $\gammab$.
+In this case we recommend choosing a $\gammab$ near the right side of this region.
+This choice keeps efficiency high while decreasing computation time and preventing large decreases in efficiency in the event that $p$ was overestimated.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
