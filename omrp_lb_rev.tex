@@ -291,7 +291,7 @@ Under appropriate conditions, $n\varhat(\ybb)$ is a consistent estimator of $\si
 Overlapping batch means modifies this idea by taking batches given by $\yb_j(m) = \frac{1}{m} \sum_{i=1}^{m}$ $y^{(j-1)+i}$, for $j = 1, \dots, n-m+1$.
 As an example, suppose each batch contains $m$ observations and that there are a total of $n=2m$ observations.
 In the nonoverlapping case, there are only two batches: the first batch contains observations $y^1, y^2, \dots, y^m$ and the second batch contains observations $y^{m+1}, y^{m+2}, \dots, y^{2m}$.   
-In the overlapping batches of \citet{Meketon1984}, the first batch is as before, the second batch now consists of $y^2, y^3, \dots, y^{m+1}$, the third batch contains observations $y^3, y^4, \dots, y^{m+2}$ and so on.  
+In the overlapping batches of \citet{Meketon1984}, the first batch is as before, the second batch now consists of $y^2, y^3, \dots, y^{m+1}$, the third batch contains observations $y^3, y^4, \dots, y^{m+2}$, and so on.  
 This is what we call the \emph{maximally-overlapping} batch means method, because $m-1$ observations are common to---and only one observation changes between---adjacent batches.  
 
 The sample variance estimator is updated to
@@ -357,7 +357,7 @@ The sample mean of each batch estimator is calculated similarly,
 $
 \yb_j = \frac{1}{m} \sum_{i=1}^m y^{\gamma(j-1) + i},\ \  j = 1, 2, \dots, \nb, 
 $
-where $\nb$ is the number of batches used given $n$, $m$ and $\gamma$.  
+where $\nb$ is the number of batches used given $n$, $m$, and $\gamma$.  
 The sample variance estimator given in (\ref{eq:overlap_variance_def}) is changed to
 \begin{equation} \label{eq:variance_gamma}
 	\vartg{\ybb} = \frac{1}{\left( \tfrac{n}{m} - 1 \right) \left( \nb \right)}  \sum_{j=1}^{\nb} (\yb_j - \ybb)^2.
@@ -385,7 +385,7 @@ If $\ogb$ is an integer, $d_{\gamma} = \frac{3}{2+\gammab^2}$.  For maximally ov
 
 In order to apply overlapping batches to MRP, we need to keep track of solutions to sampling problems (SP$_m$) for each batch of size $m$.  
 Toward this end, let $B(i)$ denote the set of batches $j \in \left\{1, 2, \dots, \nb \right\}$ observation $\xiti$ is used in, $i = 1, 2, \dots, n$.  
-See Figure \ref{fig:overlap_nonint} for an example with $n=18$, $m = 6$ and $\gamma = 2$.  
+See Figure \ref{fig:overlap_nonint} for an example with $n=18$, $m = 6$, and $\gamma = 2$.  
 Here, the first batch uses observations $\xit^1, \xit^2, \xit^3, \xit^4, \xit^5, \xit^6$, the second batch uses $\xit^3, \xit^4, \xit^5, \xit^6, \xit^7, \xit^8$, and so on.  
 So, $B(1) = \{1\}$, $B(3) = \{1,2\}$, and $B(7)=\{2,3,4\}$.  
 As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$_m$) formed using the $j$th batch; $\xs_j \in \argmin_{\x \in X} \frac{1}{m} \sum_{i=1}^m f(\x,\xit^{\gamma(j-1) + i})$, $j = 1, 2, \dots, \nb$.
@@ -405,14 +405,14 @@ As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$
 		& & & & \multicolumn{6}{l}{[---------------3-----------------]} &
 		\multicolumn{6}{l}{[------------------6--------------------]} \\
 	\end{tabular}
-	\caption{Visual representation of overlapping batches with $n = 18$, $m = 6$ and $\gamma = 2$.  
+	\caption{Visual representation of overlapping batches with $n = 18$, $m = 6$, and $\gamma = 2$.  
         The brackets show which observations are used in each batch, and the numbers inside each bracket show the batch number $j$.}
 	\label{fig:overlap_nonint}
 \end{figure}
 
 The results on overlapping batch means occur in the limit as $n, m, k=n/m \rightarrow \infty$ \citep{damerdji1994strong,damerdji1995mean,Meketon1984,Song1992,Welch1987}.  
-Let $n_l, m_l$ and $k_l$ be sequences of numbers satisfying these requirements, then the limits will be taken as $l \rightarrow \infty$.  
-We assume a batching structure where $m_l = \lfloor n_l ^r \rfloor$ for some $0<r<1$ as is typical in simulation, and $n_l$ tends to infinity as $l \rightarrow \infty$.  
+Let $n_l, m_l$, and $k_l$ be sequences of numbers satisfying these requirements, then the limits will be taken as $l \rightarrow \infty$.  
+We assume a batching structure where $m_l = \lfloor n_l ^r \rfloor$ for some $0<r<1$, as is typical in simulation, and $n_l$ tends to infinity as $l \rightarrow \infty$.  
 In addition, we may desire that the batch nonoverlap parameter change with $l$, to ensure that $\gamma_l / m_l = \gammab_l$ converges to the constant $\gammab$.  
 Now we are ready to define the estimators for OMRP.
 \begin{align}
@@ -486,8 +486,7 @@ With $\xh$ and $\xs$ fixed, estimators (\ref{eq:dbar})--(\ref{eq:vd}) have the s
 Note that the optimal solution $\xs$ is not known. 
 However, the estimators (\ref{eq:dbar})--(\ref{eq:vd}) are used only to show convergence of (\ref{eq:gbar})--(\ref{eq:vg}); they are not necessary for carrying out the OMRP algorithm.  
 Throughout the rest of this section, we assume that the optimality gap estimators (\ref{eq:gbar})--(\ref{eq:vg}) and their nonoptimized counterparts (\ref{eq:dbar})--(\ref{eq:vd}) use identical samples and values of $n_
-l$, 
-$m_l$, and $\gamma_l$.  \smallskip 
+l$, $m_l$, and $\gamma_l$.  \smallskip 
 
 
 \subsection{Consistency}
@@ -774,8 +773,8 @@ Even with the relatively small sample sizes compared to the size of this problem
 	   \label{fig:cep1_varvar}
 	   \includegraphics[width=.5\textwidth]{images/cep1_varvar}}
 	\caption{
-		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problem
-		(a) NVD, and
+		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problems
+		(a) NVD and
 		(b) CEP1
 	}
 \label{fig:varvar1}
@@ -790,8 +789,8 @@ Even with the relatively small sample sizes compared to the size of this problem
 	   \label{fig:db1_varvar}
 	   \includegraphics[width=.5\textwidth]{images/db1_varvar}}
 		\caption{
-		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problem
-		(a) 10D, and
+		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problems
+		(a) 10D and
 		(b) DB1
 		}
 \label{fig:varvar2}
@@ -808,8 +807,8 @@ Even with the relatively small sample sizes compared to the size of this problem
 	   \includegraphics[width=.5\textwidth]{images/nv_cover_discrete}}
 	\caption{ 
 		Estimates of
-		(a) $\e{nVG}$, and 
-		(c) coverage probability of the CIs for various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches)
+		(a) $\e{nVG}$ and 
+		(b) coverage probability of the CIs for various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches)
 		 for NVD
 	}
 \label{fig:nv}
