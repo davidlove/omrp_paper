@@ -866,6 +866,20 @@ We can see in Figure \ref{fig:efficiency} that for some values of $p$ efficiency
 In this case we recommend choosing a $\gammab$ near the right side of this region.
 This choice keeps efficiency high while decreasing computation time and preventing large decreases in efficiency in the event that $p$ was overestimated.
 
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.5\textwidth]{images/work_comparison}
+	\caption{
+		A theoretical comparison of the computational work required to get equivalent variance reduction between OMRP and MRP when the number of batches are increased.
+		}
+\label{fig:comp_work_comparison}
+\end{figure}
+
+A final question on computational efficiency would be whether OMRP is more efficient than nonoverlapping MRP with a larger number of batches.
+In the nonoverlapping case, $\var{VG} \propto \frac{1}{k}$, so decreasing $\var{VG}$ to the level of maximally overlapping batches requires a $50\%$ increase in the number of batches, and thus a $50\%$ increase in computation time.
+Again assuming average time per batch can be represented as $T(\gammab) = \gammab^p$, Figure \ref{fig:comp_work_comparison} compares the increase in computational work for OMRP for several values of $p$ with the work increase for MRP to get an equivalent decrease in variance.
+We again see that OMRP is advantageous for larger values of $p$.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
 \label{sec:concl}
