@@ -56,29 +56,38 @@ Below, we go through in detail the suggestions of the Associate Editor.
 \item[]\textit{The paper is not clear in laying out a publishable contribution, and the motivation of the work is not clear.}
 \end{itemize}
 
-\noi
-We revised the introduction to clearly reflect the contributions of the paper and the motivation for the work, based on your comments and the referees.
+\noi xxx 
+We revised the introduction to clearly reflect the contributions of the paper and the motivation for the work, based on your and the referees' comments and the new material like computational efficiency added to the paper.
 \medskip  
 
 \begin{itemize}
-\item[] \textit{The experiments show that the confidence interval average widths and observed coverage probabilities are the same with overlapping batch means; the only difference is in decreased variability of the confidence interval widths. 
+\item[] \textit{%\ldots
+The experiments show that the confidence interval average widths and observed coverage probabilities are the same with overlapping batch means; the only difference is in decreased variability of the confidence interval widths. 
 That is, the variance of the variance estimator is reduced. 
 This second-order benefit should be weighed against the increased computation cost (not to mention complexity and restricted applicability) of the overlapping batch means method.}
-\end{itemize}
 
-\noi  
-xxx  Hmm We need to be careful addressing this comment but M1 of ref1 could help.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{The issue of computational efficiency is not addressed  in the paper. 
+\textit{The issue of computational efficiency is not addressed  in the paper. 
 In this setting the efficiency is often defined as the reciprocal of the computation time multiplied by the variance. 
 If this quantity were compared (overlapping batch means versus batch means) in the numerical experiments, I am curious if there are any examples where the efficiency is improved.}
 \end{itemize}
 
 \noi 
-xxxx Need to discuss
+Thank you for this suggestion. 
+It is indeed important to study computational efficiency in this context. 
+We created a new section, Section 5.4 (Computational Efficiency), to study the computational efficiency of overlapping estimators in the stochastic optimization setting. 
+When an algorithm has warm-starting capability, as the degree of overlapping increases,  solution time per batch could decrease; as a result, computational efficiency gains could be observed.  
+We discussed efficiency for a given functional form of the solution time per batch. 
+Depending on the effectiveness of warm-starting, maximizing computational efficiency provides guidelines on selecting the degree of overlapping. 
+We illustrated this method on the newsvendor problem using insertion sort. 
+Our experiments show that (i) the functional form used provides a good representation, (ii) increased computational efficiency over the nonoverlapping counterpart is indeed observed over a range of overlapping levels, and (iii) this analysis provides a way to select the degree of overlapping. 
+We discussed guidelines on selecting the degree of overlapping (for NVD or for a given generic problem) in Section 5.4 (Computational Efficiency). 
+\medskip 
+
+In addition, based on the comments of Referee 1, we also studied the efficiency of overlapping compared to increasing the number of batches in MRP to obtain (nonoverlapping) estimators with lower variances. 
+Our results indicate that when warm-starting is effective, overlapping is computationally more efficient than increasing the number of batches of MRP.
+We also illustrated this result on the newsvendor problem. 
+We believe the paper has improved as a result of the study of computational efficiency. 
+Thank you. 
 \medskip 
 
 
@@ -87,10 +96,14 @@ xxxx Need to discuss
 A link between less variable confidence interval widths and improved stochastic optimization efficiency would be helpful.}
 \end{itemize}
 
-\noi
-xxx  Is this really a new comment?  Looks like just continuation of the prev. comment. 
-Also, seems like this is what M1 of ref1 is asking us to do. 
-Once we have those results, we can argue more.
+\noi xxx 
+Based on your other comments and suggestions of the referees, we provided information on computational efficiency gains of overlapping in the context of assessing solution quality in stochastic programming. 
+These are detailed in Section 5.4 (Computational Efficiency). 
+(Please see our response to the previous comment.)
+We also changed Section 1 (Introduction) and Section 6 (Conclusions) to clearly motivate the study and usefulness of the results. 
+
+%xxx  Is this really a new comment?  Looks like just continuation of the prev. comment. So... combine it with previous comment???
+
 \medskip  
 
 \bigskip 
@@ -124,8 +137,8 @@ Done.
 \end{itemize}
 
 \noi
-Done. 
-% This sentence might go away. So please check at the end!
+This sentence was removed as a result of the computational efficiency study. 
+Based on the examination of computational efficiency, we provided new guidelines on selecting the degree of overlapping. 
 
 
 \end{document}
