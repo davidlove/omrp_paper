@@ -852,17 +852,19 @@ Because the variance of overlapping estimator relative to the nonoverlapping (MR
 Warm-starting an algorithm may be used to decrease the computation time per batch $t(\gammab)$ for $\gammab < 1$, leading to a possible increase in computational efficiency. 
 
 To investigate computational efficiency, we assumed that computation time per batch can be approximated as $t(\gammab) \propto \gammab^p$ for some $p \geq 0$.
-Results for some values of $p$ are shown in Figure \ref{fig:efficiency_theory}.
+Results for various values of $p$ are shown in Figure \ref{fig:efficiency_theory}. 
+This figure is constructed using $m = 1000$, but the results do not change substantially with different values of $m$.
 Efficiency gains increase with larger exponent $p$, but are positive even for small values of $p$ when $\gammab$ is sufficiently close to 1.
 At $p=1$, i.e., for problems where computational time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches of \cite{Meketon1984}.
 When $p$ is $0.71$, on the other hand, computational efficiency is observed for values of $\gammab$ from slightly lower than $0.3$ to $1$, and efficiency is maximized at a relatively flat region between $\gammab=0.5$ and $\gammab=0.8$.
 
-All theoretical curves in this section were computed using $m = 1000$, but the results do not change substantially with increasing batch size.
-Newsvendor computations used $m = 1000$ with $10,000$ replications.
+%All theoretical curves in this section were computed using $m = 1000$, but the results do not change substantially with increasing batch size.
+%Newsvendor computations used $m = 1000$ with $10,000$ replications.
 
-We tested this theoretical relationship using the Newsvendor problem solved with insertion sort.
-Insertion sort is an efficient sorting algorithm when the values are already largely sorted. 
+We tested this theoretical relationship using the newsvendor problem solved with insertion sort.
+Insertion sort is an efficient sorting algorithm when the values are already almost sorted. 
 Therefore, as overlapping increases, insertion sort results in a decreased solution time per batch for the NVD problem. 
+To test computational efficiency, we used $m = 1000$ with $10,000$ replications.
 The average computation time per batch was found empirically to be well approximated ($R^2 = 0.994$) by power law with $p = 0.71$.
 The empirically measured computational efficiency is compared to the theoretical result in Figure \ref{fig:efficiency_nv}, where the theoretical computational efficiency, shown in solid line, is repeated from Figure \ref{fig:efficiency_theory}.
 It appears that empirical observations match with the theoretical efficiency calculations well. 
@@ -892,7 +894,7 @@ For example, in the case of NVD, we recommend the use of value $\gammab=0.8$ as 
 A final question on computational efficiency would be whether OMRP is more efficient than nonoverlapping MRP with a larger number of batches.
 When generating observations is cheap, one could potentially increase the number of batches in MRP to obtain estimators with lower variances. 
 In the nonoverlapping case, $\var{VG} \propto \frac{1}{k}$, so decreasing $\var{VG}$ to the level of maximally overlapping batches requires a $50\%$ increase in the number of batches, and thus a $50\%$ increase in computation time.
-Continuing on in this way for various values of $\gammab$, we obtain the solid black curve in Figure \ref{fig:comp_work_comparison}. 
+Continuing on in this way for various values of $\gammab$, we obtain the solid black curve in Figure \ref{fig:comp_work_comparison} using $m=1000$. 
 This curve shows the increase in computational effort due to an increased number of batches in MRP in order to obtain the same variance level for OMRP across $\gammab$.
 If the work increase by OMRP is less than this solid black curve, then OMRP is computationally more efficient than increasing the number of batches in MRP. 
 Again, assuming average computation time per batch can be represented as $T(\gammab) \propto \gammab^p$, Figure \ref{fig:comp_work_comparison} compares the increase in computational work for OMRP for several values of $p$ with the work increase for MRP to get an equivalent decrease in variance.
