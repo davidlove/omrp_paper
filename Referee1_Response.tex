@@ -89,9 +89,18 @@ While I am not suggesting that this exploration needs to be made for all three t
 \end{itemize}
 
 \noi 
-xxx Need to discuss xxx  \medskip 
-We performed such an analysis and provide the results of this in the new subsection 7.4... ?? 
-Etc.
+Based on your and the associate editor's comments, we studied the computational efficiency of the OMRP estimators. 
+The results of this study are presented in a new section, Section 5.4 (Computational Efficiency).
+%We studied the computational efficiency of the OMRP estimators, based on your and the associate editor's comments, and provided a summary of our results in a new section, Section 5.4 (Computational Efficiency). 
+We first approached efficiency by the reciprocal of variance multiplied by the computation time, per associate editor's suggestion. 
+Maximizing the computational efficiency defined in this manner provided guidelines on selecting the degree of overlap. 
+We then looked at how OMRP compared to increasing the number batches in MRP.
+We examined computational efficiency both theoretically and empirically. 
+For empirical evaluation, we used the newsvendor problem with insertion sort, based on your suggestions. 
+We found that when effective warm-starting is available, overlapping can lead to more efficient estimators than (nonverlapping) MRP, both when the direct nonoverlapping counterpart is used or when the number of batches in MRP is increased to match the variance of the overlapping counterpart.  
+All these results are presented in Section 5.4 (Computational Efficiency). 
+Thank you for this suggestion. 
+We believe the study of computational efficiency significantly improved the paper. 
 \medskip
 
 
@@ -287,7 +296,8 @@ Done.
 
 \noindent 
 We split these two figures into three and enlarged each graph. 
-All the new graphs added to the paper in Section 5.4 (Computational Efficiency) are also larger compared to those in the previous version of the paper. 
+We also enlarged the legends in these graphs to improve clarity.
+All the new graphs added to the paper in Section 5.4 (Computational Efficiency) are also larger, with legible legends. 
 \medskip 
 
 
@@ -308,7 +318,7 @@ We also changed the wording in Section 5.3 (Results of Experiments) to make it c
 
 \noindent 
 Thank you for this suggestion. 
-xxx We expanded this paragraph based on our findings. 
-xxx Please note that this paragraph now appears in a new section (\S 5.4 Computational Efficiency). 
+Based on our study of computational efficiency of the OMRP estimators, we  provided an updated and expanded guidance on selecting the degree of overlap. 
+Please note that this guidance appears in the third and last paragraphs of the new section, Section 5.4 (Computational Efficiency). 
 
 \end{document}
