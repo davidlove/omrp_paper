@@ -157,13 +157,12 @@ We denote an optimal solution to (\ref{eq:sto_prog}) as $\xs$ and an optimal sol
 
 
 
-We wish to assess the quality of a candidate solution $\xh \in X$. 
+We wish to assess the quality of a candidate solution $\xh \in X$, which may have been found in any way.
 Assessing solution quality is important in practice because as (\ref{eq:sto_prog}) typically cannot be solved exactly, one only has an approximate solution $\xh$ without verification of its quality.
 Assessing solution quality is also a critical component of stopping criteria in algorithms designed to (approximately) solve (\ref{eq:sto_prog}).
 We define the quality of $\xh$ by its optimality gap, $\e{f(\xh,\xit)} - \zs$. 
 The lower the optimality gap, the higher the quality of the solution; and a zero optimality gap implies that the solution is optimal. 
-Note that the candidate solution $\xh \in X$ may have been found in any way. 
-We assume that this solution is given as input to our procedures, and hence fixed, throughout this paper. 
+We assume that the candidate solution $\xh$ is given as input to our procedures, and hence fixed, throughout this paper. 
 
 
 The optimality gap $\e{f(\xh,\xit)} - \zs$ often cannot be calculated exactly. First, for a given candidate solution $\xh \in X$, evaluation of $\e{f(\xh,\xit)}$ typically involves a difficult multidimensional integral. 
@@ -203,10 +202,10 @@ Overlapping could help to obtain better variance estimators with simple data reu
 We note several differences in this setting compared to the classical simulation setting.  
 In simulation output analysis, the point of interest is that of estimating the variance of the sample mean of a covariance stationary process.  
 We are interested in estimating the variance of an optimality gap estimator.  
-Notice that an optimality gap estimator not only has a sample mean $(\frac{1}{m} \sum_{i=1}^m f(\xh,\xiti))$ but also a minimized sample mean $(\zs_m)$.  
-Minimization changes the statistical properties of sample means.  
-For instance, the central limit theorem may not hold for a minimized sample mean, even though it holds for each $\x \in \X$.  
-Therefore, analysis of the asymptotic benefits of overlapping becomes more complicated.
+An optimality gap estimator not only has a sample mean $(\frac{1}{m} \sum_{i=1}^m f(\xh,\xiti))$ but also a minimized sample mean $(\zs_m)$.  
+Minimization changes the statistical properties of sample means, complicating the asymptotic analysis.  
+%For instance, the central limit theorem may not hold for a minimized sample mean, even though it holds for each $\x \in \X$.  
+%Therefore, analysis of the asymptotic benefits of overlapping becomes more complicated.
 We overcome this technical difficulty by approximating the optimality gap estimators by their nonoptimized counterparts (see \S \ref{sec:theory}).  
 The nonoptimized counterparts are (regular) overlapping batch means estimators (without any optimization present); therefore, they have the desired statistical properties of approximately the same bias and lower variances compared to their nonoverlapping versions. 
 We establish convergence of the optimality gap estimators that use overlapping to their nonoptimized counterparts. 
@@ -215,9 +214,9 @@ In this setting, due to the need to solve a sampling problem (SP$_m$), the compu
 This can be alleviated in two ways. 
 First, near-optimal variance reduction can be obtained by partially overlapping the batches \citep{Welch1987,Song1992}.  
 Partial overlapping results in a smaller number of batches; hence, fewer optimization problems need to be solved.
-In this paper, we consider variable amounts of overlap and examine this both theoretically and empirically. 
 Second, in many solution methods, warm-starting can be used to quickly solve the sampling approximations with overlapping samples, considerably reducing solution time.
-
+In this paper, we consider variable amounts of overlap and examine this both theoretically and empirically. 
+% THIS LAST SENTENCE NEEDS TO CHANGE! 
 
 
 
@@ -280,7 +279,7 @@ $
 	\yb_j = \frac{1}{m} \sum_{i=1}^{m} y^{m(j-1)+i}, j = 1,2, \dots, k,
 $
 and the overall sample mean $\ybb = \frac{1}{k} \sum_{j=1}^k \yb_j = \frac{1}{n} \sum_{i=1}^n y^i$ provides a point estimator of $\mu$.  
-The variance estimator of the batch means, which is $n/m$ times the sample variance, is calculated as
+The variance estimator of the batch means, which is $m/n$ times the sample variance, is calculated as
 \begin{equation} \label{eq:var}
 	\varhat(\ybb) = \frac{m}{n}\frac{1}{k-1} \sum_{j=1}^k \left( \yb_j - \ybb \right)^2.
 \end{equation}
@@ -294,12 +293,11 @@ In the nonoverlapping case, there are only two batches: the first batch contains
 In the overlapping batches of \citet{Meketon1984}, the first batch is as before, the second batch now consists of $y^2, y^3, \dots, y^{m+1}$, the third batch contains observations $y^3, y^4, \dots, y^{m+2}$, and so on.  
 This is what we call the \emph{maximally-overlapping} batch means method, because $m-1$ observations are common to---and only one observation changes between---adjacent batches.  
 
-The sample variance estimator is updated to
+The variance estimator is updated to
 \begin{equation} \label{eq:overlap_variance_def}
 	\vart{\ybb} = \frac{1}{(\tfrac{n}{m}-1)(n - m + 1)}\sum_{j=1}^{n-m+1} (\yb_j(m) - \ybb)^2.
 \end{equation}
-Note that the corresponding overlapping batch means are no longer independent. 
-However, by simply reusing the data in this fashion---and seemingly in a contradictory way that induces dependence---one obtains a better variance estimator. 
+The corresponding overlapping batch means are no longer independent; however, by simply reusing the data in this fashion---and seemingly in a contradictory way that induces dependence---one obtains a better variance estimator. 
 \citet{Meketon1984} show that: (i) the overlapping variance estimator has nearly the same bias as the standard nonoverlapping variance estimator, and (ii) the overlapping estimator has only two-thirds of the asymptotic variance of the nonoverlapping one.  
 That is, 
 \begin{equation} \label{eq:asym_var}
@@ -328,11 +326,11 @@ Taking $n$ observations of the random variables $\xit$ and splitting them into $
 where $\xs_j$ denotes an optimal solution to (\ref{eq:sto_prog_m}) of batch $j$ given on the right-hand side of (\ref{eq:mrp_gap}).    
 Since we are assessing the quality of a given solution $\xh \in \X$, we suppress it from the notation $\gb_j$.
 The optimality gap estimator $\gb_j$ is similar to $\yb_j$ with individual observations $y^{m(j-1)+i} = f(\xh,\xit^{m(j-1)+i}) - f(\xs_j,\xit^{m(j-1)+i})$, for $i=1,\ldots,m$ and $j=1,\ldots, k$.
-Notice that, in this case, $y^i$ not only depends on observation $i$ of batch $j$, $\xit^{m(j-1)+i}$, but all the observations in that batch $\xit^{m(j-1)+1},\xit^{m(j-1)+2},\ldots,\xit^{m(j-1)+m}$ because $\xs_j$ is the optimal solution to (\ref{eq:sto_prog_m}) given in (\ref{eq:mrp_gap}).   
+Notice that in this case, $y^i$ not only depends on observation $i$ of batch $j$, $\xit^{m(j-1)+i}$, but all the observations in that batch $\xit^{m(j-1)+1},\xit^{m(j-1)+2},\ldots,\xit^{m(j-1)+m}$ because $\xs_j$ is the optimal solution to (\ref{eq:sto_prog_m}) given in (\ref{eq:mrp_gap}).   
 As before, after $k$ estimates are obtained, the overall mean of these estimates $\gbb = \frac{1}{k} \sum_{j=1}^k \gb_j$ provides a point estimator of the optimality gap.  
-The sample variance is obtained as in (\ref{eq:var}) by $\varh{\gbb} = \frac{1}{k} \frac{1}{k-1} \sum_{j=1}^k (\gb_j - \gbb)^2$, which results in an approximate $(1-\alpha)$-level one-sided CI $\left[0, \gbb + t_{k-1,\alpha} \sqrt{\varh{\gbb}} \right]$.
+The variance estimator is obtained as in (\ref{eq:var}) by $\varh{\gbb} = \frac{1}{k} \frac{1}{k-1} \sum_{j=1}^k (\gb_j - \gbb)^2$, which results in an approximate $(1-\alpha)$-level one-sided CI $\left[0, \gbb + t_{k-1,\alpha} \sqrt{\varh{\gbb}} \right]$.
 
-Notice that the minimization in the second term on the right-hand side of (\ref{eq:mrp_gap}) gives rise to a biased gap estimator (recall the upper bound on the optimality gap).  
+The minimization in the second term on the right-hand side of (\ref{eq:mrp_gap}) gives rise to a biased gap estimator (recall the upper bound on the optimality gap).  
 Thus, we can expect that the true probability of the optimality gap residing within the CI to be greater than the $1 - \alpha$ suggested by the above calculation.  
 This is shown empirically in \citep{Bayraksan2006}, which also investigates additional methods for using a smaller number of replications (e.g., 1 or 2) with an alternative variance estimator to compute a CI.  
 See also \citep{bayraksan_morton_09,partani2006jackknife,partani_07} for variations of MRP aimed to reduce bias and variance.
@@ -358,7 +356,7 @@ $
 \yb_j = \frac{1}{m} \sum_{i=1}^m y^{\gamma(j-1) + i},\ \  j = 1, 2, \dots, \nb, 
 $
 where $\nb$ is the number of batches used given $n$, $m$, and $\gamma$.  
-The sample variance estimator given in (\ref{eq:overlap_variance_def}) is changed to
+The variance estimator given in (\ref{eq:overlap_variance_def}) is changed to
 \begin{equation} \label{eq:variance_gamma}
 	\vartg{\ybb} = \frac{1}{\left( \tfrac{n}{m} - 1 \right) \left( \nb \right)}  \sum_{j=1}^{\nb} (\yb_j - \ybb)^2.
 \end{equation}
@@ -483,8 +481,7 @@ To overcome this problem, we introduce the following unbiased optimality gap est
 These are essentially the same as the variably overlapping batches estimators in \S \ref{ssec:overlap} with $y^i = f(\xh,\xiti) - f(\xs,\xiti)$.  
 These are also defined identically to the original estimators (\ref{eq:gbar})--(\ref{eq:vg}) with the exception that $\xs_j$ from (\ref{eq:gbar}) and (\ref{eq:gbb}) is replaced by an optimal solution $\xs$ in (\ref{eq:dbar}) and (\ref{eq:dbb}).  
 With $\xh$ and $\xs$ fixed, estimators (\ref{eq:dbar})--(\ref{eq:vd}) have the same statistical properties as variably overlapping batches estimators in \S \ref{ssec:overlap}.  
-Note that the optimal solution $\xs$ is not known. 
-However, the estimators (\ref{eq:dbar})--(\ref{eq:vd}) are used only to show convergence of (\ref{eq:gbar})--(\ref{eq:vg}); they are not necessary for carrying out the OMRP algorithm.  
+The optimal solution $\xs$ is not known; however, the estimators (\ref{eq:dbar})--(\ref{eq:vd}) are used only to show convergence of (\ref{eq:gbar})--(\ref{eq:vg}) and not necessary for carrying out the OMRP algorithm.  
 Throughout the rest of this section, we assume that the optimality gap estimators (\ref{eq:gbar})--(\ref{eq:vg}) and their nonoptimized counterparts (\ref{eq:dbar})--(\ref{eq:vd}) use identical samples and values of $n_
 l$, $m_l$, and $\gamma_l$.  \smallskip 
 
@@ -498,7 +495,7 @@ We begin with two lemmas that establish exponential rates of convergence of cert
 	Under assumptions A1 and A3, $\p{\dbb_l - \gbb_l \neq 0} \rightarrow 0$ exponentially fast as $l \rightarrow \infty$.
 \end{lemma}
 
-\begin{proof} When the sampling problems used in the calculation of $\gbb$ all have optimal solutions that solve (SP), i.e., when $\xs_{j} = \xs$, for all $j=1,2,\ldots, \nbl$, then $\gbb_l = \dbb_l$. 
+\begin{proof} When all the sampling problems used in the calculation of $\gbb$ have optimal solutions that solve (SP), i.e., when $\xs_{j} = \xs$, for all $j=1,2,\ldots, \nbl$, then $\gbb_l = \dbb_l$. 
 Therefore, probability of the complement of this event provides an upper bound on the probability that $\dbb_l - \gbb_l \neq 0$. 
 Let $E^C$ denote the complement of event $E$. 
 Using this upper bound and continuing on, we obtain
@@ -546,12 +543,13 @@ We also use $\mu_{\xh} := \e{f(\xh,\xit) - f(\xs,\xit)}$ to denote the optimalit
         Thus $\sum_l \p{\dbb_l - \gbb_l \neq 0} < \infty$.  
         The desired result follows by the Borel-Cantelli Lemma.
 %
-(ii) This proof is nearly identical to above.  
-Note that
+(ii) This proof is nearly identical to above. 
+Similar to the proof of Lemma \ref{lem:gbb_prob}, we have
 	\[
-		\p{n_l VD_l -n_l VG_l \neq 0} \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C}
+		\p{n_l VD_l -n_l VG_l \neq 0} \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C}.
 	\]
-	and by the proof of Lemma \ref{lem:gbb_prob}, $\p{n_l VD_l -n_l VG_l \neq 0} \rightarrow 0$ exponentially fast, and thus $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$, if $n_l VD_l$ is, by the Borel-Cantelli Lemma.
+	Following the same logic, $\p{n_l VD_l -n_l VG_l \neq 0} \rightarrow 0$ exponentially fast. 
+Thus, $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$, if $n_l VD_l$ is, by the Borel-Cantelli Lemma.
 \end{proof}
 
 Part (i) of Theorem \ref{thm:strong_consistency} provides conditions under which the point estimator $\gbb$ of OMRP is a consistent estimator of the optimality gap, by establishing almost sure convergence of $\gbb_l - \dbb_l$ to $0$ as $l \rightarrow \infty$. 
@@ -594,7 +592,7 @@ for which it suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \ri
 
 \begin{proof}
 	For simplicity of exposition, we drop the subscript $l$ and the $\frac{n_l}{m_l}$ for now and add them in later.  
-        Further, we use abbreviations $n_b = \nbl$ to denote the number of batches and $dt = \left(\tfrac{n_l}{m_l} - 1\right) \left(\nbl\right)$ to denote the denominator term in $VG_l$ and $VD_l$. Note that
+        Further, we use abbreviations $n_b = \nbl$ to denote the number of batches and $dt = \left(\tfrac{n_l}{m_l} - 1\right) \left(\nbl\right)$ to denote the denominator term in $VG_l$ and $VD_l$. We have
 	\begin{align}
 		\e{(nVG - nVD)^2} & = \left( \frac{n}{dt} \right)^2 \e{ \left( \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right] \right)^2 } \notag \\
 		& \leq \left( \frac{n}{dt} \right)^2 \e{ n_b \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \label{eq:vvar_conv_pf_1}
@@ -660,7 +658,8 @@ The degrees of freedom $d_l$ is the inverse of (\ref{eq:var_reduct_formula}) usi
 			Also let $z_{\alpha}$ denote the $1-\alpha$ quantile of the standard normal distribution. 
         It is suffices to show $Y_lZ_l = \frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, where $\Rightarrow$ denotes convergence in distribution.
 			If $\frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, because $t_{d_l,\alpha} \rightarrow z_{\alpha}$ as $l \rightarrow \infty$, we obtain the desired result by rearranging the terms in $\p{\mu_\xh \leq I^G_l}$ and taking the limit as $l \rightarrow \infty$.
-        First, we show that $|X_l - Y_l| \rightarrow 0$, a.s.  Note that $|X_l - Y_l| > 0$ if and only if $|\dbb_l - \gbb_l| > 0$.  
+        First, we show that $|X_l - Y_l| \rightarrow 0$, a.s.  
+		  Observe that $|X_l - Y_l| > 0$ if and only if $|\dbb_l - \gbb_l| > 0$.  
         In the proof of Theorem \ref{thm:strong_consistency} we showed that $\left\{ \dbb_l - \gbb_l \neq 0 \right\}$ happens only finitely many times, so $|X_l - Y_l| \rightarrow 0$, a.s.\ by the Borel-Cantelli Lemma. 
         Next, since $X_l \Rightarrow N(0,1)$  by the central limit theorem and $|X_l - Y_l| \rightarrow 0$ in probability, $Y_l \Rightarrow N(0,1)$.  
         By hypothesis and Theorem \ref{thm:strong_consistency}, $Z_l \rightarrow 1$ in probability.  
@@ -758,8 +757,8 @@ Figures~\ref{fig:varvar1} and \ref{fig:varvar2} show the reduction of variance, 
 The solid lines in these figures show the theoretical variance reduction from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
 Empirical results agree with the theoretical values well, with more variability observed in CEP1, 10D, and DB1. 
 These experiments suggest that similar variance reduction can be achieved in stochastic programming by overlapping the batches, even with small sample sizes.
-We note that the variance reduction in DB1 can be less than the asymptotic amount %for the small sample sizes used in these experiments. 
-because due its size, DB1 has not yet been solved to optimality; therefore, it may lack a unique optimal solution. 
+The variance reduction in DB1 can be less than the asymptotic amount %for the small sample sizes used in these experiments. 
+because DB1 has not yet been solved to optimality due its size; therefore, it may lack a unique optimal solution. 
 %, violating assumption A3. (?)
 Even with the relatively small sample sizes compared to the size of this problem, however, overlapping appears to achieve some variance reduction. 
 
@@ -909,7 +908,7 @@ This allows for some increase in efficiency while remaining robust in the event 
 \label{sec:concl}
 
 We have applied the overlapping batch means method from simulation output analysis \citep{Meketon1984,Song1992,Welch1987} to assessing solution quality in stochastic programming, in particular, to Monte Carlo simulation-based estimators of optimality gaps \citep{Mak1999}. 
-We have provided conditions under which the resulting point estimator of the optimality gap and its associated sample variance are consistent, the same variance reduction can be achieved, and asymptotically valid CIs can be formed. 
+We have provided conditions under which the resulting point estimator of the optimality gap and its associated variance estimator are consistent, the same variance reduction can be achieved, and asymptotically valid CIs can be formed. 
 Empirical results with small sample sizes indicate that the asymptotic reductions in variance of the variance estimator show a similar decrease in OMRP, while bias and coverage probability remain unaffected. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
