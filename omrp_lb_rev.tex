@@ -265,7 +265,7 @@ In \S \ref{sec:comp}, we test the performance of OMRP on four problems and end i
 \label{sec:background}
 
 \subsection{Overlapping Batch Means} \label{ssec:obm}
-Consider a covariance stationary stochastic process with mean $\mu$ and variance $\sigma^2$.  
+Consider a covariance stationary stochastic process with mean $\mu$ and variance parameter\footnote{For a given process $y^1, y^2, \dots$, the variance parameter is the sum of covariances at all lags, $\sigma^2=\mathrm{Var} \left(y^1 \right)+2\sum_{j=1}^{\infty}\mathrm{Cov} \left(y^1,y^{1+j}\right)$. If the variance parameter exists, then  $\sigma^2=\lim_{n\rightarrow \infty}n\mathrm{Var} \left(\ybb\right)$, where $\ybb=\frac{1}{n}\sum_{i=1}^{n} y^{i}$.} $0<\sigma^2<\infty$.  
 The task is to estimate $\mu$ given some realization of the univariate stochastic process $\y = (y^1, y^2, \dots, y^n)$.  
 Typically, this involves forming a CI of the form $[L_\alpha(\y), U_\alpha(\y)]$ for a given level of significance $\alpha$ such that $\p{L_\alpha(\y) \leq \mu \leq U_\alpha(\y)} = 1 - \alpha$ or that this probability is approximately $1 - \alpha$ for large enough sample sizes.  
 The usual estimator for $\mu$ is the sample mean $\ybb = \frac{1}{n} \sum_{i=1}^n y^i$, which is an unbiased estimator even in the presence of correlated data.  
