@@ -217,7 +217,7 @@ This can be alleviated in two ways.
 First, near-optimal variance reduction can be obtained by partially overlapping the batches \citep{Welch1987,Song1992}.  
 Partial overlapping results in a smaller number of batches; hence, fewer optimization problems need to be solved.
 Second, in many solution methods, warm-starting can be used to quickly solve the sampling approximations with overlapping samples, considerably reducing solution time.
-In this paper, we consider variable amounts of overlap and examine this both theoretically and empirically. 
+In this paper, we consider a parametrized degree of overlap, where the degree of overlap is at the user's discretion, and examine this both theoretically and empirically. 
 % THIS LAST SENTENCE NEEDS TO CHANGE! 
 
 
@@ -334,7 +334,7 @@ makes $\vto{\ybb}$ an unbiased estimator for i.i.d.\ data for all finite $m$ and
  
 
 
-The amount of asymptotic reduction in $\var{\vartg{\ybb}}$ for a given $0\leq \gamma< m$, relative its nonoverlapping counterpart 
+The amount of asymptotic reduction in $\var{\vartg{\ybb}}$ for a given $0\leq \gamma< m$ relative its nonoverlapping counterpart 
 %$\var{\vtm{\ybb}}$ 
 depends on the asymptotic ratio of $\gamma/m$, which we denote by $\gammab$. 
 The maximally-overlapping case ($\gamma = 1$) corresponds to $\gammab=0$, and the nonoverlapping case corresponds to $\gammab=1$. 
@@ -347,8 +347,9 @@ Under appropriate conditions, these results, along with those of \cite{Meketon19
 as the batch size $m$ and the number of batches $n/m$ tend to infinity. 
 In (\ref{eq:varvarred}), $\beta_1 = 2$ for nonoverlapping batches, $\beta_0 = \frac{4}{3}$ for maximally overlapping batches, and more generally, $\beta_{\gammab}$ is twice the value of 
 \begin{equation} \label{eq:var_reduct_formula}
-	\gammab \left( 1 + 2 \sum_{j=1}^{\cogb-1} (1-j\gammab)^2 \right).
+	\gammab \left( 1 + 2 \sum_{j=1}^{\cogb-1} (1-j\gammab)^2 \right),
 \end{equation}
+where $\lceil \cdot \rceil$ denotes the smallest integer that is greater than or equal to its argument.
 If $\ogb$ is an integer, (\ref{eq:var_reduct_formula}) simplifies to $\frac{2+\gammab^2}{3}$.
 This means that the maximally-overlapping variance estimator has a variance that is two-thirds ($66.67\%$) of the nonoverlapping estimator.
 As the amount of overlap decreases, the variance increases. 
@@ -431,7 +432,7 @@ We just removed the minimization in (\ref{eq:mrp_gap}) and used directly an opti
 The overall mean, $\gbb_l$, is defined a little differently.  
 Here, $\gbb_l$ still uses each observation $i = 1, 2, \dots, n_l$ but also makes use of {\it all} the information collected throughout the batches.  
 That is, if observation $\xiti$ is used in $|B(i)|$ number of batches, all the optimal solutions $\xs_j$ corresponding to each batch $j \in B(i)$ are used for the lower bound estimator.  
-Then, $VG_l$ is defined in a similar fashion for the variably overlapping batches variance estimator (\ref{eq:variance_gamma}).
+Then, $VG_l$ is defined in a similar fashion for the overlapping batches variance estimator (\ref{eq:variance_gamma}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Theoretical Results} 
@@ -485,9 +486,9 @@ To overcome this problem, we introduce the following unbiased optimality gap est
 	\dbb_l & = \frac{1}{n_l} \sum_{i=1}^{n_l} \left[ f(\xh,\xiti) - f(\xs,\xiti) \right], \label{eq:dbb} \\
 	VD_l & = \frac{1}{\left( \tfrac{n_l}{m_l} - 1 \right) \left(\nbl\right)} \sum_{j=1}^{\nbl} (\db_{lj} - \dbb_l)^2. \label{eq:vd}
 \end{align}
-These are essentially the same as the variably overlapping batches estimators in \S \ref{ssec:overlap} with $y^i = f(\xh,\xiti) - f(\xs,\xiti)$.  
+These are essentially the same as the overlapping batches estimators in \S \ref{ssec:overlap} with $y^i = f(\xh,\xiti) - f(\xs,\xiti)$.  
 These are also defined identically to the original estimators (\ref{eq:gbar})--(\ref{eq:vg}) with the exception that $\xs_j$ from (\ref{eq:gbar}) and (\ref{eq:gbb}) is replaced by an optimal solution $\xs$ in (\ref{eq:dbar}) and (\ref{eq:dbb}).  
-With $\xh$ and $\xs$ fixed, estimators (\ref{eq:dbar})--(\ref{eq:vd}) have the same statistical properties as variably overlapping batches estimators in \S \ref{ssec:overlap}.  
+With $\xh$ and $\xs$ fixed, estimators (\ref{eq:dbar})--(\ref{eq:vd}) have the same statistical properties as overlapping batches estimators in \S \ref{ssec:overlap}.  
 The optimal solution $\xs$ is not known; however, the estimators (\ref{eq:dbar})--(\ref{eq:vd}) are used only to show convergence of (\ref{eq:gbar})--(\ref{eq:vg}) and not necessary for carrying out the OMRP algorithm.  
 Throughout the rest of this section, we assume that the optimality gap estimators (\ref{eq:gbar})--(\ref{eq:vg}) and their nonoptimized counterparts (\ref{eq:dbar})--(\ref{eq:vd}) use identical samples and values of $n_
 l$, $m_l$, and $\gamma_l$.  \smallskip 

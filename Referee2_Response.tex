@@ -68,7 +68,7 @@ Below, we go through in detail these changes.
 
 \noindent 
 xxx  We agree. 
-We changed the introduction to clearly state the contributions of the paper and \ldots 
+We changed the introduction to clearly state the contributions of the paper and \ldots  and the presentation of the paper significantly improved.  Thank you.
 \medskip 
 
 
@@ -76,9 +76,30 @@ We changed the introduction to clearly state the contributions of the paper and 
 \item[2.] \textit{It is not necessary to go into such detail in the OBM review.}
 \end{itemize}
 
+\smallskip 
+
 \noindent 
-xxx  We shortened the section on OBM review by combining \ldots 
-\medskip 
+To shorten and streamline the OBM review, and to introduce the main results used in the paper, we combined the previous two sections---\S 2.1 (Overlapping Batch Means) and \S 3.1 (Variably Overlapping Batches)---with other explanations on OBM found later in the paper. 
+The combined review appears in the background section, \S 2.1 (Batch Means). 
+To improve readability, we decided to create two subsections: \S 2.1.1 (Nonoverlapping Batch Means) and \S 2.1.2 (Overlapping Batch Means). 
+While we removed a number of equations and shortened the text, we kept some explanations that are necessary for a reader who is not familiar with OBM (e.g., readers with an optimization focus) to follow the main ideas. 
+These basic explanations appear, for instance, in the first paragraph of \S 2.1.2 (Overlapping Batch Means).  
+We hope to be able to reach a broader audience this way. 
+As a result of these changes, 
+\begin{itemize}
+	\item[(i)]  instead of former equations (2) and (5), both on overlapping batch means variance estimator, we have only one equation (2); 
+	
+	\item[(ii)]  the confidence interval estimation using OBM is discussed only once;
+
+	\item[(iii)] the former equation (3) is removed;
+
+	\item[(iv)] the discussion that appeared at the beginning of \S 4.4 (previously: Variance Reduction, now: Asymptotically Lower Variances) is moved to this review section. 
+\end{itemize}
+
+\noi
+With these changes, the OBM review became more streamlined, focusing on the main results used later in the paper. 
+Thank you.
+\bigskip 
 
 \begin{itemize}
 \item[3.] \textit{The English needs to be tightened up somewhat.}
@@ -413,7 +434,7 @@ Done.
 %You are right.
 We meant to say that the degree of overlap is parametrized and this parameter can be chosen by the user. 
 We reworded this sentence to reflect this. 
-xxx  We also \ldots avoided using this term and replaced by. . . 
+We also went through the paper, removed other occurrences, and avoided using this term in the new text added. 
 \medskip 
 
 
@@ -439,7 +460,7 @@ We also went through the paper and removed several uses of the word `classical' 
 
 \noi
 Variance parameter. 
-We revised this sentence and added a footnote defining the variance parameter for readers who might not be familiar with this term (e.g., readers with more of an optimization background). 
+We revised this sentence and added a footnote defining the variance parameter for readers who might not be familiar with this term (e.g., readers with an optimization focus). 
 \medskip 
 
 
@@ -484,7 +505,10 @@ Just let the reader know the main results that you'll use.}
 \end{itemize}
 
 \noi
-xxx  
+We removed \S 3.1 (Variably Overlapping Batches) from the paper. 
+We merged this section with \S 2.1.2 (Overlapping Batch Means), focusing on the results used in the paper. 
+We believe the presentation of the paper improved as a result. 
+Thank you for this suggestion. 
 \medskip 
 
 
@@ -515,7 +539,13 @@ We decided to leave a couple as is (mainly as ``notice that'') because they high
 \end{itemize}
 
 \noi
-xxx  
+We changed this sentence and directly referred to the denominator term.
+We decided to avoid the degrees of freedom here. 
+This is because we wanted to focus on the degrees of freedom for confidence interval construction, which is discussed in both the theoretical and computational results.\smallskip  
+
+\noi 
+{\it Note:} This section has been restructured based on your comments. 
+Equation (2) now gives the general overlapping variance estimator with the parametrized amount of overlap. 
 \medskip 
 
 
@@ -526,7 +556,10 @@ You seem to be using it that way, so maybe state the requirement.}
 \end{itemize}
 
 \noi
-Yes; we now explicitly state this in a sentence after we introduce $\gamma$. 
+Yes; we explicitly stated this in a sentence after we introduce $\gamma$.\smallskip 
+
+\noi 
+{\it Note:} This sentence now appears in Section 2.1.2 (Overlapping Batch Means). 
 \medskip 
 
 
@@ -537,7 +570,11 @@ Yes; we now explicitly state this in a sentence after we introduce $\gamma$.
 
 \noi
 Done. 
-We introduced the floor function before its first use and similarly, we introduced the ceiling function before its first use. 
+%We introduced the floor function before its first use, and we introduced the ceiling function right after its first use.
+\smallskip  
+
+\noi 
+{\it Note:} Both definitions appear in Section 2.1.2 (Overlapping Batch Means).
 \medskip 
 
 
@@ -547,7 +584,10 @@ We introduced the floor function before its first use and similarly, we introduc
 \end{itemize}
 
 \noi
-xxx  
+Reworded.\smallskip 
+
+\noi 
+{\it Note:} This sentence now appears in Section 2.1.2 (Overlapping Batch Means). 
 \medskip 
 
 
@@ -557,7 +597,8 @@ xxx
 \end{itemize}
 
 \noi
-xxx  
+You are right. 
+We moved these references---in particular, Damerdji (1994, 1995)---to Section 2.1.2 (Overlapping Batch Means) and added a brief discussion.  
 \medskip 
 
 
@@ -568,8 +609,8 @@ xxx
 
 \noi
 Changed.
-In fact, we now use brackets for all the expectations in the paper to improve clarity.
-Thank you for this suggestion. 
+In fact, we now use brackets for all the expectations in the paper to improve clarity. 
+Thank you.
 \medskip 
 
 
@@ -595,12 +636,25 @@ Done.
 
 
 \begin{itemize}
-\item[] \textit{13, 12 (and elsewhere): I may have missed this, but has the notation $\sigma_{\hat{x}}$ been established yet? 
-In any case, some of the verbiage in this paragraph is a bit repetitive.}
+\item[] \textit{13, 12 (and elsewhere): I may have missed this, but has the notation $\sigma_{\hat{x}}$ been established yet?}
 \end{itemize}
 
 \noi
-xxx  
+xxx 
+This notation was defined before Theorem 1. 
+We moved the definition of $\sigma_{\hat{x}}$ and $\mu_{\hat{x}}$ to \ldots to improve clarity. 
+\medskip 
+
+
+
+\begin{itemize}
+\item[] \textit{In any case, some of the verbiage in this paragraph is a bit repetitive.}
+\end{itemize}
+
+\noi
+We moved the discussion at the first half of this paragraph to the new, combined OBM review in \S 2.1.2 (Overlapping Batch Means). 
+We referred to equation (3) here to remind the readers the basis of the proof.
+The second half of this paragraph deals with the batching structure, and this discussion is moved to the paragraph after the theorem's proof. 
 \medskip 
 
 
