@@ -353,11 +353,12 @@ where $\lceil \cdot \rceil$ denotes the smallest integer that is greater than or
 If $\ogb$ is an integer, (\ref{eq:var_reduct_formula}) simplifies to $\frac{2+\gammab^2}{3}$.
 This means that the maximally-overlapping variance estimator has a variance that is two-thirds ($66.67\%$) of the nonoverlapping estimator.
 As the amount of overlap decreases, the variance increases. 
-When only half of the observations overlap ($\gammab = 1/2$ or $\gamma=m/4$), for instance, the variance is 75\% of the nonoverlapping counterpart.
+When only half of the observations overlap ($\gammab = 1/2$ or $\gamma=m/2$), for instance, the variance is 75\% of the nonoverlapping counterpart.
 
 
-A $(1-\alpha)$-level approximate CI on the mean can be formed using overlapping batches by $\ybb \pm t_{d_{\gamma}(k-1),\alpha/2}$ $\sqrt{\vartg{\ybb}}$, where the degrees of freedom increase $d_{\gamma}$ is the multiplicative inverse of (\ref{eq:var_reduct_formula}) \citep{Welch1987}.  
-If $\ogb$ is an integer, $d_{\gamma} = \frac{3}{2+\gammab^2}$.  For the maximally-overlapping batch means, the degrees of freedom is $d_{\gamma} = \frac{3}{2}$.
+A $(1-\alpha)$-level approximate CI on the mean can be formed using overlapping batches by $\ybb \pm t_{d_{\gammab}(k-1),\alpha/2}$ $\sqrt{\vartg{\ybb}}$, where the degrees of freedom increase $d_{\gammab}$ is the multiplicative inverse of (\ref{eq:var_reduct_formula}) \citep{Welch1987}.  
+%If $\ogb$ is an integer, $d_{\gammab} = \frac{3}{2+\gammab^2}$.  
+For the maximally-overlapping batch means, the degrees of freedom is $d_{\gammab} = \frac{3}{2}$.
 
  
 \subsection{Multiple Replications Procedure} 
@@ -487,7 +488,7 @@ To overcome this problem, we introduce the following unbiased optimality gap est
 	VD_l & = \frac{1}{\left( \tfrac{n_l}{m_l} - 1 \right) \left(\nbl\right)} \sum_{j=1}^{\nbl} (\db_{lj} - \dbb_l)^2. \label{eq:vd}
 \end{align}
 These are essentially the same as the overlapping batches estimators in \S \ref{ssec:overlap} with $y^i = f(\xh,\xiti) - f(\xs,\xiti)$.  
-These are also defined identically to the original estimators (\ref{eq:gbar})--(\ref{eq:vg}) with the exception that $\xs_j$ from (\ref{eq:gbar}) and (\ref{eq:gbb}) is replaced by an optimal solution $\xs$ in (\ref{eq:dbar}) and (\ref{eq:dbb}).  
+These are also defined identically to the original estimators (\ref{eq:gbar})--(\ref{eq:vg}) with the exception that $\xs_j$ from (\ref{eq:gbar}) and (\ref{eq:gbb}) is replaced by the optimal solution $\xs$ in (\ref{eq:dbar}) and (\ref{eq:dbb}).  
 With $\xh$ and $\xs$ fixed, estimators (\ref{eq:dbar})--(\ref{eq:vd}) have the same statistical properties as overlapping batches estimators in \S \ref{ssec:overlap}.  
 The optimal solution $\xs$ is not known; however, the estimators (\ref{eq:dbar})--(\ref{eq:vd}) are used only to show convergence of (\ref{eq:gbar})--(\ref{eq:vg}) and not necessary for carrying out the OMRP algorithm.  
 Throughout the rest of this section, we assume that the optimality gap estimators (\ref{eq:gbar})--(\ref{eq:vg}) and their nonoptimized counterparts (\ref{eq:dbar})--(\ref{eq:vd}) use identical samples and values of $n_
@@ -834,89 +835,112 @@ The coverage probabilities from applying the (nonoverlapping) MRP algorithm to t
 Coverage probability for 10D (not shown) and {\it estimated} coverage probability for DB1 (also not shown) were very high, more than $0.99$.  
 The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much more significant than the variance.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Computational Efficiency}
 \label{ssec:compeff}
 
-\begin{figure}[htb!]
+
+The increased computational workload from solving overlapping batches raises the question of the computational efficiency of this method to estimate $VG$.
+In this setting, computational efficiency can be defined as $[T(\gammab)\var{VG}]^{-1}$, where $T(\gammab)$ is the computational time spent to generate $VG$ for a given value of $\gammab$.
+Because the variance of the overlapping variance estimator relative to the nonoverlapping (MRP) variant is known from (\ref{eq:var_reduct_formula}), we need only examine the computational time, which can be decomposed as $T(\gammab) = t(\gammab)\left(\nb\right)$. 
+Here, $t(\gammab)$ is the average computation time per batch, which is multiplied by the number of batches.
+Warm-starting an algorithm may be used to decrease the computation time per batch for $\gammab < 1$, leading to a possible increase in computational efficiency. 
+
+To investigate computational efficiency, we assumed that computation time per batch can be approximated as $t(\gammab) \propto \gammab^p$ for some $p \geq 0$.
+Results for various values of $p$ are shown in Figure \ref{fig:efficiency}(a). 
+This figure is constructed using $m = 1,000$, but the results do not change substantially with different values of $m$.
+The graph is also scaled so that nonoverlapping batches produces a computational efficiency of 1. 
+Efficiency gains increase with larger exponent $p$ but are positive even for small values of $p$ when $\gammab$ is sufficiently close to 1.
+At $p=1$, i.e., for problems where computational time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches of \cite{Meketon1984}.
+When $p=0.9$, computational efficiency is maximized at around $\gammab=0.3$.
+When $p$ is $0.71$, on the other hand, computational efficiency is observed for values of $\gammab$ from slightly lower than $0.3$ to $1$, and efficiency is maximized at a relatively flat region between $\gammab=0.5$ and $\gammab=0.8$.
+
+
+\begin{figure}[thb!]
 	\centering
-	\subfloat[][]{
+	\subfloat[][Theoretical]{
 	   \label{fig:efficiency_theory}
 	   \includegraphics[width=.5\textwidth]{images/comp_efficiency_theory}}
-	\subfloat[][]{
+	\subfloat[][Empirical for NVD]{
 	   \label{fig:efficiency_nv}
 	   \includegraphics[width=.5\textwidth]{images/nv_comp_efficiency}}
 		\caption{
-		Theoretical computational efficiency results for overlapping batches (left) and a comparison with measured computational efficiency for the Newsvendor problem using insertion sort (right).
-		Both graphs are scaled so that nonoverlapping batches produces a computational efficiency of 1.
+		Computational efficiency of the OMRP variance estimator relative to the (nonoverlaping) MRP variance estimator measured
+		(a) theoretically and
+		(b) empirically for NVD using insertion sort
+%		(graphs are scaled so that nonoverlapping batches produces a computational efficiency of 1)
 		}
 \label{fig:efficiency}
 \end{figure}
-
-The increased computational workload from solving overlapping batches raises the question of the computational efficiency of this method to estimate $VG$.
-In this setting, computational efficiency is defined as $[T(\gammab)\var{VG}]^{-1}$, where $T(\gammab)$ is the computational time spent to generate $VG$ for a given value of $\gammab$.
-Because the variance of overlapping estimator relative to the nonoverlapping (MRP) variant is known from (\ref{eq:var_reduct_formula}), we need only examine the computational time, which can be decomposed as $T(\gammab) = t(\gammab)\left(\nb\right)$, where $t(\gammab)$ is the average computation time per batch, multiplied by the number of batches.
-Warm-starting an algorithm may be used to decrease the computation time per batch $t(\gammab)$ for $\gammab < 1$, leading to a possible increase in computational efficiency. 
-
-To investigate computational efficiency, we assumed that computation time per batch can be approximated as $t(\gammab) \propto \gammab^p$ for some $p \geq 0$.
-Results for various values of $p$ are shown in Figure \ref{fig:efficiency_theory}. 
-This figure is constructed using $m = 1000$, but the results do not change substantially with different values of $m$.
-Efficiency gains increase with larger exponent $p$, but are positive even for small values of $p$ when $\gammab$ is sufficiently close to 1.
-At $p=1$, i.e., for problems where computational time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches of \cite{Meketon1984}.
-When $p$ is $0.71$, on the other hand, computational efficiency is observed for values of $\gammab$ from slightly lower than $0.3$ to $1$, and efficiency is maximized at a relatively flat region between $\gammab=0.5$ and $\gammab=0.8$.
 
 %All theoretical curves in this section were computed using $m = 1000$, but the results do not change substantially with increasing batch size.
 %Newsvendor computations used $m = 1000$ with $10,000$ replications.
 
 We tested this theoretical relationship using the newsvendor problem solved with insertion sort.
-Insertion sort is an efficient sorting algorithm when the values are already almost sorted. 
+Insertion sort is an efficient algorithm when the values are already largely sorted. 
 Therefore, as overlapping increases, insertion sort results in a decreased solution time per batch for the NVD problem. 
-To test computational efficiency, we used $m = 1000$ with $10,000$ replications.
-The average computation time per batch was found empirically to be well approximated ($R^2 = 0.994$) by power law with $p = 0.71$.
-The empirically measured computational efficiency is compared to the theoretical result in Figure \ref{fig:efficiency_nv}, where the theoretical computational efficiency, shown in solid line, is repeated from Figure \ref{fig:efficiency_theory}.
+To test computational efficiency, we used $m = 1,000$ with $10,000$ runs.
+The average computation time per batch was found empirically to be well approximated ($R^2 = 0.994$) by the power law with $p = 0.71$.
+The empirically measured computational efficiency is compared to the theoretical result in Figure \ref{fig:efficiency}(b), where the theoretical computational efficiency, shown in solid line, is repeated from Figure \ref{fig:efficiency}(a).
 It appears that empirical observations match with the theoretical efficiency calculations well. 
+
+
+Another related question on computational efficiency would be whether OMRP is more efficient than nonoverlapping MRP with a larger number of batches.
+When generating observations is cheap, one could alternatively increase the number of batches in MRP to obtain estimators with lower variances. 
+In the nonoverlapping case, $\var{VG} \propto \frac{1}{k}$; so, decreasing $\var{VG}$ to the level of maximally overlapping batches of \cite{Meketon1984} requires a $50\%$ increase in the number of batches, and thus a $50\%$ increase in computation time.
+Continuing on in this way for various values of $\gammab$, we obtain the solid black curve in Figure \ref{fig:comp_work_comparison}. 
+This curve shows the increase in computational effort due to an increased number of batches in MRP in order to obtain the same variance for OMRP across $\gammab$.
+If the work increase by OMRP is less than this solid black curve, then OMRP is computationally more efficient than increasing the number of batches in MRP. 
+Again, assuming average computation time per batch can be represented as $T(\gammab) \propto \gammab^p$, Figure \ref{fig:comp_work_comparison}(a) compares the increase in computational work for OMRP for several values of $p$ to the work increase for MRP to get an equivalent decrease in variance.
+We again see that OMRP is advantageous for larger values of $p$.
+For small values of $p$, some efficiency gain is observed at $\gammab$ values close to 1.
+We again tested this empirically on NVD using insertion sort with $m=1,000$, average of $10,000$ independent runs. 
+The results, shown in Figure \ref{fig:comp_work_comparison}(b), again appear to match the theory well. 
+
+
+\begin{figure}[htb!]
+	\centering
+	\subfloat[][Theoretical]{
+	   \label{fig:comp_work_comparison_theory}
+	   \includegraphics[width=.5\textwidth]{images/work_comparison}}
+	\subfloat[][Empirical for NVD]{
+	   \label{fig:comp_work_comparison_nv}
+	   \includegraphics[width=.5\textwidth]{images/nv_work_comparison}}
+		\caption{
+		Comparison of computational work required to get equivalent variance between MRP variance estimator with increased number of batches and OMRP variance estimator measured
+		(a) theoretically and 
+		(b) empirically for NVD using insertion sort
+%		(Left) A theoretical comparison of the computational work required to get equivalent variance reduction between OMRP and MRP when the number of batches are increased.
+%		(Right) Measured computational work for NVD compared with the theoretical results.
+		}
+\label{fig:comp_work_comparison}
+\end{figure}
+
 
 In cases where the exponent $p$ can be estimated, the above theoretical method may be used to determine a reasonable value for $\gammab$.
 When warm-starting can be used to solve the batch sampling problems, we recommend the users to perform preliminary computations to determine how computational time per batch changes as $\gammab$ changes. 
 We can see in Figure \ref{fig:efficiency} that for some values of $p$, efficiency gain is nearly flat over a region of $\gammab$.
 In this case, we recommend choosing a $\gammab$ near the right side of this region.
 This choice keeps efficiency high while decreasing computation time and preventing large decreases in efficiency in the event that $p$ was overestimated.
-For example, in the case of NVD, we recommend the use of value $\gammab=0.8$ as this value provides a high computational efficiency with minimal overall computation time across values of $\gammab$ with high efficiency. 
-
-\begin{figure}[htb!]
-	\centering
-	\subfloat[][]{
-	   \label{fig:comp_work_comparison_theory}
-	   \includegraphics[width=.5\textwidth]{images/work_comparison}}
-	\subfloat[][]{
-	   \label{fig:comp_work_comparison_nv}
-	   \includegraphics[width=.5\textwidth]{images/nv_work_comparison}}
-		\caption{
-		(Left) A theoretical comparison of the computational work required to get equivalent variance reduction between OMRP and MRP when the number of batches are increased.
-		(Right) Measured computational work for NVD compared with the theoretical results.
-		}
-\label{fig:comp_work_comparison}
-\end{figure}
-
-A final question on computational efficiency would be whether OMRP is more efficient than nonoverlapping MRP with a larger number of batches.
-When generating observations is cheap, one could potentially increase the number of batches in MRP to obtain estimators with lower variances. 
-In the nonoverlapping case, $\var{VG} \propto \frac{1}{k}$, so decreasing $\var{VG}$ to the level of maximally overlapping batches requires a $50\%$ increase in the number of batches, and thus a $50\%$ increase in computation time.
-Continuing on in this way for various values of $\gammab$, we obtain the solid black curve in Figure \ref{fig:comp_work_comparison} using $m=1000$. 
-This curve shows the increase in computational effort due to an increased number of batches in MRP in order to obtain the same variance level for OMRP across $\gammab$.
-If the work increase by OMRP is less than this solid black curve, then OMRP is computationally more efficient than increasing the number of batches in MRP. 
-Again, assuming average computation time per batch can be represented as $T(\gammab) \propto \gammab^p$, Figure \ref{fig:comp_work_comparison} compares the increase in computational work for OMRP for several values of $p$ with the work increase for MRP to get an equivalent decrease in variance.
-We again see that OMRP is advantageous for larger values of $p$.
-For small values of $p$, some efficiency gain is observed at $\gammab$ values close to 1.
-
-With these considerations, for situations where $p > 0$ but its size cannot be readily measured or estimated, we recommend selecting a large value of $\gammab$ such as $0.9$.
+For example, in the case of NVD, we recommend the use of value $\gammab=0.8$ as this value provides high computational efficiency with minimal overall computation time across values of $\gammab$ with high efficiency. 
+For situations where $p > 0$ but its size cannot be readily measured or estimated, we recommend selecting a large value of $\gammab$ such as $0.9$.
 This allows for some increase in efficiency while remaining robust in the event that $p$ is smaller than expected.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
 \label{sec:concl}
 
 We have applied the overlapping batch means method from simulation output analysis \citep{Meketon1984,Song1992,Welch1987} to assessing solution quality in stochastic programming, in particular, to Monte Carlo simulation-based estimators of optimality gaps \citep{Mak1999}. 
-We have provided conditions under which the resulting point estimator of the optimality gap and its associated variance estimator are consistent, the same variance reduction can be achieved, and asymptotically valid CIs can be formed. 
+We have provided conditions under which the resulting point estimator of the optimality gap and its associated variance estimator are consistent, the same lower variances of OMRP variance estimators relative to the nononverlapping MRP estimator can be achieved, and asymptotically valid CIs can be formed. 
 Empirical results with small sample sizes indicate that the asymptotic reductions in variance of the variance estimator show a similar decrease in OMRP, while bias and coverage probability remain unaffected. 
+We have examined the computational efficiency of OMRP by jointly considering increases in computation time and decreases in variance. 
+Our results indicate that when warm-starting is effective, efficiency can be observed across a wide range of degree of overlap. 
+When warm-starting is less effective, efficiency is observed for small degrees of overlap. 
+We have demonstrated computational efficiency empirically solving the newsvendor problem with insertion sort.
+Finally, we provided guidelines on selecting the degree of overlap based on our study of computational efficiency. 
+
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgments}

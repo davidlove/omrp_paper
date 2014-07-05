@@ -17,6 +17,13 @@
 
 \newcommand{\noi}{\noindent}
 
+% Definitions for overlapping batches
+\newcommand{\gb}{\bar{G}}
+\newcommand{\gbb}{\bar{\gb}}
+\newcommand{\db}{\bar{D}}
+\newcommand{\dbb}{\bar{\db}}
+
+
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -109,24 +116,29 @@ We believe the study of computational efficiency significantly improved the pape
 \item[\textbf{M2.}] \textit{The choice of the lower bound that is embedded in equation (8) is interesting. 
 (The upper bound in equation (8) is completely natural as the sample mean of the $n_l$ realizations of the function evaluated at $\hat{x}$.) 
 It seems that there are also other natural choices that could be made here for the lower bound. 
-There is some discussion of this choice in the text that follows equations (7)-(9), but can the authors say more? For example, do the consistency and asymptotic validity results that follow hinge on this choice? Or, do those results also hold for other choices, like forming $\bar\bar{G}$ as a sample
-mean of the underlying $\bar{G}$ values. 
-We know that the individual gap estimators in (7) are nonnegative, and if we formed $\bar\bar{G}$ as a sample mean of $\bar{G}$ values, it would be nonnegative. 
-Is the $\bar\bar{G}$, as specified in (8), nonnegative? 
+There is some discussion of this choice in the text that follows equations (7)-(9), but can the authors say more? For example, do the consistency and asymptotic validity results that follow hinge on this choice? Or, do those results also hold for other choices, like forming $\gbb$ as a sample
+mean of the underlying $\gb$ values. 
+We know that the individual gap estimators in (7) are nonnegative, and if we formed $\gbb$ as a sample mean of $\gb$ values, it would be nonnegative. 
+Is the $\gbb$, as specified in (8), nonnegative? 
 Have the authors computationally explored other choices here? 
 Any insight in this vein would be valuable to the reader in understanding the choice made in equation (8).}
 \end{itemize}
 
 \noi
-xxxx  Need to discuss. 
-I know I changed this but I don't remember why at this point. 
-Some theory was incorrect but at that time, we had more relaxed conditions. 
-Now we have exponential rates of convergence and it seems to me like anything here should be fine. 
-I haven't checked but pretty sure. 
-So, yes, why don't we use something else? 
-When we did, the results weren't that different at all. 
-Right?\ \ \ \ 
-xxxxx
+You are right; we did not clearly motivate this choice of $\gbb$.  
+We added explanations after the definition of the OMRP estimators, motivating this choice and relating it to the theoretical results presented in the paper.\smallskip 
+
+
+\noi 
+As you pointed out for the upper bound in (8), this $\gbb$ was chosen for each observation to have equal weight when the sampling problems yield optimal solutions $x_j^* = x^*, \ \forall j$. 
+This fact is used in Lemmas 1 and 2, which are then used---directly or indirectly---in proving Theorems 1--3. 
+When the alternative $\gbb$, formed as a sample mean of $\gb$ values, is used, theoretical results presented in the paper can be recovered by appropriately adjusting the coefficients of the $\dbb$ terms.
+Notice that these results establish convergence of  $\gbb$, $VG$, etc.\ to their nonoptimized counterparts $\dbb$, $VD$, etc.
+When the coefficients of $\dbb$ are adjusted, however, $\dbb$ and $VD$ are {\it not exactly} the same as the overlapping estimators of simulation output analysis. 
+Because our results depend on the asymptotic properties of the overlapping estimators already established in the simulation literature, we did not want to make any changes. 
+It may be possible to recover the same results but we did not pursue it here. 
+We actually performed computations using $\gbb$ formed as a sample mean of $\gb$ values and the results were essentially the same. 
+However, due to subtle theoretical reasons explained above, we decided not to include or discuss this choice. 
 \medskip 
 
 \bigskip 
@@ -319,6 +331,6 @@ We also changed the wording in Section 5.3 (Results of Experiments) to make it c
 \noindent 
 Thank you for this suggestion. 
 Based on our study of computational efficiency of the OMRP estimators, we  provided an updated and expanded guidance on selecting the degree of overlap. 
-This guidance appears in the third and last paragraphs of the new section, \S 5.4 (Computational Efficiency). 
+This guidance appears in the last paragraph of \S 5.4 (Computational Efficiency). 
 
 \end{document}
