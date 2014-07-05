@@ -264,7 +264,13 @@ However, this equation has an $\mathbb{E}A_j^2$ term that has been collapsed fro
 Should there be a $\max_j \mathbb{E}A_j^2$ or some other treatment here?}
 \end{itemize}
 
-\noindent xxx NEED TO CHECK AND CORRECT AS NECESSARY. 
+\noindent 
+This is because the center batches are identically distributed. 
+Therefore, $\mathbb{E}A_j^2$ for all the center batches $j=\lceil \bar{\gamma}^{-1} \rceil, \ldots,n_b - \lceil \bar{\gamma}^{-1} \rceil$ are the same. 
+To make this clear, we introduced the notation $A_j^c$ for center batches and $A_j^f$ and $A_j^e$ for the fringe batches that appear at the front and end of each set of nonoverlapping batches, respectively. 
+We also emphasized that each front fringe batch has an identically distributed pair at the end fringes, and that all the center batches are identically distributed. 
+%Thanks for catching this. 
+(Please note that we added brackets to expectations to improve readability as suggested by the other referee.)
 \medskip 
 
 
