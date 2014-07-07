@@ -435,6 +435,15 @@ Here, $\gbb_l$ still uses each observation $i = 1, 2, \dots, n_l$ but also makes
 That is, if observation $\xiti$ is used in $|B(i)|$ number of batches, all the optimal solutions $\xs_j$ corresponding to each batch $j \in B(i)$ are used for the lower bound estimator.  
 Then, $VG_l$ is defined in a similar fashion for the overlapping batches variance estimator (\ref{eq:variance_gamma}).
 
+The motivation behind forming $\gbb_l$ by taking into account $B(i)$ is to give each observation $\xit^i$ equal weight. 
+This is because we want to be as close to a standard overall mean estimator (e.g., $\ybb=\frac{1}{n}\sum_{i=1}^{n} y^i$) as possible.
+With this definition of $\gbb_l$, when $\xs_j= \xs$ for all $j= 1, 2, \dots, \nbl$, we have $\gbb_l$ equal to its nonoptimized counterpart given in (\ref{eq:dbb}). 
+This fact is key in establishing the theoretical results presented in the next section. 
+We note, however, that this choice of $\gbb_l$ may not be guaranteed to be non-negative.
+In that case, $\max\{\gbb_l,0\}$ can be used in practice. 
+In our computational results, however, we did not observe any negative values of $\gbb_l$. 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Theoretical Results} 
 \label{sec:theory}

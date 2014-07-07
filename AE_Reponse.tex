@@ -74,22 +74,27 @@ If this quantity were compared (overlapping batch means versus batch means) in t
 
 \noi 
 Thank you for this suggestion. 
-It is indeed important to study computational efficiency in this context. 
-We created a new section, Section 5.4 (Computational Efficiency), to study the computational efficiency of overlapping estimators in the stochastic optimization setting. 
+It is important to study computational efficiency in this context. 
+We created a new section, \S 5.4 (Computational Efficiency), to study the computational efficiency of overlapping estimators in the stochastic optimization setting. 
 When an algorithm has warm-starting capability, as the degree of overlapping increases,  solution time per batch could decrease; as a result, computational efficiency gains could be observed.  
 We discussed efficiency for a given functional form of the solution time per batch. 
 Depending on the effectiveness of warm-starting, maximizing computational efficiency provides guidelines on selecting the degree of overlapping. 
-We illustrated this method on the newsvendor problem using insertion sort. 
-Our experiments show that (i) the functional form used provides a good representation, (ii) increased computational efficiency over the nonoverlapping counterpart is indeed observed over a range of overlapping levels, and (iii) this analysis provides a way to select the degree of overlapping. 
-We discussed guidelines on selecting the degree of overlapping. 
 \medskip 
 
-In addition, based on the comments of Referee 1, we studied the efficiency of overlapping compared to increasing the number of batches in MRP to obtain (nonoverlapping) estimators with lower variances. 
-Our results indicate that when warm-starting is effective, overlapping is computationally more efficient than increasing the number of batches of MRP.
-Even in cases where warm-starting is less effective, computational efficiency can be observed when about 10\% of observations are overlapped.
-We again illustrated this result on the newsvendor problem. 
+
+In addition, based on the comments of Referee 1, we studied efficiency of overlapping compared to increasing the number of batches in MRP to obtain (nonoverlapping) estimators with lower variances. 
+Our results indicate that when warm-starting is effective, overlapping is computationally more efficient.
+Even in cases where the effectiveness of warm-starting is quite low, computational efficiency can be observed with a low degree of overlap (e.g., when approximately 10\% of observations are overlapped).\medskip 
+
+
+We illustrated these results on the newsvendor problem using insertion sort. 
+Our experiments show that (i) the functional form used provides a good representation, (ii) increased computational efficiency over the nonoverlapping counterpart is indeed observed over a range of overlapping levels, and (iii) this analysis provides a way to select the degree of overlapping by maximizing efficiency. 
+Based on our study, we provided guidelines on selecting the degree of overlapping at the end of \S 5.4 (Computational Efficiency). 
+\medskip 
+
+
 We believe the paper has improved as a result of the study of computational efficiency. 
-Thank you. 
+Thank you for this suggestion. 
 \medskip 
 
 
@@ -98,11 +103,16 @@ Thank you.
 A link between less variable confidence interval widths and improved stochastic optimization efficiency would be helpful.}
 \end{itemize}
 
-\noi xxx 
-Based on your other comments and suggestions of the referees, we provided information on computational efficiency gains of overlapping in the context of assessing solution quality in stochastic programming. 
-These are detailed in Section 5.4 (Computational Efficiency). 
+\noi 
+We established improved computational efficiency on the newsvendor problem.
+A study of computational efficiency gains of overlapping in the context of assessing solution quality in stochastic programming is provided in the new \S 5.4 (Computational Efficiency), based on your and the referee's comments. 
 (Please see our response to the previous comment.)
-We also changed Section 1 (Introduction) and Section 6 (Conclusions) to clearly motivate the study and usefulness of the results. 
+\medskip
+
+
+xxx 
+We also changed Section 1 (Introduction) to clearly motivate the study and argue usefulness of the results, paying specific attention to efficiency gains.
+Finally, we updated Section 6 (Conclusions) to summarize these new results, again paying attention to computational efficiency.  
 
 %xxx  Is this really a new comment?  Looks like just continuation of the prev. comment. So... combine it with previous comment???
 

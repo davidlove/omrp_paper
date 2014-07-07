@@ -96,18 +96,19 @@ While I am not suggesting that this exploration needs to be made for all three t
 \end{itemize}
 
 \noi 
-Based on your and the associate editor's comments, we studied the computational efficiency of the OMRP estimators. 
-The results of this study are presented in a new section, Section 5.4 (Computational Efficiency).
+Based on your and the associate editor's comments, we studied computational efficiency of the OMRP variance estimators. 
+The results of this study are presented in a new section, \S 5.4 (Computational Efficiency).
 %We studied the computational efficiency of the OMRP estimators, based on your and the associate editor's comments, and provided a summary of our results in a new section, Section 5.4 (Computational Efficiency). 
-We first approached efficiency by the reciprocal of variance multiplied by the computation time, per associate editor's suggestion. 
-Maximizing the computational efficiency defined in this manner provided guidelines on selecting the degree of overlap. 
-We then looked at how OMRP compared to increasing the number batches in MRP.
-We examined computational efficiency both theoretically and empirically. 
+We first approached efficiency by the reciprocal of variance multiplied by the computation time, per the associate editor's suggestion. 
+Maximizing computational efficiency defined in this manner provided guidelines on selecting the degree of overlap. 
+We then looked at how OMRP compared to increasing the number batches in MRP to reach an equivalent variance level.
+We examined computational efficiency theoretically, assuming a functional form of the solution time per batch, and also empirically. 
 For empirical evaluation, we used the newsvendor problem with insertion sort, based on your suggestions. 
 We found that when effective warm-starting is available, overlapping can lead to more efficient estimators than (nonverlapping) MRP, both when the direct nonoverlapping counterpart is used or when the number of batches in MRP is increased to match the variance of the overlapping counterpart.  
 All these results are presented in Section 5.4 (Computational Efficiency). 
 Thank you for this suggestion. 
 We believe the study of computational efficiency significantly improved the paper. 
+(Please also see our response to your minor comment 19 below.)
 \medskip
 
 
@@ -125,20 +126,23 @@ Any insight in this vein would be valuable to the reader in understanding the ch
 \end{itemize}
 
 \noi
-You are right; we did not clearly motivate this choice of $\gbb$.  
+You are right; we did not fully motivate this choice of $\gbb$.  
 We added explanations after the definition of the OMRP estimators, motivating this choice and relating it to the theoretical results presented in the paper.\smallskip 
 
 
 \noi 
 As you pointed out for the upper bound in (8), this $\gbb$ was chosen for each observation to have equal weight when the sampling problems yield optimal solutions $x_j^* = x^*, \ \forall j$. 
 This fact is used in Lemmas 1 and 2, which are then used---directly or indirectly---in proving Theorems 1--3. 
-When the alternative $\gbb$, formed as a sample mean of $\gb$ values, is used, theoretical results presented in the paper can be recovered by appropriately adjusting the coefficients of the $\dbb$ terms.
-Notice that these results establish convergence of  $\gbb$, $VG$, etc.\ to their nonoptimized counterparts $\dbb$, $VD$, etc.
+When the alternative $\gbb$, formed as a sample mean of $\gb$ values, is used, 
+a subset of the theoretical results can be established (e.g., $\gbb$ converges almost surely to $\mu_{\hat{x}}$). 
+However, we had difficulty establishing the same asymptotically lower variances for the new $VG$. 
+An alternative is to concurrently adjust the coefficients of the $\dbb$ terms to establish convergence of the new $\gbb$, $VG$, etc.\ to their nonoptimized counterparts $\dbb$, $VD$, etc.
 When the coefficients of $\dbb$ are adjusted, however, $\dbb$ and $VD$ are {\it not exactly} the same as the overlapping estimators of simulation output analysis. 
-Because our results depend on the asymptotic properties of the overlapping estimators already established in the simulation literature, we did not want to make any changes. 
-It may be possible to recover the same results but we did not pursue it here. 
-We actually performed computations using $\gbb$ formed as a sample mean of $\gb$ values and the results were essentially the same. 
-However, due to subtle theoretical reasons explained above, we decided not to include or discuss this choice. 
+Because our results depend on the asymptotic properties of the overlapping estimators already established in the simulation literature, we did not want to make any changes to $\dbb$. 
+It may be still be possible to recover the same results using this alternative  $\dbb$ but we did not pursue it here. 
+%We actually performed computations using $\gbb$ formed as a sample mean of $\gb$ values and the results were largely similar. 
+Due to the lack of theoretical results explained above, we decided not to include or discuss $\gbb$ formed as a sample mean of $\gb$ values, even though it appears a natural choice. 
+Instead, we expanded the text motivating the current choice of $\gbb$. 
 \medskip 
 
 \bigskip 
@@ -266,11 +270,14 @@ Should there be a $\max_j \mathbb{E}A_j^2$ or some other treatment here?}
 
 \noindent 
 This is because the center batches are identically distributed. 
-Therefore, $\mathbb{E}A_j^2$ for all the center batches $j=\lceil \bar{\gamma}^{-1} \rceil, \ldots,n_b - \lceil \bar{\gamma}^{-1} \rceil$ are the same. 
+As a result, $\mathbb{E}A_j^2$ for all the center batches $j=\lceil \bar{\gamma}^{-1} \rceil, \ldots,n_b - \lceil \bar{\gamma}^{-1} \rceil$ are the same. 
 To make this clear, we introduced the notation $A_j^c$ for center batches and $A_j^f$ and $A_j^e$ for the fringe batches that appear at the front and end of each set of nonoverlapping batches, respectively. 
 We also emphasized that each front fringe batch has an identically distributed pair at the end fringes, and that all the center batches are identically distributed. 
 %Thanks for catching this. 
-(Please note that we added brackets to expectations to improve readability as suggested by the other referee.)
+\smallskip 
+
+\noi 
+{\it Note:} We added brackets to expectations to improve readability as suggested by the other referee.
 \medskip 
 
 
@@ -279,7 +286,7 @@ We also emphasized that each front fringe batch has an identically distributed p
 That hypothesis could be removed if the claim had a ``$\geq$'' or this statement could be removed or modified.}
 \end{itemize}
 
-\noindent Thank you for pointing this out.  
+\noindent Thank you for pointing this out and for your careful review.  
 We removed this statement from the proof of Theorem 3 and added it as a remark to the paragraph after the theorem.
 \medskip 
 
