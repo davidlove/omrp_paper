@@ -417,7 +417,7 @@ As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$
 	\label{fig:overlap_nonint}
 \end{figure}
 
-The results on overlapping batch means like (\ref{eq:varvarred}) occur in the limit as $n, m, k=n/m \rightarrow \infty$.  
+The results on overlapping batch means, discussed in Section \ref{ssec:overlap}, occur in the limit as $n, m, k=n/m \rightarrow \infty$.  
 Let $n_l, m_l$, and $k_l$ be sequences of numbers satisfying these requirements, then the limits will be taken as $l \rightarrow \infty$.  
 We assume a batching structure where $m_l = \lfloor n_l ^r \rfloor$ for some $0<r<1$, as is typical in simulation, and $n_l$ tends to infinity as $l \rightarrow \infty$.  
 In addition, we may desire that the batch nonoverlap parameter change with $l$, to ensure that $\gamma_l / m_l = \gammab_l$ converges to the constant $\gammab$.  
@@ -436,12 +436,12 @@ That is, if observation $\xiti$ is used in $|B(i)|$ number of batches, all the o
 Then, $VG_l$ is defined in a similar fashion for the overlapping batches variance estimator (\ref{eq:variance_gamma}).
 
 The motivation behind forming $\gbb_l$ by taking into account $B(i)$ is to give each observation $\xit^i$ equal weight. 
-This is because we want to be as close to a standard overall mean estimator (e.g., $\ybb=\frac{1}{n}\sum_{i=1}^{n} y^i$) as possible.
-With this definition of $\gbb_l$, when $\xs_j= \xs$ for all $j= 1, 2, \dots, \nbl$, we have $\gbb_l$ equal to its nonoptimized counterpart given in (\ref{eq:dbb}). 
+This is because we want to be as close to a standard mean estimator (e.g., $\ybb=\frac{1}{n}\sum_{i=1}^{n} y^i$) as possible.
+With this definition of $\gbb_l$, when $\xs_j= \xs$ for all $j= 1, 2, \dots, \nbl$, we have $\gbb_l$ equal to its nonoptimized counterpart given in (\ref{eq:dbb}), which is the standard mean estimator. 
 This fact is key in establishing the theoretical results presented in the next section. 
-We note, however, that this choice of $\gbb_l$ may not be guaranteed to be non-negative.
-In that case, $\max\{\gbb_l,0\}$ can be used in practice. 
-In our computational results, however, we did not observe any negative values of $\gbb_l$. 
+We note, however, that this choice of $\gbb_l$ may not be guaranteed to be nonnegative.
+In practice, $\max\{\gbb_l,0\}$ can be used as the point estimator of optimality gap to ensure nonnegativity, and $VG_l$ can be calculated the same way given in (\ref{eq:vg}), using $\gbb_l$, to obtain improved interval estimators via overlapping. 
+%In our computational results, however, we did not observe any negative values of $\gbb_l$. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
