@@ -46,8 +46,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\noi
 We thank the Associate Editor for the helpful comments and suggestions. 
-We incorporated virtually all of the recommended changes and believe the paper is improved as a result. 
+We incorporated all of the recommended changes and believe the paper is improved as a result. 
 Below, we go through in detail the suggestions of the Associate Editor.
 \medskip
 
@@ -56,43 +57,41 @@ Below, we go through in detail the suggestions of the Associate Editor.
 \item[]\textit{The paper is not clear in laying out a publishable contribution, and the motivation of the work is not clear.}
 \end{itemize}
 
-\noi xxx 
-We revised the introduction to clearly reflect the contributions of the paper and the motivation for the work, based on your and the referees' comments. 
-The revised introduction also includes several new comments based on the material added to the paper (computational efficiency) and a comparison with the proceedings version of the paper (based on the editor-in-chief's suggestion). 
-\medskip  
+\noi
+We revised the introduction to clearly reflect the contributions of the paper and the motivation for the work. 
+Please see page four of the revised manuscript. 
+This section also includes contributions based on the new material on computational efficiency added to the paper (contribution (iv)) and a comparison with the proceedings version of the paper (based on the editor-in-chief's suggestion).\medskip  
 
 \begin{itemize}
-\item[] \textit{%\ldots
-The experiments show that the confidence interval average widths and observed coverage probabilities are the same with overlapping batch means; the only difference is in decreased variability of the confidence interval widths. 
-That is, the variance of the variance estimator is reduced. 
-This second-order benefit should be weighed against the increased computation cost (not to mention complexity and restricted applicability) of the overlapping batch means method.}
-
-\textit{The issue of computational efficiency is not addressed  in the paper. 
+\item[] 
+%\textit{
+%The experiments show that the confidence interval average widths and observed coverage probabilities are the same with overlapping batch means; the only difference is in decreased variability of the confidence interval widths. 
+%That is, the variance of the variance estimator is reduced. 
+%This second-order benefit should be weighed against the increased computation cost (not to mention complexity and restricted applicability) of the overlapping batch means method.
+%}
+\textit{\ldots The issue of computational efficiency is not addressed  in the paper. 
 In this setting the efficiency is often defined as the reciprocal of the computation time multiplied by the variance. 
 If this quantity were compared (overlapping batch means versus batch means) in the numerical experiments, I am curious if there are any examples where the efficiency is improved.}
 \end{itemize}
 
 \noi 
 Thank you for this suggestion. 
-It is important to study computational efficiency in this context. 
+It is indeed important to study computational efficiency in this context. 
 We created a new section, \S 5.4 (Computational Efficiency), to study the computational efficiency of overlapping estimators in the stochastic optimization setting. 
-When an algorithm has warm-starting capability, as the degree of overlapping increases,  solution time per batch could decrease; as a result, computational efficiency gains could be observed.  
+%When an algorithm has warm-starting capability, as the degree of overlapping increases,  solution time per batch could decrease; as a result, computational efficiency gains could be observed.  
 We discussed efficiency for a given functional form of the solution time per batch. 
-Depending on the effectiveness of warm-starting, maximizing computational efficiency provides guidelines on selecting the degree of overlapping. 
-\medskip 
-
-
-In addition, based on the comments of Referee 1, we studied efficiency of overlapping compared to increasing the number of batches in MRP to obtain (nonoverlapping) estimators with lower variances. 
+%Depending on the effectiveness of warm-starting, maximizing computational efficiency provides guidelines on selecting the degree of overlapping. 
+%\medskip 
+In addition, based on the comments of Referee 1, we studied efficiency of overlapping estimators compared to increasing the number of batches in MRP to obtain (nonoverlapping) estimators with equivalently lower variances. 
 Our results indicate that when warm-starting is effective, overlapping is computationally more efficient.
-Even in cases where the effectiveness of warm-starting is quite low, computational efficiency can be observed with a low degree of overlap (e.g., when approximately 10\% of observations are overlapped).\medskip 
+Even in cases where the effectiveness of warm-starting is quite low, computational efficiency can be observed with a low degree of overlap (e.g., when approximately 10\% of observations are overlapped).\bigskip 
 
-
+\noi 
 We illustrated these results on the newsvendor problem using insertion sort. 
-Our experiments show that (i) the functional form used provides a good representation, (ii) increased computational efficiency over the nonoverlapping counterpart is indeed observed over a range of overlapping levels, and (iii) this analysis provides a way to select the degree of overlapping by maximizing efficiency. 
-Based on our study, we provided guidelines on selecting the degree of overlapping at the end of \S 5.4 (Computational Efficiency). 
-\medskip 
-
-
+Our experiments show that (i) the functional form used provides a good representation, (ii) increased computational efficiency over the nonoverlapping counterpart is indeed observed over a range of overlapping levels, and (iii) this analysis provides a way to select the degree of overlapping by maximizing efficiency.\bigskip 
+ 
+\noi
+Finally, we provided guidelines on selecting the degree of overlap at the end of \S 5.4 (Computational Efficiency) based on our study. 
 We believe the paper has improved as a result of the study of computational efficiency. 
 Thank you for this suggestion. 
 \medskip 
@@ -104,19 +103,12 @@ A link between less variable confidence interval widths and improved stochastic 
 \end{itemize}
 
 \noi 
-We established improved computational efficiency on the newsvendor problem.
-A study of computational efficiency gains of overlapping in the context of assessing solution quality in stochastic programming is provided in the new \S 5.4 (Computational Efficiency), based on your and the referee's comments. 
-(Please see our response to the previous comment.)
+We established improved computational efficiency on the newsvendor problem using insertion sort.
+We also (i) changed Section 1 (Introduction) to clearly motivate the study and argue usefulness of the results, paying specific attention to efficiency gains; (ii) updated Section 6 (Conclusions) to summarize these new results, again paying attention to computational efficiency; (iii) provided a study of computational efficiency gains of overlapping in the context of assessing solution quality in stochastic programming in the new \S 5.4 (Computational Efficiency); and finally (iv) updated the abstract.  
+%(Please see our response to the previous comment.)
 \medskip
 
 
-xxx 
-We also changed Section 1 (Introduction) to clearly motivate the study and argue usefulness of the results, paying specific attention to efficiency gains.
-Finally, we updated Section 6 (Conclusions) to summarize these new results, again paying attention to computational efficiency.  
-
-%xxx  Is this really a new comment?  Looks like just continuation of the prev. comment. So... combine it with previous comment???
-
-\medskip  
 
 \bigskip 
 

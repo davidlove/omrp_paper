@@ -211,7 +211,7 @@ This application of OBM is novel because each batch mean estimator includes an i
 %\vspace*{-0.1in}
 
 \item[(ii)] We provide conditions under which the resulting optimality gap estimators exhibit reduced variance when compared to their counterparts obtained via nonoverlapping batches.
-We show that the resulting point estimators are strongly consistent and the interval estimators are asymptotically valid. 
+We also show that the resulting point estimators are strongly consistent and that the interval estimators are asymptotically valid. 
 These results require new proofs because of the presence of the optimization operator. 
 
 \item[(iii)] We  present computational results to examine small-sample behavior. 
@@ -219,9 +219,11 @@ Our experiments indicate that the use of overlapping estimators results in gap e
 
 \item[(iv)] As the degree of overlap increases, the number of batches and optimization problems solved increases because we need to solve a sampling problem per batch. 
 At the same time, variances of the estimators are lowered, and when warm starting is available, solution time per batch can decrease, resulting in efficiency gains. 
-We explore the trade-off between computation time and lower variances.
+We explore this trade-off between computation time and lower variances.
 % and efficiency gains. 
 %We explore the overall computation time versus lower variances and efficiency gains trade-off. 
+Our results indicate that when warm-starting is effective, overlapping is computationally more efficient relative to estimators formed via nonoverlapping batches.
+%Our results indicate that overlapping can indeed increase computational efficiency, especially when warm-starting is effective. 
 We provide guidelines on selecting the degree of overlap based on computational efficiency and demonstrate efficiency on a newsvendor problem. 
 \end{itemize}
 
@@ -410,14 +412,13 @@ We wish to apply overlapping batch means to MRP.
 We begin by discussing several differences in this setting compared to the classical simulation setting.  
 In simulation output analysis, the point of interest is that of estimating the variance of the sample mean of a covariance stationary process.  
 We are interested in estimating the variance of an optimality gap estimator.  
-An optimality gap estimator not only has a sample mean $(\frac{1}{m} \sum_{i=1}^m f(\xh,\xiti))$ but also a minimized sample mean $(\zs_m)$.  
+An optimality gap estimator not only has a sample mean $(\frac{1}{m} \sum_{i=1}^m f(\xh,\xiti))$ but also a minimized sample mean; see, e.g., the second term on the right-hand side of (\ref{eq:mrp_gap}).  
 Minimization changes the statistical properties of sample means, complicating the asymptotic analysis.  
 %For instance, the central limit theorem may not hold for a minimized sample mean, even though it holds for each $\x \in \X$.  
 %Therefore, analysis of the asymptotic benefits of overlapping becomes more complicated.
 We overcome this technical difficulty by approximating the optimality gap estimators by their nonoptimized counterparts (see \S \ref{subsec:nonO}).  
-The nonoptimized counterparts are regular overlapping batch means estimators (without any optimization present); therefore, they have the desired statistical properties of approximately the same bias and lower variances compared to their nonoverlapping versions. 
-We establish convergence of OMRP estimators to their nonoptimized counterparts (see \S \ref{subsec:conv}--\ref{ssec:validity}); 
-thereby establishing the benefits of overlapping in this context. 
+The nonoptimized counterparts are regular overlapping batch means estimators (without any optimization); therefore, they have the desired statistical properties of approximately the same bias and lower variances compared to their nonoverlapping versions. 
+To show that the same asymptotic properties hold for OMRP estimators, we establish convergence of OMRP estimators to their nonoptimized counterparts (see \S \ref{subsec:conv}--\ref{ssec:validity}). 
 
 Another difference between our setting and simulation output analysis is that once the data are generated through a simulation, they can be reused without much additional computational effort to obtain the OBM variance estimator.  
 In this setting, the computational effort may increase with data reuse because we need to solve a sampling problem (SP$_m$) for each batch.  
