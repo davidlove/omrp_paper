@@ -585,7 +585,7 @@ Under the additional moment assumption
 for a sampling scheme of $m_l = \lfloor n_l^r \rfloor$, Corollaries 3.4 and 4.2 of \citep{damerdji1994strong} show that $n_l VD_l$ is consistent if $\tfrac{2}{4+\epsilon} < r < 1$ for nonoverlapping batches and $\tfrac{2}{4+\epsilon} < r < \tfrac{1}{2}$ for maximally overlapping batches. 
 
 
-\subsection{Lower Variances}
+\subsection{Asymptotically Lower Variances}
 \label{ssec:var_reduct}
 
  
@@ -678,7 +678,7 @@ Here, $k_l= \left\lfloor\frac{n_l}{m_l}\right\rfloor $ is the number of batches 
 			Also let $z_{\alpha}$ denote the $1-\alpha$ quantile of the standard normal distribution. 
         It is suffices to show $Y_lZ_l = \frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, where $\Rightarrow$ denotes convergence in distribution.
 			If $\frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, we obtain the theorem's result by rearranging the terms in $\p{\mu_\xh \leq I^G_l}$ and taking the limit as $l \rightarrow \infty$ because $t_{d_l(k_l -1),\alpha} \rightarrow z_{\alpha}$ as $l \rightarrow \infty$.
-        First, we show that $|X_l - Y_l| \rightarrow 0$, a.s.  
+        Toward this end, we first show that $|X_l - Y_l| \rightarrow 0$, a.s.  
 		  Observe that $|X_l - Y_l| > 0$ if and only if $|\dbb_l - \gbb_l| > 0$.  
         In the proof of Theorem \ref{thm:strong_consistency} we showed that $\left\{ \dbb_l - \gbb_l \neq 0 \right\}$ happens only finitely many times, so $|X_l - Y_l| \rightarrow 0$, a.s.\ by the Borel-Cantelli Lemma. 
         Next, since $X_l \Rightarrow N(0,1)$  by the central limit theorem and $|X_l - Y_l| \rightarrow 0$ in probability, $Y_l \Rightarrow N(0,1)$.  
@@ -695,9 +695,11 @@ For $\xh = \xs$, $\mu_\xh = 0$; therefore, in this case, we have $\lim_{l\righta
 \section{Computational Results}
 \label{sec:comp}
 
-In the previous section, we proved asymptotic results regarding the OMRP estimators. 
+In the previous section, we proved various asymptotic results regarding the OMRP estimators. 
 In this section, we apply OMRP to several test problems and examine small-sample behavior. 
-We begin our discussion by introducing the test problems used for numerically evaluating OMRP in \S \ref{ssec:test}, followed by our experimental setup in \S \ref{ssec:expS}. Then, we present and discuss the numerical results in \S \ref{ssec:results}. 
+We begin our discussion by introducing the test problems used for numerically evaluating OMRP in \S \ref{ssec:test}, followed by our experimental setup in \S \ref{ssec:expS}. 
+Then, we present and discuss the numerical results in \S \ref{ssec:results}.
+The trade-off between overall computational effort and variability of the estimators is investigated last, in \S \ref{ssec:compeff}, where we also provide guidelines on selecting the degree of overlap. 
 
 \subsection{Test Problems}
 \label{ssec:test}
@@ -745,8 +747,9 @@ This final test problem allows us to investigate how OMRP works on large-scale p
 
 
 The candidate solutions used for NVD and CEP1 and their characteristics can be found in \citep{Bayraksan2006}.
-We used the candidate solution (0, 0, 1, 1, 1, 0, 1, 1, 0, 1) for 10D with $\mu_{\xh} = 158.579$ and the candidate solution (11, 14, 8, 11, 7) for DB1 with an {\it estimated} $\mu_{\xh} = 1.08$. 
-Because the optimal solution of DB1 is unknown, a Latin hypercube sample of size 50,000 was used to estimate $\mu_{\xh}$, which was then used below to estimate the coverage probability of the OMRP CIs for this test problem.
+We used the candidate solution (0, 0, 1, 1, 1, 0, 1, 1, 0, 1) for 10D with $\mu_{\xh} = 158.579$ and the candidate solution (11, 14, 8, 11, 7) for DB1 with an estimated $\mu_{\xh} = 1.08$. 
+Because the optimal solution of DB1 is unknown, we used a Latin hypercube sample of size 50,000 to estimate $\mu_{\xh}$.
+We then used this value of $\mu_{\xh}$ to estimate the coverage probability of the OMRP CIs for DB1.
 
 
 \subsection{Experimental Setup}
@@ -755,7 +758,7 @@ Because the optimal solution of DB1 is unknown, a Latin hypercube sample of size
 
 Our experiments were conducted as follows. 
 We used a total sample size of $n = 30 m$, with several values of the batch size $m=100, 200, \ldots$. 
-Then, at each value of $m$, we formed the OMRP estimators with varying amounts of overlap. 
+Then, at each value of $m$, we formed the OMRP estimators with varying degrees of overlap. 
 We also set $\alpha=0.10$, forming 90\% CIs on the optimality gap using the ORMP estimators. 
 Results for NVD were compiled over 10,000 independent runs, while the CEP1 and 10D results were taken over 1,000 independent runs, and DB1 results were generated over 500 independent runs.
 
@@ -774,13 +777,13 @@ In all cases, we used the Mersenne Twister algorithm of \citet{matsumoto_nishimu
 
 A summary of results from these experiments is depicted in Figures~\ref{fig:varvar1}--\ref{fig:nv}.
 Figures~\ref{fig:varvar1} and \ref{fig:varvar2} show the variance of OMRP variance estimators, normalized with respect to $\var{nVG}$ of the nonoverlapping case (MRP). 
-The solid lines in these figures show the theoretical relative variance from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
+The solid lines in these figures show the theoretical relative decreases in variance from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
 Empirical results agree with the theoretical values well, with more variability observed in CEP1, 10D, and DB1. 
 These experiments suggest that lower variances can be achieved in stochastic programming by overlapping the batches, even with small sample sizes.
-The variance of OMRP variance estimators in DB1 can be less than the asymptotic amount established by Theorem \ref{thm:varvar_conv}. %for the small sample sizes used in these experiments. 
+The variance of OMRP variance estimators for DB1 can be less than the asymptotic amount established in Theorem \ref{thm:varvar_conv}. %for the small sample sizes used in these experiments. 
 This is because DB1 has not yet been solved to optimality due its size; therefore, it may lack a unique optimal solution. 
 %, violating assumption A3. (?)
-Even with the relatively small sample sizes compared to the size of this problem, however, overlapping appears to reduce the variances. 
+Even with the relatively small sample sizes compared to the size of this problem, however, overlapping appears to lower the variances. 
 
 
 \begin{figure}[htb!]
@@ -853,19 +856,19 @@ The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much 
 
 
 The increased computational workload from solving overlapping batches raises the question of the computational efficiency of this method to estimate $VG$.
-In this setting, computational efficiency can be defined as $[T(\gammab)\var{VG}]^{-1}$, where $T(\gammab)$ is the computational time spent to generate $VG$ for a given value of $\gammab$.
-Because the variance of the overlapping variance estimator relative to the nonoverlapping (MRP) variant is known from (\ref{eq:var_reduct_formula}), we need only examine the computational time, which can be decomposed as $T(\gammab) = t(\gammab)\left(\nb\right)$. 
+In this setting, computational efficiency can be defined as $[T(\gammab)\var{VG}]^{-1}$, where $T(\gammab)$ is the computation time spent to generate $VG$ for a given value of $\gammab$.
+Because the variance of the overlapping variance estimator relative to the nonoverlapping (MRP) variant is known from (\ref{eq:var_reduct_formula}), we need only examine the computation time, which can be decomposed as $T(\gammab) = t(\gammab)\left(\nb\right)$. 
 Here, $t(\gammab)$ is the average computation time per batch, which is multiplied by the number of batches.
-warm starting an algorithm may be used to decrease the computation time per batch for $\gammab < 1$, leading to a possible increase in computational efficiency. 
+Warm starting an algorithm may be used to decrease the computation time per batch for $\gammab < 1$, leading to a possible increase in computational efficiency. 
 
 To investigate computational efficiency, we assumed that computation time per batch can be approximated as $t(\gammab) \propto \gammab^p$ for some $p \geq 0$.
-Results for various values of $p$ are shown in Figure \ref{fig:efficiency}(a). 
+The results for various values of $p$ are shown in Figure \ref{fig:efficiency}(a). 
 This figure is constructed using $m = 1,000$, but the results do not change substantially with different values of $m$.
 The graph is also scaled so that nonoverlapping batches produces a computational efficiency of 1. 
 Efficiency gains increase with larger exponent $p$ but are positive even for small values of $p$ when $\gammab$ is sufficiently close to 1.
-At $p=1$, i.e., for problems where computational time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches of \cite{Meketon1984}.
+At $p=1$, i.e., for problems where computation time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches of \cite{Meketon1984}.
 When $p=0.9$, computational efficiency is maximized at around $\gammab=0.3$.
-When $p$ is $0.71$, on the other hand, computational efficiency is observed for values of $\gammab$ from slightly lower than $0.3$ to $1$, and efficiency is maximized at a relatively flat region between $\gammab=0.5$ and $\gammab=0.8$.
+When $p$ is $0.71$, on the other hand, computational efficiency is observed for values of $\gammab$ ranging from slightly lower than $0.3$ to $1$, and efficiency is maximized at a relatively flat region between $\gammab=0.5$ and $\gammab=0.8$.
 
 
 \begin{figure}[thb!]
@@ -894,14 +897,14 @@ Therefore, as overlapping increases, insertion sort results in a decreased solut
 To test computational efficiency, we used $m = 1,000$ with $10,000$ runs.
 The average computation time per batch was found empirically to be well approximated ($R^2 = 0.994$) by the power law with $p = 0.71$.
 The empirically measured computational efficiency is compared to the theoretical result in Figure \ref{fig:efficiency}(b), where the theoretical computational efficiency, shown in solid line, is repeated from Figure \ref{fig:efficiency}(a).
-It appears that empirical observations match with the theoretical efficiency calculations well. 
+It appears that empirical observations match the theoretical efficiency calculations well. 
 
 
 A related question on computational efficiency asks whether OMRP is more efficient than nonoverlapping MRP with a larger number of batches.
 When generating observations is cheap, one could alternatively increase the number of batches in MRP to obtain estimators with lower variances. 
 In the nonoverlapping case, $\var{VG} \propto \frac{1}{k}$; so, decreasing $\var{VG}$ to the level of maximally overlapping batches of \cite{Meketon1984} requires a $50\%$ increase in the number of batches, and thus a $50\%$ increase in computation time.
 Continuing on in this way for various values of $\gammab$, we obtain the solid black curve in Figure \ref{fig:comp_work_comparison}. 
-This curve shows the increased computational effort in MRP due to an increased number of batches to obtain the same variance of OMRP across $\gammab$.
+This curve shows the increased computational effort in MRP because of an increased number of batches to obtain the same variance as OMRP across $\gammab$.
 If the work increase by OMRP is less than this solid black curve, then OMRP is computationally more efficient than increasing the number of batches in MRP. 
 Again, assuming average computation time per batch can be represented as $T(\gammab) \propto \gammab^p$, Figure \ref{fig:comp_work_comparison}(a) compares the increase in computational work for OMRP for several values of $p$ to the work increase for MRP to get an equivalent decrease in variance.
 We again see that OMRP is advantageous for larger values of $p$.
@@ -930,11 +933,12 @@ The results, shown in Figure \ref{fig:comp_work_comparison}(b), appear to match 
 
 
 In cases where the exponent $p$ can be estimated, the above theoretical method may be used to determine a reasonable value for $\gammab$.
-We recommend that users perform preliminary computations to determine how computational time per batch changes as $\gammab$ changes when warm starting is available. 
+We recommend that users perform preliminary computations to determine how computation time per batch changes as $\gammab$ changes when warm starting is available. 
 We can see in Figure \ref{fig:efficiency} that for some values of $p$, efficiency gain is nearly flat over a region of $\gammab$.
 In this case, we recommend choosing $\gammab$ near the right side of this region.
 This choice keeps efficiency high while decreasing computation time and preventing large decreases in efficiency in the event that $p$ was overestimated.
-For example, in the case of NVD, we recommend the use of value $\gammab=0.8$ as this value provides high computational efficiency with minimal overall computation time across values of $\gammab$ with high efficiency. 
+For example, in the case of NVD, we recommend the use of $\gammab=0.8$ 
+because this value provides minimal overall computation time across all values of $\gammab$ with the highest efficiency level for this problem.  
 For situations where $p > 0$ but its size cannot be readily measured or estimated, we recommend selecting a large value of $\gammab$ such as $0.9$.
 This allows for some increase in efficiency while remaining robust in the event that $p$ is smaller than expected.
 
@@ -958,7 +962,7 @@ Finally, based on our study of computational efficiency, we have provided guidel
 The authors thank Andrzej Ruszczy{\'{n}}ski and Artur {\'{S}}wietanowski for
 access to their regularized decomposition code, which was used to solve CEP1 and DB1. 
 The authors are also grateful to the associate editor and two anonymous referees for valuable suggestions that significantly improved both the content and the presentation of the paper. 
-%This research has been supported in part by the National Science Foundation under Grant(s)  EFRI-0835930 and CMMI-1345626 ??? 
+%This research has been supported in part by the National Science Foundation under Grant(s) DMS-0602173  EFRI-0835930 and CMMI-1345626 ??? 
 An earlier version of this paper appeared in \citep{love2011overlapping}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
