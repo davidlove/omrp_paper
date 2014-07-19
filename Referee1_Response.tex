@@ -51,19 +51,13 @@
 \bigskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\noi
 We thank the referee for the helpful comments and suggestions. 
 We incorporated all of the recommended changes and believe the paper is improved as a result. 
 Below, we go through in detail these changes. 
 \medskip
 
 \bigskip 
-
-%%%%%%%%%%%%%%%%%
-%% Need to be careful with the minor changes. Will these be affected?
-%% Need to CHECK AT THE VERY END... FOR ANY CHANGES on TOP OF these...
-%%    - GB
-%%%%%%%%%%%%%%%%%
 
 \noi  
 {\large \bf ``Major'' comments:}
@@ -76,14 +70,12 @@ Sometimes, a similar motivation can arise in stochastic optimization because the
 their work.)}
 \end{itemize}
 
-\noi
-%We thank the referee for this suggestion. 
+\noi 
 Thank you for this suggestion. 
 You are right.
 There are cases when generating scenarios is expensive in the stochastic optimization setting as well. 
-We changed the introduction based on your, the associate editor and the other reviewer's comments. 
-We specifically added this as a motivation. 
-The motivation now appears in the first full paragraph on page 4 of the paper. 
+We changed the introduction based on your, the associate editor, and the other reviewer's comments. 
+We specifically added this as a motivation in the first full paragraph on page four of the revised paper. 
 \medskip
 
 \begin{itemize}
@@ -100,15 +92,12 @@ While I am not suggesting that this exploration needs to be made for all three t
 \noi 
 We studied computational efficiency of the OMRP variance estimators and demonstrated efficiency on the newsvendor problem using insertion sort. 
 The results of this study are presented in a new section, \S 5.4 (Computational Efficiency).
-%We studied the computational efficiency of the OMRP estimators, based on your and the associate editor's comments, and provided a summary of our results in a new section, Section 5.4 (Computational Efficiency). 
 We first approached efficiency by the reciprocal of variance multiplied by the computation time, per the associate editor's suggestion. 
 Maximizing computational efficiency defined in this manner provided guidelines on selecting the degree of overlap. 
 We then looked at how OMRP compared to increasing the number batches in MRP to reach an equivalent variance level.
-We examined computational efficiency theoretically, assuming a functional form of the solution time per batch, and also empirically. 
+We examined computational efficiency theoretically---assuming a functional form of the solution time per batch---and also empirically. 
 For empirical evaluation, we used the newsvendor problem with insertion sort, based on your suggestions; thank you. 
 We found that when effective warm starting is available, overlapping can lead to more efficient estimators than (nonverlapping) MRP, both when the direct nonoverlapping counterpart is used or when the number of batches in MRP is increased to match the variance of the overlapping counterpart.  
-%All these results are presented in Section 5.4 (Computational Efficiency). 
-%Thank you for this suggestion. 
 We believe the study of computational efficiency significantly improved the paper. 
 Thank you.\smallskip 
 
@@ -145,7 +134,6 @@ An alternative is to concurrently adjust the coefficients of the $\dbb$ terms to
 When the coefficients of $\dbb$ are adjusted, however, $\dbb$ and $VD$ are {\it not exactly} the same as the overlapping estimators of simulation output analysis. 
 Because our results depend on the asymptotic properties of the overlapping estimators already established in the simulation literature, we did not want to make any changes to $\dbb$. 
 It may be still be possible to recover the same results on overlapping using this alternative  $\dbb$ but we did not pursue it here. 
-%We actually performed computations using $\gbb$ formed as a sample mean of $\gb$ values and the results were largely similar. 
 Due to the lack of theoretical results explained above, we decided not to include or discuss $\gbb$ formed as a sample mean of $\gb$ values, even though it appears as a natural choice. 
 Instead, we expanded the text motivating the current choice of $\gbb$. 
 Based on your comments, we also expanded the text regarding the nonnegativity of $\gbb$. 
@@ -213,12 +201,12 @@ Done.
 \end{itemize}
 
 \noindent 
-We revised this section in order to improve exposition. 
+We revised this paragraph in order to improve exposition. 
 We used `smaller number of batches' based on the comments of the other referee in the new sentence. 
 \medskip 
 
 \noi 
-{\it Note:} This section now appears in the second paragraph of \S 3 (Overlapping Multiple Replications Procedure) as a result of restructuring the introduction based on the comments of the associate editor and the other referee. 
+{\it Note:} The revised sentence now appears in the second paragraph of \S 3 (Overlapping Multiple Replications Procedure) as a result of restructuring the introduction based on the comments of the associate editor and the other referee. 
 \medskip 
 
 
@@ -288,11 +276,11 @@ This is because the center batches are identically distributed.
 As a result, $\mathbb{E}A_j^2$ for all the center batches $j=\lceil \bar{\gamma}^{-1} \rceil, \ldots,n_b - \lceil \bar{\gamma}^{-1} \rceil$ are the same. 
 To make this clear, we introduced the notation $A_j^c$ for center batches and $A_j^f$ and $A_j^e$ for the fringe batches that appear at the front and end of each set of nonoverlapping batches, respectively. 
 We also emphasized that each front fringe batch has an identically distributed pair at the end fringes, and that all the center batches are identically distributed. 
-%Thanks for catching this. 
-\smallskip 
+\medskip 
 
 \noi 
 {\it Note:} We added brackets to expectations to improve readability as suggested by the other referee.
+We also removed the second equality to save some space because this equality's result was also equally expressed in the last inequality. 
 \medskip 
 
 
@@ -323,10 +311,6 @@ Done.
 
 \noindent
 Done.
-% xxx Yes, it is partially because we are not sure if it has a unique optimal solution as DB1 has never been solved before. 
-%Even if it has been solved, the variance reduction is shown asymptotically but the computations are only for small sample sizes. 
-%We reworded this to reflect these points.
-%Thank you for this suggestion. 
 \medskip 
 
 

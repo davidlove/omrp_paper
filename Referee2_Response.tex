@@ -51,11 +51,6 @@ Below, we go through in detail these changes.
 
 \bigskip 
 
-%%%%%%%%%%%%%%%%%
-%% Need to be careful with the minor changes. Will these be affected?
-%% Need to CHECK AT THE VERY END... FOR ANY CHANGES on TOP OF these...
-%%    - GB
-%%%%%%%%%%%%%%%%%
 
 \noi  
 {\large \bf General Comments:}
@@ -71,8 +66,13 @@ You are right.
 We changed the introduction to clearly state the main contributions of the paper.  
 Please see page four of the revised manuscript. 
 We also clarified the motivation for the work, included new contributions based on the study of computational efficiency (contribution (iv)), and provided a comparison with the proceedings version of the paper (based on the editor-in-chief's suggestion).
-%We believe the presentation of the paper significantly improved.  
-%Thank you.
+\medskip 
+
+\noi 
+As a result of the revised introduction---aimed to clearly state the contributions of the paper---we decided to move the technical discussion on using overlapping batches in simulation output analysis versus assessing solution quality in stochastic optimization to \S 3 (Overlapping Multiple Replications Procedure).
+We provided `{\it Note:}'s whenever a sentence was moved when addressing your minor comments below. 
+We believe the presentation of the paper significantly improved.  
+Thank you.
 \medskip 
 
 \begin{itemize}
@@ -85,10 +85,9 @@ We also clarified the motivation for the work, included new contributions based 
 We shortened and streamlined the OBM review, focusing on the main results used in the paper, by combining two previous sections---\S 2.1 (Overlapping Batch Means) and \S 3.1 (Variably Overlapping Batches)---along with other explanations on OBM that appeared later in the paper. 
 The combined review is in the background section, \S 2.1 (Batch Means). 
 To improve readability, we created two subsections: \S 2.1.1 (Nonoverlapping Batch Means) and \S 2.1.2 (Overlapping Batch Means). 
-While we removed a number of equations and shortened the text, we kept some explanations that are necessary for a reader who is not familiar with OBM (e.g., readers with an optimization focus) to follow the main ideas. 
-These basic explanations appear, for instance, in the first paragraph of \S 2.1.2 (Overlapping Batch Means).  
-We hope to be able to reach a broader audience this way. 
-As a result of these changes, 
+While we removed a number of equations and shortened the text, we kept some explanations that are necessary for a reader who is not familiar with OBM (e.g., readers with an optimization focus) to follow the main ideas.   
+We hope to reach a broader audience this way. 
+As a result of these changes: 
 \begin{itemize}
 	\item[(i)]  instead of former equations (2) and (5), both on overlapping batch means variance estimator, we have only one equation (2); 
 	
@@ -96,10 +95,11 @@ As a result of these changes,
 
 	\item[(iii)] the former equation (3) is removed;
 
-	\item[(iv)] the discussion that appeared at the beginning of \S 4.4 (previously: Variance Reduction, now: Lower Variances) is moved to this review section.\medskip 
+	\item[(iv)] the discussion that appeared at the beginning of \S 4.4 (previously: Variance Reduction, now: Asymptotically Lower Variances) is moved to this review section.\medskip 
 
-{\it Note:} While making the changes, we realized that `$\alpha$' was used in the current equation (3) and the statement of Theorem 2 as well as the ($1-\alpha$)-level confidence intervals.  
-Therefore, we changed `$\alpha$' in equation (3) and Theorem 2 to `$\beta_{\bar{\gamma}}$'. 
+{\it Note:} While making the changes, we realized that notation `$\alpha$' was overloaded. 
+It was used in the current equation (3) and the statement of Theorem 2 to represent the relative variances, and it was used as the level of significance in confidence intervals.  
+To remedy this issue, we changed `$\alpha$' in equation (3) and Theorem 2 to `$\beta_{\bar{\gamma}}$'. 
 \end{itemize}
 
 \noi
@@ -131,7 +131,7 @@ Thank you for your careful review that significantly improved the presentation o
 \end{itemize}
 
 \noi
-Changed.  
+Yes. Done.  
 We also went through the paper to correct other occurrences. 
 In particular, this was also used in \S 6 (Conclusions). 
 We changed the first sentence of \S 6 (Conclusions) to use the word `apply' instead of `extend'. 
@@ -143,7 +143,7 @@ We changed the first sentence of \S 6 (Conclusions) to use the word `apply' inst
 \end{itemize}
 
 \noi
-Changed. 
+Done. 
 We also went through the paper and corrected other occurrences. 
 The current version of the paper either has `give conditions' or `provide conditions'. 
 \medskip 
@@ -180,7 +180,7 @@ We also went through the paper and made changes to the language, paying specific
 \end{itemize}
 
 \noi
-Changed.
+Done.
 \medskip 
 
 
@@ -231,8 +231,8 @@ Done.
 \medskip 
 
 \noi
-{\it Note:}  We moved this sentence from the paragraph on page 2 to later in the introduction to clearly state the contributions of the paper. 
-It now appears as contribution (ii) on page 4 of the revised manuscript.
+{\it Note:}  We moved this sentence from the paragraph on page two to later in the introduction to clearly and succinctly state the contributions of the paper. 
+It now appears as contribution (ii) on page four of the revised manuscript.
 \medskip 
 
 \begin{itemize}
@@ -243,7 +243,7 @@ I view what you're doing in this paper as simply proposing a new estimator whose
 \noi
 You are right. 
 Thanks for pointing this out. 
-We corrected the wording throughout the paper. 
+We corrected the wording throughout the paper, avoiding the use of the term `variance reduction'. 
 \medskip 
 
 
@@ -254,10 +254,13 @@ We also present''}
 
 \noi
 We made the change to the first sentence above. 
-The first sentence now appears as part of contribution (ii) and the second sentence as part of contribution (iii) on page 4 of the revised manuscript. 
-We decided not to include `also' in the second sentence as it starts a new set of contributions. 
+We reworded the second sentence because it starts a new set of contributions in the revised paper. 
 \medskip 
 
+\noi
+{\it Note:}
+The first sentence now appears as part of contribution (ii) and the second sentence as part of contribution (iii) on page four of the revised manuscript. 
+\medskip 
 
 \begin{itemize}
 \item[] \textit{2, 28: ``Our experiments indicate that the use of overlapping estimators results in gap estimators achieving lower variance than their nonoverlapping counterparts, along with comparable bias and interval coverage --- for both small- and large-sample cases.}
@@ -287,8 +290,8 @@ Done.
 
 \noi
 Done.  
-We checked for others and changed them according to the Chicago Manual of Style. 
-For instance, the manual recommends not to hyphenate `adverb ending in ly + participle or adjective' even it appears before a noun (e.g., maximally overlapping batches); therefore we removed the hyphen from these phrases. 
+We checked for other compound adjectives and changed them according to the Chicago Manual of Style. 
+For instance, the manual recommends not to hyphenate `adverb ending in ly + participle or adjective' even it appears before a noun (e.g., maximally overlapping batches); therefore we removed the hyphen from this phrase. 
 \medskip 
 
 
@@ -376,8 +379,7 @@ Done.
 
 \noi
 {\it Note:}
- As a result of the revised introduction---aimed to clearly state the contributions of the paper---we moved the technical discussion on using overlapping batches in simulation output analysis versus for assessing solution quality in stochastic optimization to \S 3 (Overlapping Multiple Replications Procedure). 
-Consequently, this sentence now appears in \S 3. 
+This sentence now appears in \S 3 (Overlapping Multiple Replications Procedure). 
 \medskip 
 
 
@@ -389,11 +391,11 @@ Consequently, this sentence now appears in \S 3.
 You are right. 
 We removed the comment on the central limit theorem on the minimized sample means as it is not relevant to the paper. 
 We also reworded these sentences to improve clarity. 
-\bigskip 
+\medskip 
 
 \noi
 {\it Note:}
-As mentioned in the previous comment, the revised sentences now appear in \S 3 (Overlapping Multiple Replications Procedure). 
+The revised sentences now appear in \S 3 (Overlapping Multiple Replications Procedure). 
 \medskip 
 
 
@@ -403,8 +405,8 @@ As mentioned in the previous comment, the revised sentences now appear in \S 3 (
 
 \noi
 Thanks for pointing out the ambiguity here. 
-We reworded this sentence, divided it into two sentences to improve readability, and added further explanations to remove any ambiguities. 
-\bigskip 
+We reworded this sentence, divided it into two sentences to improve readability, and added further explanations to remove any remaining ambiguities. 
+\medskip 
 
 \noi
 {\it Note:}
@@ -444,7 +446,7 @@ This sentence now appears in \S 3 (Overlapping Multiple Replications Procedure).
 
 \noi
 We revised this section in order to improve exposition. 
-We used `smaller number of batches' based on your suggestion in the revised version. 
+We used `smaller number of batches' based on your suggestion in the revised sentence. 
 \medskip 
 
 \noi 
@@ -481,10 +483,10 @@ Done.
 \end{itemize}
 
 \noi
-%You are right.
 We meant to say that the degree of overlap is parametrized and this parameter can be chosen by the user. 
 We reworded this sentence to reflect this. 
-We also went through the paper, removed other occurrences, and avoided using this term in the new text added. 
+We went through the paper and removed other occurrences of phrases like `variable amounts of overlap', `variably overlapping batches', etc.
+We also avoided using these terms in the newly added text. 
 \medskip 
 
 
@@ -495,10 +497,10 @@ We also went through the paper, removed other occurrences, and avoided using thi
 
 \noi
 No. By `classical case', we meant the use of overlapping batches in simulation output analysis (as opposed to assessment of solution quality in stochastic programming). 
-We reworded this sentence to remove ambiguity. 
-Based on your earlier comments, we avoided the term `variance reduction' in the revised sentence.
-We also went through the paper and removed several uses of the word `classical' that referred to nonoverlapping batches to reduce ambiguity.
-%(as these were referring to nonoverlapping batches). 
+We reworded this sentence. 
+%Based on your earlier comments, we avoided the term `variance reduction' in the revised sentence.
+We also went through the paper and removed several uses of the word `classical' that referred to nonoverlapping batches.
+Any remaining sentences with the word `classical' only refer to the use of overlapping batches in simulation output analysis. 
 %In the current version of the paper, `classical case' is used to only indicate  the use of overlapping batches in simulation output analysis. 
 \medskip 
 
@@ -570,7 +572,7 @@ Thank you for this suggestion.
 
 \noi
 Done.  
-We removed the word `corresponding' as part of the rewrite.
+We removed the word `corresponding' as part of the rewrite but added the word `overlapping' based on your suggestion.
 \medskip 
 
 \begin{itemize}
@@ -579,7 +581,7 @@ We removed the word `corresponding' as part of the rewrite.
 
 \noi
 We went through the paper and removed most of the ``note that'' phrases. 
-We decided to leave a couple as is (as ``notice that'') because they highlight important characteristics.  
+We decided to leave some as is (as ``notice that'') because they highlight important characteristics.  
 \medskip 
 
 
@@ -589,10 +591,9 @@ We decided to leave a couple as is (as ``notice that'') because they highlight i
 \end{itemize}
 
 \noi
-We changed this sentence and directly referred to the denominator term.
-We decided to avoid the degrees of freedom here. 
-This is because we wanted to focus on the degrees of freedom for confidence interval construction, which is discussed in both the theoretical and computational results.
-\medskip  
+We changed this sentence and directly referred to the denominator.
+We decided to avoid the `degrees of freedom' here. 
+This is because we wanted to focus on the degrees of freedom for confidence interval construction, which is an important component of both our theoretical and computational results.\medskip  
 
 \noi 
 {\it Note:} This section has been restructured based on your comments. 
@@ -607,7 +608,7 @@ You seem to be using it that way, so maybe state the requirement.}
 \end{itemize}
 
 \noi
-Yes; we explicitly stated this in a sentence after we introduce $\gamma$.
+Yes. We explicitly stated this in a sentence after we introduce $\gamma$.
 \medskip 
 
 \noi 
@@ -622,7 +623,6 @@ Yes; we explicitly stated this in a sentence after we introduce $\gamma$.
 
 \noi
 Done. 
-%We introduced the floor function before its first use, and we introduced the ceiling function right after its first use.
 \smallskip  
 
 \noi 
@@ -693,7 +693,7 @@ Done.
 
 \noi
 This notation was defined before Theorem 1. 
-We moved the definitions of $\sigma_{\hat{x}}$ and $\mu_{\hat{x}}$ to the end of \S 4.2 (Nonoptimized Counterparts) to improve clarity. 
+We moved the definitions of $\sigma_{\hat{x}}$ and $\mu_{\hat{x}}$ to the end of \S 4.2 (Nonoptimized Counterparts) to improve clarity and added explanations to provide context. 
 \medskip 
 
 
@@ -703,7 +703,7 @@ We moved the definitions of $\sigma_{\hat{x}}$ and $\mu_{\hat{x}}$ to the end of
 \end{itemize}
 
 \noi
-We moved the discussion at the first half of this paragraph to the new, combined OBM review in \S 2.1.2 (Overlapping Batch Means). 
+We moved the discussion in the first half of this paragraph to the new, combined OBM review in \S 2.1.2 (Overlapping Batch Means). 
 We referred to equation (3) here to remind the readers the basis of the proof.
 The second half of this paragraph deals with the batching structure, and this discussion is moved to the paragraph after the theorem's proof. 
 \medskip 
@@ -736,12 +736,17 @@ We added a brief explanation after this inequality to make it clear.
 \end{itemize}
 
 \noi
-No, we did not.   
-We added explanations in the proof Theorem 3, discussing how $t_{d_l,\alpha}$ factors in the proof. 
+No, we had not.   
+We added explanations in the proof Theorem 3, discussing how $t_{d_l(k_l - 1),\alpha}$ factors in the proof. 
 \medskip 
 
+\noi 
+{\it Note:}
+While making this revision we noticed a typo. 
+We changed $t_{d_l,\alpha}$ to $t_{d_l(k_l - 1),\alpha}$, where $k_l=\left\lfloor \frac{n_l}{m_l} \right\rfloor$ is the number of batches used in the nonoverlapping counterpart. 
+\medskip 
 
-
+\newpage
 \begin{itemize}
 \item[] \textit{18: Your figures are very difficult to read, even with the pdf file.}
 \end{itemize}

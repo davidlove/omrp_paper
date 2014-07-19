@@ -79,20 +79,20 @@ Thank you for this suggestion.
 It is indeed important to study computational efficiency in this context. 
 We created a new section, \S 5.4 (Computational Efficiency), to study the computational efficiency of overlapping estimators in the stochastic optimization setting. 
 %When an algorithm has warm starting capability, as the degree of overlapping increases,  solution time per batch could decrease; as a result, computational efficiency gains could be observed.  
-We discussed efficiency for a given functional form of the solution time per batch. 
+We analyzed efficiency for a given functional form of the solution time per batch. 
 %Depending on the effectiveness of warm starting, maximizing computational efficiency provides guidelines on selecting the degree of overlapping. 
 %\medskip 
-In addition, based on the comments of Referee 1, we studied efficiency of overlapping estimators compared to increasing the number of batches in MRP to obtain (nonoverlapping) estimators with equivalently lower variances. 
+In addition, based on the comments of Referee 1, we studied the efficiency of OMRP compared to increasing the number of batches in MRP to obtain (nonoverlapping) estimators with equivalently lower variances. 
 Our results indicate that when warm starting is effective, overlapping is computationally more efficient.
-Even in cases where the effectiveness of warm starting is quite low, computational efficiency can be observed with a low degree of overlap (e.g., when approximately 10\% of observations are overlapped).\bigskip 
+Even in cases where the effectiveness of warm starting is low, computational efficiency can be observed with a low degree of overlap (e.g., when approximately 10\% of observations are overlapped).\medskip 
 
 \noi 
 We illustrated these results on the newsvendor problem using insertion sort. 
-Our experiments show that (i) the functional form used provides a good representation, (ii) increased computational efficiency over the nonoverlapping counterpart is indeed observed over a range of overlapping levels, and (iii) this analysis provides a way to select the degree of overlapping by maximizing efficiency.\bigskip 
+Our experiments show that (i) the functional form used to express solution time per batch provides a good representation, (ii) increased computational efficiency over the nonoverlapping counterpart is indeed observed over a range of overlapping degrees, and (iii) this analysis provides a way to select the degree of overlap by maximizing efficiency and then minimizing overall computation time.\bigskip 
  
 \noi
-Finally, we provided guidelines on selecting the degree of overlap at the end of \S 5.4 (Computational Efficiency) based on our study. 
-We believe the paper has improved as a result of the study of computational efficiency. 
+As a result of this study, we provided guidelines on selecting the degree of overlap in OMRP at the end of \S 5.4 (Computational Efficiency).  
+We believe the paper has substantially improved as a result of the study of computational efficiency. 
 Thank you for this suggestion. 
 \medskip 
 
@@ -104,7 +104,8 @@ A link between less variable confidence interval widths and improved stochastic 
 
 \noi 
 We established improved computational efficiency on the newsvendor problem using insertion sort.
-We also (i) changed \S 1 (Introduction) to clearly motivate the study and argue usefulness of the results, paying specific attention to efficiency gains; (ii) updated \S 6 (Conclusions) to summarize these new results, again paying attention to computational efficiency; (iii) provided a study of computational efficiency gains of overlapping in the context of assessing solution quality in stochastic programming in the new \S 5.4 (Computational Efficiency); and finally (iv) updated the abstract.  
+We also studied the computational efficiency of overlapping for assessment of solution quality in stochastic programming in the new \S 5.4 (Computational Efficiency), based on your earlier comments. 
+In addition, we (i) changed \S 1 (Introduction) to clearly motivate the study and argue usefulness of the results, (ii) updated \S 6 (Conclusions) to summarize these new results, paying specific attention to computational efficiency, and finally (iv) updated the abstract.  
 %(Please see our response to the previous comment.)
 \medskip
 
@@ -147,7 +148,7 @@ We moved this sentence from \S 1 (Introduction)---to clearly state the contribut
 
 \noi
 This sentence was removed as a result of the computational efficiency study. 
-Based on the examination of computational efficiency, we provided new guidelines on selecting the degree of overlapping. 
+Based on the examination of computational efficiency, we provided new guidelines on selecting the degree of overlap. 
 
 
 \end{document}

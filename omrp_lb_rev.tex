@@ -880,7 +880,7 @@ When $p$ is $0.71$, on the other hand, computational efficiency is observed for 
 	   \label{fig:efficiency_nv}
 	   \includegraphics[width=.51\textwidth]{images/nv_comp_efficiency}}
 		\caption{
-		Computational efficiency of the OMRP variance estimator relative to the (nonoverlaping) MRP variance estimator measured
+		Computational efficiency of the OMRP variance estimator relative to the (nonoverlapping) MRP variance estimator measured
 		(a) theoretically and
 		(b) empirically for NVD using insertion sort
 %		(graphs are scaled so that nonoverlapping batches produces a computational efficiency of 1)
@@ -950,19 +950,25 @@ This allows for some increase in efficiency while remaining robust in the event 
 We have applied the overlapping batch means method from simulation output analysis \citep{Meketon1984,Song1992,Welch1987} to assessing solution quality in stochastic programming, in particular, to Monte Carlo simulation-based estimators of optimality gaps \citep{Mak1999}. 
 We have provided conditions under which (i) the resulting point estimator of the optimality gap and its associated variance estimator are consistent, (ii) OMRP variance estimators achieve asymptotically lower variances relative to the MRP variance estimator, and (iii) OMRP CIs are asymptotically valid. 
 Empirical results indicate that asymptotic reductions in variance of the variance estimator show a similar decrease in OMRP at small sample sizes, while bias and coverage probability remain unaffected. 
-Because overlapping may increase computational burden in the stochastic optimization setting, we have examined computational efficiency of OMRP by jointly considering computation time and variance. 
-Our results indicate that when warm starting is effective, efficiency can be observed across a wide range of overlapping degrees, and when warm starting is less effective, efficiency increases for only small degrees of overlap. 
-We have empirically demonstrated computational efficiency by solving a newsvendor problem using insertion sort.
-Finally, based on our study of computational efficiency, we have provided guidelines on selecting the degree of overlap in OMRP. 
 
+Overlapping may increase the computational burden in the stochastic optimization setting.
+By jointly considering computation time and variance, we have examined the computational efficiency of OMRP, and we have empirically demonstrated  efficiency by solving a newsvendor problem using insertion sort.
+Our analysis illustrates that when warm starting is effective, computational efficiency gains can be observed across a wide range of overlapping degrees.
+Even when warm starting is less effective, efficiency slightly increases for low degrees of overlap. 
+Maximizing efficiency and then minimizing total computation time suggests selecting the lowest degree of overlap across all the degrees with the highest efficiency for a given problem and solution method (with warm starting) combination. 
+
+%Finally, based on our study of computational efficiency, we have provided guidelines on selecting the degree of overlap in OMRP. 
+
+Overall, the results in this paper suggest that OMRP could be an efficient method to estimate optimality gaps for a class of stochastic programs when warm starting is available and/or when generating the observations is costly.
  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgments}
 The authors thank Andrzej Ruszczy{\'{n}}ski and Artur {\'{S}}wietanowski for
 access to their regularized decomposition code, which was used to solve CEP1 and DB1. 
-The authors are also grateful to the associate editor and two anonymous referees for valuable suggestions that significantly improved both the content and the presentation of the paper. 
-%This research has been supported in part by the National Science Foundation under Grant(s) DMS-0602173  EFRI-0835930 and CMMI-1345626 ??? 
+The authors are grateful to the associate editor and two anonymous referees for valuable suggestions that significantly improved both the content and the presentation of the paper. 
+%This research has been supported in part by the National Science Foundation under Grants DMS-0602173 and CMMI-1345626.
+%EFRI-0835930
 An earlier version of this paper appeared in \citep{love2011overlapping}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
