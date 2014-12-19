@@ -110,7 +110,7 @@
 \begin{abstract}
 \noindent Overlapping Batch Means (OBM) has long been used in simulation as a method of reusing data to generate variance estimators with asymptotically lower variance.
 In this paper, we apply the OBM method to stochastic programming by formulating a variant of the multiple replications procedure used for assessing solution quality.
-We give conditions under which the resulting optimality gap point estimators are strongly consistent, interval estimators are asymptotically valid, and the variance estimators have the same asymptotically lower variances relative to their nonoverlapping counterparts as the classical OBM estimators \citep{Meketon1984,Welch1987}.
+We give conditions under which the resulting optimality gap point estimators are strongly consistent, the optimality gap interval estimators are asymptotically valid, and the OBM variance estimators of optimality gap have asymptotically lower variances relative to their nonoverlapping counterparts \citep{Meketon1984,Welch1987}.
 We investigate computational efficiency, a combined measure of variance and computation time, providing guidelines on the degree of overlap.  
 Numerical experiments on several test problems are presented, examining the small-sample behavior and the empirical computational efficiency of the overlapping batches method in this context.  
 \medskip
@@ -126,9 +126,9 @@ Numerical experiments on several test problems are presented, examining the smal
 The Overlapping Batch Means (OBM) method, proposed by \citet{Meketon1984}, is commonly used in simulation to obtain variance estimators having variances that are comparatively lower than their nonoverlapped counterparts. 
 In the context of steady-state simulation, OBM is often used to estimate the variance of the sample mean, which is itself an estimator for the mean. 
 \cite{SAH90} use overlapping estimators to estimate the variance of estimators for non-means. 
-More recently, overlapping estimators based on standardized time series (as opposed to batch means) have been evaluated \citep{Alexopoulos01012007,Alexopoulos2007}; see also \citep{Meterelliyoz_etal_12}.
+More recently, overlapping estimators based on standardized time series (as opposed to batch means) have been evaluated \citep{Alexopoulos01012007,Alexopoulos2007}; see also \cite{Meterelliyoz_etal_12}.
 To the best of our knowledge, OBM has never before been studied in a stochastic optimization context. 
-In this paper, we show that the same benefits of nearly the same bias and lower variances relative to their nonoverlapped counterparts can be obtained from overlapping batches when used in a stochastic optimization setting.
+In this paper, we show that the overlapping batches achieve nearly the same bias and lower variances relative to their nonoverlapped counterparts when used in a stochastic optimization setting.
   
 A natural setting where batch means are used in stochastic optimization (especially in stochastic programming) is for assessing solution quality. 
 This typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
@@ -185,26 +185,21 @@ $$
 $$ 
 Here, we assume the same observations $\xit^1, \dots, \xit^m$ are used in both terms.  
 
-Computing the above optimality gap estimate involves solving an optimization problem (\ref{eq:sto_prog_m}) to obtain a lower bound estimator of $\zs$, $\zs_m$, which complicates the statistical analysis. 
+Computing the above optimality gap estimate involves solving the optimization problem (\ref{eq:sto_prog_m}) to obtain a lower bound estimator of $\zs$, $\zs_m$, which complicates the statistical analysis. 
 As mentioned above, to enable statistical inference, the MRP of \citet{Mak1999} generates $k$ independent estimators, each using sample size $m$ ($k$ nonoverlapping batches of size $m$), and averages them to obtain a point estimator.  
 The sample variance of these estimators is used to form confidence intervals (CIs) for the optimality gap (we further review MRP in \S \ref{ssec:mrp}).  
 An advantage of MRP is its applicability to a wide range of problems.  
 With i.i.d.\ sampling, $f$ can be linear or nonlinear, $\X$ can include integrality constraints or not.  
-It is also easy to implement; thus, MRP has been applied to a wide variety of problems, including finance, supply chain network design, etc.; see, e.g., \citep{bertocchi_etal_99,janjarassuk_linderoth_08,santoso_ahmed_etal_05}.  
+It is also easy to implement; thus, MRP has been applied to a wide variety of problems, including finance, supply chain network design, etc.; see, e.g., \cite{bertocchi_etal_99,janjarassuk_linderoth_08,santoso_ahmed_etal_05}.  
 Recently, the approach of (nonoverlapping) batching has been used for assessing solution quality of stochastic programs with finitely many expected value \citep{wang_ahmed_08} and stochastic dominance \citep{hu2010sample} constraints.
-
-%When this confidendence interval on the optimality gap is too large, it can be due to three reasons. First, $\xh$ can be far from optimal; second, bias can be large; third, the sampling error can be large. 
-%We note that for some problems, bias is a more prominent issue and for others, sampling error is the larger issue. 
-%When bias is relatively small, overlapping could help to obtain better variance estimators with simple data reuse, resulting in improved confidence intervals. 
+ 
 
 
 Our aim is to apply the idea of overlapping batches to MRP.  
 The motivation behind using overlapping batches in this context is twofold. 
 First, overlapping could help to obtain better variance estimators with simple data reuse, resulting in improved CIs.
-%Especially for problems where sampling error is dominant, this simple data reuse method could yield better estimators.
 Second, in some cases, generating the realizations $\xit^1, \xit^2, \dots$ to form sampling approximations of (\ref{eq:sto_prog}) can be computationally expensive, and in these cases, overlapping makes the most of the generated observations by reusing data. 
 
-%The following are four specific contributions of this article. 
 The contributions of this article are as follows: 
 \begin{itemize}
 \item[(i)] We formulate an overlapping batch means variant of MRP, where the degree of overlap can be chosen by the user.  
@@ -226,8 +221,8 @@ Based on this study, we provide guidelines on selecting the degree of overlap an
 \end{itemize}
 
 
-An earlier version of the paper appeared in \citep{love2011overlapping}. 
-Most of the theoretical results in the current version of the paper are new, including {\it almost sure} convergence and asymptotically lower variances of the overlapping variance estimators, and asymptotic validity of the interval estimators. 
+An earlier version of the paper appeared in \cite{love2011overlapping}. 
+Most of the theoretical results in the current version of the paper are new, including almost sure convergence and asymptotically lower variances of the overlapping variance estimators, and asymptotic validity of the interval estimators. 
 These results are achieved through a stronger assumption on the rate of convergence of the sampling problem's solution to the unique optimal solution, which is satisfied by several classes of (\ref{eq:sto_prog}); see \S \ref{subsec:assumptions}.
 We also present additional computational results, including those from a large-scale problem, and study computational efficiency of the overlapping MRP method. 
 
@@ -250,12 +245,14 @@ We end in \S \ref{sec:concl} with a summary and conclusions.
 \subsection{Batch Means} 
 \label{ssec:obm}
 
-Consider a covariance stationary stochastic process with mean $\mu$ and variance parameter\footnote{For a given stochastic process $y^1, y^2, \dots$, the variance parameter is the sum of covariances at all lags, $\sigma^2=\mathrm{Var} \left(y^1 \right)+2\sum_{j=1}^{\infty}\mathrm{Cov} \left(y^1,y^{1+j}\right)$. If the variance parameter exists, then  $\sigma^2=\lim_{n\rightarrow \infty}n\mathrm{Var} \left(\ybb\right)$, where $\ybb=\frac{1}{n}\sum_{i=1}^{n} y^{i}$.} $0<\sigma^2<\infty$.  
+Consider a covariance stationary stochastic process $y^1, y^2, \dots$ with mean $\mu$ and variance parameter $0<\sigma^2<\infty$.  
+The variance parameter is the sum of covariances at all lags, $\sigma^2=\mathrm{Var} \left(y^1 \right)+2\sum_{j=1}^{\infty}\mathrm{Cov} \left(y^1,y^{1+j}\right)$. 
+If the variance parameter exists, then  $\sigma^2=\lim_{n\rightarrow \infty}n\mathrm{Var} \left(\ybb\right)$, where $\ybb=\frac{1}{n}\sum_{i=1}^{n} y^{i}$.
 The task is to estimate $\mu$ given some realization of the univariate stochastic process $\y = (y^1, y^2, \dots, y^n)$.  
 Typically, this involves forming a CI of the form $[L_\alpha(\y), U_\alpha(\y)]$ for a given level of significance $\alpha$ such that $\p{L_\alpha(\y) \leq \mu \leq U_\alpha(\y)} = 1 - \alpha$ or that this probability is approximately $1 - \alpha$ for large enough sample sizes.  
-The usual estimator for $\mu$ is the sample mean $\ybb = \frac{1}{n} \sum_{i=1}^n y^i$, which is an unbiased estimator even in the presence of correlated data.  
-However, the usual variance estimator $\frac{1}{n-1} \sum_{i=1}^n (y^i - \ybb)^2$ can be inappropriate to use in the presence of correlated data, resulting in inaccurate interval estimators.  
-To overcome this difficulty, various variance estimators have been proposed in the simulation literature; see, e.g., \citep{law_07}.  
+The usual estimator for $\mu$ is the sample mean $\ybb$, which is an unbiased estimator even in the presence of correlated data.  
+However, the usual (sample) variance estimator $\frac{1}{n-1} \sum_{i=1}^n (y^i - \ybb)^2$ can be inappropriate to use in the presence of correlated data, resulting in inaccurate interval estimators.  
+To overcome this difficulty, various variance estimators have been proposed in the simulation literature; see, e.g., \cite{law_07}.  
 We briefly review two of these variance estimators: nonoverlapping and overlapping batch means.
 
 \subsubsection{Nonoverlapping Batch Means}
