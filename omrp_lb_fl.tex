@@ -388,9 +388,7 @@ Toward this end, let $B(i)$ denote the set of batches $j \in \left\{1, 2, \dots,
 See Figure \ref{fig:overlap_nonint} for an example with $n=18$, $m = 6$, and $\gamma = 2$.  
 Here, the first batch uses observations $\xit^1, \xit^2, \xit^3, \xit^4, \xit^5, \xit^6$, the second batch uses $\xit^3, \xit^4, \xit^5, \xit^6, \xit^7, \xit^8$, and so on.  
 So, $B(1) = \{1\}$, $B(3) = \{1,2\}$, and $B(7)=\{2,3,4\}$.  
-As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$_m$) formed using the $j$th batch. 
-The sampling problem (SP$_m$) formed using the $j$th batch might have multiple optimal solutions. 
-We use $\xs_j \in \argmin_{\x \in X} \frac{1}{m} \sum_{i=1}^m f(\x,\xit^{\gamma(j-1) + i})$, $j = 1, 2, \dots, \nb$ to denote one optimal solution. 
+As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$_m$) formed using the $j$th batch, which may not be unique; so we set $\xs_j \in \argmin_{\x \in X} \frac{1}{m} \sum_{i=1}^m f(\x,\xit^{\gamma(j-1) + i})$, $j = 1, 2, \dots, \nb$. 
 
 The set of optimal solutions to The sampling problem (SP$_m$) formed using the $j$th batch might not be a singleton; there might be multiple optimal solutions. 
 
@@ -409,7 +407,7 @@ The OMRP estimators are defined as follows:
 \end{align}
 
 The optimality gap estimator for each batch $\gb_{lj}$ is defined like (\ref{eq:mrp_gap}) for general values of the nonoverlap parameter $\gamma_l$.  
-We just removed the minimization in (\ref{eq:mrp_gap}) and used directly an optimal solution of $\xs_j$ of batch $j$.  
+We simply removed the minimization in (\ref{eq:mrp_gap}) and directly used an optimal solution of $\xs_j$ of batch $j$.  
 The overall mean, $\gbb_l$, is defined a little differently.  
 Here, $\gbb_l$ still uses each observation $i = 1, 2, \dots, n_l$ but also makes use of {\it all} the information collected throughout the batches.  
 That is, if observation $\xiti$ is used in $|B(i)|$ number of batches, all the optimal solutions $\xs_j$ corresponding to each batch $j \in B(i)$ are used for the lower bound estimator.  
@@ -420,8 +418,8 @@ This is because we want to be as close to a standard mean estimator (e.g., $\ybb
 With this definition of $\gbb_l$, when $\xs_j= \xs$ for all $j= 1, 2, \dots, \nbl$, we have $\gbb_l$ equal to its nonoptimized counterpart given in (\ref{eq:dbb}), which is the standard mean estimator. 
 This fact is key in establishing the theoretical results presented in the next section. 
 This choice of $\gbb_l$, however, may not be guaranteed to be nonnegative.
-In practice, $\max\{\gbb_l,0\}$ can be used as the point estimator of optimality gap to ensure nonnegativity, and $VG_l$ can be calculated the same way given in (\ref{eq:vg}), using $\gbb_l$, to obtain improved interval estimators via overlapping. 
-%In our computational results, however, we did not observe any negative values of $\gbb_l$. 
+In practice, $\max\{\gbb_l,0\}$ can be used as the point estimator of the optimality gap to ensure nonnegativity, and $VG_l$ can be calculated the same way given in (\ref{eq:vg}), using $\gbb_l$, to obtain improved interval estimators via overlapping. 
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -429,7 +427,7 @@ In practice, $\max\{\gbb_l,0\}$ can be used as the point estimator of optimality
 \label{sec:theory}
 
 In this section, we provide conditions under which several asymptotic properties hold for OMRP estimators. 
-First, we show the consistency of the point estimators of optimality gap, $\gbb_l$, and variance, $n_l VG_l$. 
+First, we show the consistency of the point estimators of the optimality gap, $\gbb_l$, and variance, $n_l VG_l$. 
 Then, we provide conditions under which the OMRP variance estimator achieves asymptotically lower variances relative to the MRP estimator.  
 Finally, we show the asymptotic validity of the OMRP interval estimator. 
 
@@ -442,28 +440,18 @@ We make the following assumptions:
 	\item[A1] Samples of the random variable $\xit$ are i.i.d.
 	\item[A2] $\sup_{\x \in X} \e{f(\x,\xit)^{4}} < \infty$.
 	\item[A3] (\ref{eq:sto_prog}) has a unique optimal solution $\xs$ and $\p{\xs_m \neq \xs} \rightarrow 0$ exponentially fast as $m \rightarrow \infty$.  
-           That is, there exists constants $M > 0$ and $c > 0$ such that $\log(\p{\xs_m \neq \xs}) \leq -cm$ for all $m > M$.
+           That is, there exist constants $M > 0$ and $c > 0$ such that $\log(\p{\xs_m \neq \xs}) \leq -cm$ for all $m > M$.
 \end{description}
 
 First, we restrict our attention to i.i.d.\ sampling by A1.
-The results for overlapping batches from the simulation output analysis indicate that $\var{n_l VG_l}$ may be reduced by overlapping, thus requiring at least finite fourth moments. 
-We will formally show this result in \S~\ref{ssec:var_reduct}.
+The results for overlapping batches from simulation output analysis indicate that $\var{n_l VG_l}$ may be reduced by overlapping, thus requiring at least finite fourth moments. 
+We will formally show this result in \S\ref{ssec:var_reduct}.
 Our proof relies on an exponential rate of convergence of the sampled solution to the true solution of the problem, specified by A3.  
 Assumption A3 can be satisfied for different classes of problems with unique optimal solutions.  
 \citet{shapiro2000rate} establish exponential rates of convergence for a class of (\ref{eq:sto_prog}), which include two-stage stochastic linear programs with recourse when the support of $\xit$ is finite.   
-\citet{kleywegt2002sample} show that assumption A3 can be satisfied for discrete stochastic programs (i.e., when $X$ is a finite set) under the condition that the moment generating function of $f(\xs,\xit) - f(\x,\xit)$ for $\x \in X \backslash \{\xs\}$ is finite valued on $\R$.  
+\citet{kleywegt2002sample} show that Assumption A3 can be satisfied for discrete stochastic programs (i.e., when $X$ is a finite set) under the condition that the moment generating function of $f(\xs,\xit) - f(\x,\xit)$ for $\x \in X \backslash \{\xs\}$ is finite valued on $\R$.  
 This class of problems includes stochastic integer programs with recourse.
   We present computational results on both stochastic linear and integer programs with recourse in \S \ref{sec:comp}.
-
-% \begin{description}
-% 	\item[A'1] (\ref{eq:sto_prog}) has a unique and sharp optimal solution, i.e., there is a constant $C$ such that $\e{f(\x,\xi)} \geq \e{f(\xs,\xi)} + C\Vert \x - \xs\Vert$ for all $\x \in X$
-% 	\item[A'2] (\ref{eq:sto_prog}) is Lipschitz continuous almost surely, i.e., there is a constant $K$ such that $|f(\x_1,\xit) - f(\x_2,\xit)| \leq K \Vert \x_1 - \x_2 \Vert$ for all $\x_1,\x_2 \in X$.
-
-% Some results require an additional assumption:
-% \begin{description}
-% 	\item[A4] (\ref{eq:sto_prog}) has a unique optimal solution.
-% \end{description}
-
 
 
 \subsection{Nonoptimimized Counterparts}
@@ -484,8 +472,8 @@ Throughout the rest of this section, we assume that the optimality gap estimator
 l$, $m_l$, and $\gamma_l$.  \smallskip 
 
 Before we begin establishing the theoretical results, we introduce the following notation. 
-We use $\mu_{\xh} := \e{f(\xh,\xit) - f(\xs,\xit)}$ to denote the optimality gap of $\xh$ and $\sigma^2_{\xh} := \var{f(\xh,\xit) - f(\xs,\xit)}$ to denote the associated variance term.
-With i.i.d.\ sampling, $\e{\db_{lj}}=\e{\dbb_l}=\mu_{\xh}, \ \forall l,j$, $\var{\dbb_l}=\sigma^2_{\xh}/n_l, \ \forall l$, and under appropriate conditions, $\frac{n_l}{m_l} \var{n_l VD_l} \rightarrow \beta_{\gammab} \sigma^4_{\xh}$ as $l \rightarrow \infty$  by (\ref{eq:varvarred}). 
+We use $\mu_{\xh} = \e{f(\xh,\xit) - f(\xs,\xit)}$ to denote the optimality gap of $\xh$ and $\sigma^2_{\xh} = \var{f(\xh,\xit) - f(\xs,\xit)}$ to denote the associated variance term.
+With i.i.d.\ sampling, $\e{\db_{lj}}=\e{\dbb_l}=\mu_{\xh}, \ \forall l,j$, $\mathrm{Var}(\dbb_l)=\sigma^2_{\xh}/n_l, \ \forall l$, and under appropriate conditions, $\frac{n_l}{m_l} \var{n_l VD_l} \rightarrow \beta_{\gammab} \sigma^4_{\xh}$ as $l \rightarrow \infty$  by (\ref{eq:varvarred}). 
 
 
 \subsection{Consistency}
@@ -494,24 +482,23 @@ With i.i.d.\ sampling, $\e{\db_{lj}}=\e{\dbb_l}=\mu_{\xh}, \ \forall l,j$, $\var
 We begin with two lemmas that establish exponential rates of convergence of certain intermediate quantities.
 
 \begin{lemma} \label{lem:gbb_prob}
-	Under assumptions A1 and A3, $\p{\dbb_l - \gbb_l \neq 0} \rightarrow 0$ exponentially fast as $l \rightarrow \infty$.
+	Under Assumptions A1 and A3, $\p{\dbb_l - \gbb_l \neq 0} \rightarrow 0$ exponentially fast as $l \rightarrow \infty$.
 \end{lemma}
 
 \begin{proof} When all the sampling problems used in the calculation of $\gbb$ have optimal solutions that solve (SP), i.e., when $\xs_{j} = \xs$, for all $j=1,2,\ldots, \nbl$, then $\gbb_l = \dbb_l$. 
-Therefore, probability of the complement of this event provides an upper bound on the probability that $\dbb_l - \gbb_l \neq 0$. 
+Therefore, the probability of the complement of this event provides an upper bound on the probability that $\dbb_l - \gbb_l \neq 0$. 
 Let $E^C$ denote the complement of event $E$. 
 Using this upper bound and continuing on, we obtain
 	\begin{align}
 		\p{\dbb_l - \gbb_l \neq 0} & \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C} \notag \\
 		& = \p{ \bigcup_{j=1}^{\nbl} \{\xs_{j} \neq \xs\}} \notag \\
-% 		& \leq \sum_{j=1}^{\nbl} \p{ \xs_j \neq \xs } \notag \\
 		& \leq \left( \nbl\right) \p{ \xs_{m_l} \neq \xs }. \notag
 	\end{align}
 	With a batching structure in which $m_l = \lfloor n_l^{r} \rfloor$ for some $0<r<1$,  $\gamma_l \geq 1$, and by A3, the desired result follows.
 \end{proof}
 
 \begin{lemma} \label{lem:gb_gbb_l4}
-	Under assumptions A1--A3, both (i) $\e{(\db_{lj} - \gb_{lj})^4} \rightarrow 0$ and (ii) $\e{(\dbb_l - \gbb_l)^4} \rightarrow 0$ exponentially fast as $l \rightarrow \infty$.
+	Under Assumptions A1--A3, both (i) $\e{(\db_{lj} - \gb_{lj})^4} \rightarrow 0$ and (ii) $\e{(\dbb_l - \gbb_l)^4} \rightarrow 0$ exponentially fast as $l \rightarrow \infty$.
 \end{lemma}
 
 \begin{proof}
@@ -521,14 +508,14 @@ Using this upper bound and continuing on, we obtain
 		\e{(\db - \gb)^4} & = \e{ \left.(\db - \gb)^4 \right| \db - \gb \neq 0} \p{\db - \gb \neq 0} + 0\\
 		& \leq \e{ \left.(\db - \gb)^4 \right| \db - \gb \neq 0} \p{ \xs_{m_l}  \neq \xs}.
 	\end{align*}
-	The expectation term on the right-hand side is bounded by assumption A2 for i.i.d.\ samples.  
+	The expectation term on the right-hand side is bounded by Assumption A2 for i.i.d.\ samples.  
         Assumption A3 states $\p{\xs_{m_l} \neq \xs} \rightarrow 0$ exponentially fast.  
         Thus $\e{(\db - \gb)^4} \rightarrow 0$ exponentially fast.
-(ii) This expectation term can be decomposed in the same manner
-	\begin{align*}
-		\e{(\dbb - \gbb)^4} & = \e{\left. (\dbb - \gbb)^4 \right| \dbb - \gbb \neq 0} \p{\dbb - \gbb \neq 0}.
-	\end{align*}
-	With the expectation term on the right-hand side again bounded by A2, and the probability term converges to zero exponentially fast by Lemma \ref{lem:gbb_prob}.
+(ii) This expectation term can be decomposed in the same manner as
+$
+		\e{(\dbb - \gbb)^4}  = \e{\left. (\dbb - \gbb)^4 \right| \dbb - \gbb \neq 0} \p{\dbb - \gbb \neq 0}.
+$ 
+	The proof follows using similar arguments as proof of part (i) and Lemma \ref{lem:gbb_prob}.
 \end{proof}
 
 We are now ready to show that the resulting point estimators are strongly consistent. 
@@ -536,7 +523,7 @@ We use the abbreviation a.s.\ to denote almost sure convergence.
  
 
 \begin{theorem} \label{thm:strong_consistency}
-	Under assumptions A1--A3, (i) $\gbb_l - \dbb_l \rightarrow 0$, a.s., and (ii) $n_l VG_l - n_l VD_l \rightarrow 0$, a.s.\ as $l \rightarrow \infty$.  
+	Under Assumptions A1--A3, (i) $\gbb_l - \dbb_l \rightarrow 0$, a.s., and (ii) $n_l VG_l - n_l VD_l \rightarrow 0$, a.s.\ as $l \rightarrow \infty$.  
         Therefore, $\gbb_l$ is a consistent estimator of $\mu_{\xh}$, and if $n_l VD_l$ is a consistent estimator of $\sigma^2_{\xh}$, then $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$.
 \end{theorem}
 
@@ -545,25 +532,24 @@ We use the abbreviation a.s.\ to denote almost sure convergence.
         Thus $\sum_l \p{\dbb_l - \gbb_l \neq 0} < \infty$.  
         The desired result follows by the Borel-Cantelli Lemma.
 %
-(ii) This proof is nearly identical to above. 
-Similar to the proof of Lemma \ref{lem:gbb_prob}, we have
+(ii) Similar to the proof of Lemma \ref{lem:gbb_prob}, we have
 	\[
 		\p{n_l VD_l -n_l VG_l \neq 0} \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C}.
 	\]
-	Following the same logic, $\p{n_l VD_l -n_l VG_l \neq 0} \rightarrow 0$ exponentially fast. 
+	Following the same logic as in (i), $\p{n_l VD_l -n_l VG_l \neq 0} \rightarrow 0$ exponentially fast. 
 Thus, $n_l VG_l$ is a consistent estimator of $\sigma^2_{\xh}$, if $n_l VD_l$ is, by the Borel-Cantelli Lemma.
 \end{proof}
 
 Part (i) of Theorem \ref{thm:strong_consistency} provides conditions under which the point estimator $\gbb$ of OMRP is a consistent estimator of the optimality gap, by establishing almost sure convergence of $\gbb_l - \dbb_l$ to $0$ as $l \rightarrow \infty$. 
-Notice that under assumption A1, $\dbb_l \rightarrow \mu_\xh$, a.s. by the strong law of large numbers; as a result, $\gbb \rightarrow \mu_\xh$, a.s. 
+Notice that under Assumption A1, $\dbb_l \rightarrow \mu_\xh$, a.s. by the strong law of large numbers; as a result, $\gbb \rightarrow \mu_\xh$, a.s. 
 Similarly, part (ii) of Theorem \ref{thm:strong_consistency} establishes almost sure convergence of $n_l VG_l - n_l VD_l$ to $0$ as $l \rightarrow \infty$. 
 As a result, if $n_l VD_l$ is a consistent estimator of $\sigma^2_{\xh}$, so is $n_l VG_l$.  
-Strong consistency of the variance estimator $n_l VD_l$ has been studied in \citep{damerdji1994strong} for the cases of nonoverlapping and maximally overlapping batches.  
+Strong consistency of the variance estimator $n_l VD_l$ has been studied in \cite{damerdji1994strong} for the cases of nonoverlapping and maximally overlapping batches.  
 Under the additional moment assumption
 \begin{description}
 	\item[A2$^\prime$]  $\exists \epsilon > 0$ such that $\sup_{\x \in X} \e{f(\x,\xi)^{4+\epsilon}} < \infty$,
 \end{description}
-for a sampling scheme of $m_l = \lfloor n_l^r \rfloor$, Corollaries 3.4 and 4.2 of \citep{damerdji1994strong} show that $n_l VD_l$ is consistent if $\tfrac{2}{4+\epsilon} < r < 1$ for nonoverlapping batches and $\tfrac{2}{4+\epsilon} < r < \tfrac{1}{2}$ for maximally overlapping batches. 
+for a sampling scheme of $m_l = \lfloor n_l^r \rfloor$, Corollaries 3.4 and 4.2 of \cite{damerdji1994strong} show that $n_l VD_l$ is consistent if $\tfrac{2}{4+\epsilon} < r < 1$ for nonoverlapping batches and $\tfrac{2}{4+\epsilon} < r < \tfrac{1}{2}$ for maximally overlapping batches. 
 
 
 \subsection{Asymptotically Lower Variances}
@@ -579,7 +565,7 @@ It suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \right) \xrig
 
 
 \begin{theorem} \label{thm:varvar_conv}
-	Suppose assumptions A1--A3 hold, $\gammab = \frac{\gamma_l}{m_l}$ is constant for all $l$, and the batching structure ensures  $\frac{n_l}{m_l}\var{n_l VD_l} \rightarrow \beta_{\gammab} \sigma^4_{\xh}$ where $\beta_{\gammab}$ is the twice the value of (\ref{eq:var_reduct_formula}). 
+	Suppose Assumptions A1--A3 hold, $\gammab = \frac{\gamma_l}{m_l}$ is constant for all $l$, and the batching structure ensures  $\frac{n_l}{m_l}\var{n_l VD_l} \rightarrow \beta_{\gammab} \sigma^4_{\xh}$ where $\beta_{\gammab}$ is the twice the value of (\ref{eq:var_reduct_formula}). 
         Then, $\frac{n_l}{m_l}\var{n_l VG_l} \rightarrow \beta_{\gammab} \sigma^4_{\xh}$ as $l \rightarrow \infty$ with the same $\beta_{\gammab}$. 
 \end{theorem}
 
@@ -599,7 +585,7 @@ It suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \right) \xrig
 	
 	The fringe batches come in identically distributed pairs.  
         The first and last batch are identically distributed, as are the second and second-to-last, etc.  
-        We know this because we could reverse the order of the i.i.d.\ sample and perform the batching again to get the exact same batch structure.  
+        We know this because we could reverse the order of the i.i.d.\ sample and perform the batching again to get the same batch structure.  
 		  The center batches are identically distributed.  
         Let $A_j = (\gb_j - \gbb)^2 - (\db_j - \dbb)^2$.
 		  Furthermore, let $A_j^c$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, n_b - \left\lceil \gammab^{-1} \right\rceil$ denote the center batches, and let $A_j^f$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$ and $A_j^e$, $j=n_b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,n_b$ denote the fringe batches at the front and end of each set of nonoverlapping batches, respectively.  
@@ -610,9 +596,8 @@ It suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \right) \xrig
 		 + \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \left( A_j^c \right)^2 \
 		 + \sum_{j=n_b-\left\lceil \gammab^{-1} \right\rceil+1}^{n_b} \left( A_j^e \right)^2 
 		} \\
-%		 = & \left( \frac{n}{dt} \right)^2 n_b \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \e{ \left( A_j^c \right)^2 } + \left( \frac{n}{dt} \right)^2 (n_b) 2\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left( A_j^f \right)^2 } \\
 		 = & \left( \frac{n}{dt} \right)^2 n_b \left(n_b - 2\left\lceil \gammab^{-1} \right\rceil \right) \e{ \left( A_j^c \right)^2 }
-		+ \left( \frac{n}{dt} \right)^2 (n_b) 2\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left( A_j^f \right)^2 }.
+		+ \left( \frac{n}{dt} \right)^2  2 n_b \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left( A_j^f \right)^2 }.
 	\end{align*}	
 	The last equality follows because each front-fringe batch's $\e{(A_j^f)^2}$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$  has an identical pair in an end-fringe batch's $\e{(A_j^e)^2}$, $j=n_b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,n_b$, and all center batches have identical values of $\e{(A_j^c)^2}$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, n_b - \left\lceil \gammab^{-1} \right\rceil$.  
 	As a result, we have $\left\lceil \gammab^{-1} \right\rceil + 1$ expectation terms, each of which has a coefficient that is less than $\left(\frac{n}{dt}\right)^2n_b^2 < (2m)^2$.  
@@ -622,21 +607,21 @@ It suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \right) \xrig
 		& \leq \left( 2m \right)^2 \sqrt{\e{\left((\gb_j - \gbb) - (\db_j - \dbb)\right)^4}} \sqrt{\e{\left((\gb_j - \gbb) + (\db_j - \dbb)\right)^4 }} \label{eq:var_reduct_cauchy2} \\
 		& \leq \left( 2m \right)^2 \sqrt{\e{\left((\gb_j - \gbb) - (\db_j - \dbb)\right)^4}} \sqrt{8 \left(\e{(\gb_j - \gbb)^4} + \e{(\db_j - \dbb)^4} \right)}, \label{eq:var_reduct_holder2}
 	\end{align}
-	where equation (\ref{eq:var_reduct_cauchy2}) follows from the Cauchy-Schwartz inequality, and equation (\ref{eq:var_reduct_holder2}) follows from H\"{o}lder's inequality.  
+	where (\ref{eq:var_reduct_cauchy2}) follows from the Cauchy-Schwartz inequality, and (\ref{eq:var_reduct_holder2}) follows from H\"{o}lder's inequality.  
         Since we can bound both expectation terms in (\ref{eq:var_reduct_holder2}) by A2, we can demonstrate $\sqrt{\frac{n}{m}}(nVG - nVD) \xrightarrow{L^2} 0$ by focusing on only one of the terms.  
         Focusing on the first expectation term in (\ref{eq:var_reduct_holder2}) and returning the $\tfrac{n}{m}$, by H\"{o}lder's inequality,
 	\begin{align*}
 		\left(\frac{n}{m} 4m^2\right)^2 \e{\left((\gb_j - \gbb) - (\db_j - \dbb)\right)^4}	& \leq 8 \left( \frac{n}{m} 4m^2\right)^2 \left( \e{(\db_j - \gb_j)^4} + \e{(\dbb - \gbb)^4} \right).
 	\end{align*}	
-	By Lemma \ref{lem:gb_gbb_l4}, both expectation terms above converge to zero with exponential rates.  
+	By Lemma \ref{lem:gb_gbb_l4}, both expectation terms converge to zero with exponential rates.  
         With a batching structure $m_l = \lfloor n_l^r \rfloor$ for some $0<r<1$, we see that $\frac{n_l}{m_l} \e{(n_l VG_l - n_l VD_l)^2} \rightarrow 0$.
 \end{proof} 
 
 
 Theorem \ref{thm:varvar_conv} gives conditions under which the same asymptotically lower variances are achieved for the OMRP optimality gap variance estimator relative to its nonoverlapping counterpart, the MRP variance estimator. 
-We will empirically examine the variance of OMRP estimator for small sample sizes in \S \ref{sec:comp}. 
+We will empirically examine the variance of the OMRP estimator for small sample sizes in \S \ref{sec:comp}. 
 A hypothesis of Theorem \ref{thm:varvar_conv} is a batching structure that ensures convergence of $\frac{n_l}{m_l}\var{n_l VD_l}$ to the appropriate $\beta_{\gammab} \sigma^4_{\xh}$, ensuring the mean-square consistency of $n_l VD_l$. 
-\citet{damerdji1995mean} shows that mean-square convergence is guaranteed by $\tfrac{1}{2} + \tfrac{1}{4+\epsilon} < r < 1$ for both nonoverlapping and maximally overlapping batches under the batching structure $m_l = \lfloor n_l^r \rfloor$ and $(4+\epsilon)$th-finite-moments assumption A2$^\prime$.  
+\citet{damerdji1995mean} shows that mean-square convergence is guaranteed by $\tfrac{1}{2} + \tfrac{1}{4+\epsilon} < r < 1$ for both nonoverlapping and maximally overlapping batches under the batching structure $m_l = \lfloor n_l^r \rfloor$ and $(4+\epsilon)$th-finite-moments Assumption A2$^\prime$.  
 With A2, the range of $r$ that ensures mean-square consistency can be found by setting $\epsilon=0$.
 
 
@@ -644,18 +629,18 @@ With A2, the range of $r$ that ensures mean-square consistency can be found by s
 \subsection{Asymptotic Validity of the Confidence Intervals}
 \label{ssec:validity}
 
-The overlapping variance estimator for stochastic programs displays the same desirable properties, such as consistency and reduced variability, as in simulation, but we must still check that it results in a valid CI.  
+The overlapping variance estimator for stochastic programs displays the same desirable properties, such as consistency and reduced variability, as the original OBM estimators, but we must still check that it results in a valid CI.  
 Let $I^G_l = \gbb_l + t_{d_l \left( k_l-1\right),\alpha} \sqrt{VG_l}$ be the width of the one-sided CI generated by OMRP. 
 Here, $k_l= \left\lfloor\frac{n_l}{m_l}\right\rfloor $ is the number of batches formed in the nonoverlapping counterpart, and the degrees of freedom increase $d_l$ is the multiplicative inverse of (\ref{eq:var_reduct_formula}) using $\frac{\gamma_l}{m_l}$ instead of $\gammab$.
 
 \begin{theorem} \label{thm:conf_int}
-	Suppose assumptions A1--A3 hold and the batching structure ensures $n_l VD_l$ converges in probability to $\sigma^2_\xh$.  
+	Suppose Assumptions A1--A3 hold and the batching structure ensures $n_l VD_l$ converges in probability to $\sigma^2_\xh$.  
         Then, for $\xh \neq \xs$, $\lim_{l\rightarrow\infty} \p{\mu_\xh \leq I^G_l} = 1 - \alpha$.
 \end{theorem}
 
 \begin{proof} 
 %        With $\xh \neq \xs$, 
-			Let $X_l = \frac{\dbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, $Y_l = \frac{\gbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, and $Z_l = \frac{\sigma^2_\xh}{\sqrt{n_lVD_l}} \frac{\sqrt{n_lVD_l}}{\sqrt{n_lVG_l}}$. 
+			Let $X_l = \frac{\dbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, $Y_l = \frac{\gbb_l - \mu_\xh}{\sigma^2_\xh/\sqrt{n_l}}$, and $Z_l = \frac{\sigma^2_\xh}{\sqrt{n_lVG_l}}$. 
 			Also let $z_{\alpha}$ denote the $1-\alpha$ quantile of the standard normal distribution. 
         It is suffices to show $Y_lZ_l = \frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, where $\Rightarrow$ denotes convergence in distribution.
 			If $\frac{\gbb_l - \mu_\xh}{\sqrt{VG_l}} \Rightarrow N(0,1)$, we obtain the theorem's result by rearranging the terms in $\p{\mu_\xh \leq I^G_l}$ and taking the limit as $l \rightarrow \infty$ because $t_{d_l(k_l -1),\alpha} \rightarrow z_{\alpha}$ as $l \rightarrow \infty$.
@@ -678,7 +663,7 @@ For $\xh = \xs$, $\mu_\xh = 0$; therefore, in this case, we have $\lim_{l\righta
 
 In the previous section, we proved various asymptotic results regarding the OMRP estimators. 
 In this section, we apply OMRP to several test problems and examine small-sample behavior. 
-We begin our discussion by introducing the test problems used for numerically evaluating OMRP in \S \ref{ssec:test}, followed by our experimental setup in \S \ref{ssec:expS}. 
+We begin our discussion by introducing in \S \ref{ssec:test} the test problems used for numerically evaluating OMRP, followed by our experimental setup in \S \ref{ssec:expS}. 
 Then, we present and discuss the numerical results in \S \ref{ssec:results}.
 The trade-off between overall computational effort and variability of the estimators is investigated last, in \S \ref{ssec:compeff}, where we also provide guidelines on selecting the degree of overlap. 
 
@@ -687,7 +672,7 @@ The trade-off between overall computational effort and variability of the estima
 
 
 We empirically tested the effectiveness of OMRP on four test problems.
-All test problems are two-stage stochastic programs with recourse and were selected to study the behavior of OMRP under a variety of different situations---we will shortly discuss this below.
+All test problems are two-stage stochastic programs with recourse and were selected to study the behavior of OMRP under a variety of different situations---we will discuss this below.
 The characteristics of these problems are given in Table \ref{tb:test_problems}. 
 The first test problem is a newsvendor problem with demand distributed uniformly on $\{0, 0.0001, 0.0002, \dots, 10\}$; we denote it as NVD.
 The instance of the newsvendor problem can be found in \citep{Bayraksan2006}, except here we used a discrete uniform demand distribution.
@@ -717,7 +702,7 @@ DB1 	& 5   	& 102   	& 46   	& $4.5\times 10^{25}$ \\
 
 
 We made several considerations in selecting the test problems.
-NVD can be solved very quickly, which allows for solving a large number of independent runs for examining the small-sample behavior of OMRP.
+NVD can be solved very quickly, which allows for a large number of independent runs for examining the small-sample behavior of OMRP.
 CEP1 is also easy to solve; the optimal solution $\xs$ can be obtained with high probability even for small sample sizes.
 This feature shows the behavior of $VG$ when the gap CI width is determined mostly by sampling error, rather than bias.
 10D demonstrates the behavior of OMRP when $|X|$ is finite.
@@ -761,9 +746,8 @@ Figures~\ref{fig:varvar1} and \ref{fig:varvar2} show the variance of OMRP varian
 The solid lines in these figures show the theoretical relative decreases in variance from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
 Empirical results agree with the theoretical values well, with more variability observed in CEP1, 10D, and DB1. 
 These experiments suggest that lower variances can be achieved in stochastic programming by overlapping the batches, even with small sample sizes.
-The variance of OMRP variance estimators for DB1 can be less than the asymptotic amount established in Theorem \ref{thm:varvar_conv}. %for the small sample sizes used in these experiments. 
+The variance of OMRP variance estimators for DB1 can be less than the asymptotic result established in Theorem \ref{thm:varvar_conv}.
 This is because DB1 has not yet been solved to optimality due its size; therefore, it may lack a unique optimal solution. 
-%, violating assumption A3. (?)
 Even with the relatively small sample sizes compared to the size of this problem, however, overlapping appears to lower the variances. 
 
 
@@ -776,7 +760,7 @@ Even with the relatively small sample sizes compared to the size of this problem
 	   \label{fig:cep1_varvar}
 	   \includegraphics[width=.5\textwidth]{images/cep1_varvar}}
 	\caption{
-		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problems
+		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the case of nonoverlapping batches) for test problems
 		(a) NVD and
 		(b) CEP1
 	}
@@ -811,7 +795,7 @@ Even with the relatively small sample sizes compared to the size of this problem
 	\caption{ 
 		Estimates of
 		(a) $\e{nVG}$ and 
-		(b) coverage probability of the CIs for various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches)
+		(b) coverage probability of the CIs for various values of $\gamma/m$ ($\gamma/m=1$ denotes the case of nonoverlapping batches)
 		 for NVD
 	}
 \label{fig:nv}
@@ -819,7 +803,7 @@ Even with the relatively small sample sizes compared to the size of this problem
 
 
 Figure~\ref{fig:nv}(a) shows estimates of $\e{nVG}$ in the newsvendor problem for changing batch size and degree of overlap. 
-We can see that the expectation of the variance estimator is not changed with increasing overlap. 
+We see that the expectation of the variance estimator does not change with increasing overlap. 
 Although the estimate of $\e{nVG}$ looks large for $m=100$, the error from $\sigma^2_\xh$ is never more than 1\%.  
 Estimates for $\e{nVG}$ showed a similar pattern for CEP1, 10D, and DB1.  
 Those graphs are omitted for brevity.
@@ -948,7 +932,7 @@ Overall, the results in this paper suggest that OMRP could be an efficient metho
 The authors thank Andrzej Ruszczy{\'{n}}ski and Artur {\'{S}}wietanowski for
 access to their regularized decomposition code, which was used to solve CEP1 and DB1. 
 The authors are grateful to the associate editor and two anonymous referees for valuable suggestions that significantly improved both the content and the presentation of the paper. 
-%This research has been supported in part by the National Science Foundation under Grants DMS-0602173 and CMMI-1345626.
+This research has been supported in part by the National Science Foundation under Grants DMS-0602173 and CMMI-1345626.
 %EFRI-0835930
 An earlier version of this paper appeared in \citep{love2011overlapping}.
 
