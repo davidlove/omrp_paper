@@ -110,7 +110,7 @@
 \begin{abstract}
 \noindent Overlapping Batch Means (OBM) has long been used in simulation as a method of reusing data to generate variance estimators with asymptotically lower variance.
 In this paper, we apply the OBM method to stochastic programming by formulating a variant of the multiple replications procedure used for assessing solution quality.
-We give conditions under which the resulting optimality gap point estimators are strongly consistent, the optimality gap interval estimators are asymptotically valid, and the OBM variance estimators of optimality gap have asymptotically lower variances relative to their nonoverlapping counterparts \citep{Meketon1984,Welch1987}.
+We give conditions under which the resulting optimality gap point estimators are strongly consistent, the optimality gap interval estimators are asymptotically valid, and the OBM variance estimators for optimality gap have asymptotically lower variances relative to their nonoverlapping counterparts \citep{Meketon1984,Welch1987}.
 We investigate computational efficiency, a combined measure of variance and computation time, providing guidelines on the degree of overlap.  
 Numerical experiments on several test problems are presented, examining the small-sample behavior and the empirical computational efficiency of the overlapping batches method in this context.  
 \medskip
@@ -134,7 +134,7 @@ A natural setting where batch means are used in stochastic optimization (especia
 This typically involves generating point and interval estimators of the optimality gap of a given candidate solution using Monte Carlo simulation. 
 Because optimality gap estimators can be difficult to analyze statistically, a common approach is to use nonoverlapping batches of data to generate a number of optimality gap estimators. 
 These individual estimators are then used to form point and interval estimators applying the nonoverlapping batch means method.
-This is referred to as the Multiple Replications Procedure (MRP) and was initially discussed in \citep{Mak1999}.   
+This is referred to as the Multiple Replications Procedure (MRP) and was initially discussed in \cite{Mak1999}.   
 In this paper, we formulate an overlapping batches version of MRP.
 
 
@@ -252,13 +252,14 @@ The task is to estimate $\mu$ given some realization of the univariate stochasti
 Typically, this involves forming a CI of the form $[L_\alpha(\y), U_\alpha(\y)]$ for a given level of significance $\alpha$ such that $\p{L_\alpha(\y) \leq \mu \leq U_\alpha(\y)} = 1 - \alpha$ or that this probability is approximately $1 - \alpha$ for large enough sample sizes.  
 The usual estimator for $\mu$ is the sample mean $\ybb$, which is an unbiased estimator even in the presence of correlated data.  
 However, the usual (sample) variance estimator $\frac{1}{n-1} \sum_{i=1}^n (y^i - \ybb)^2$ can be inappropriate to use in the presence of correlated data, resulting in inaccurate interval estimators.  
-To overcome this difficulty, various variance estimators have been proposed in the simulation literature; see, e.g., \cite{law_07}.  
+To overcome this difficulty, various variance estimators have been proposed in the simulation literature; see, e.g., \cite{law_15}.  
 We briefly review two of these variance estimators: nonoverlapping and overlapping batch means.
 
 \subsubsection{Nonoverlapping Batch Means}
 
 Nonoverlapping batch means takes $n$ observations $y^1, \dots, y^n$ of the stochastic process and splits them into $k$ batches of size $m$, where $k = \frac{n}{m}$ (for simplicity, assume, for now, $n = mk$).  
-The sample mean of each batch is then computed as
+In the application under consideration in this article, the observations {\it within} a batch are correlated due to the optimization in each batch; see \S \ref{ssec:mrp} for details. 
+The sample mean of each batch is computed as
 $
 	\yb_j = \frac{1}{m} \sum_{i=1}^{m} y^{m(j-1)+i}, j = 1,2, \dots, k,
 $
@@ -268,7 +269,7 @@ The variance estimator of the batch means, which is $m/n$ times the sample varia
 	\varhat(\ybb) = \frac{m}{n}\frac{1}{k-1} \sum_{j=1}^k \left( \yb_j - \ybb \right)^2.
 \end{equation}
 The $(1-\alpha)$-level approximate CI is then formed by $\ybb \pm t_{k-1,\alpha/2} \sqrt{\varhat(\ybb)}$, where $t_{k-1,\alpha/2}$ denotes the $1-\alpha/2$ quantile of the Student's t distribution with $k-1$ degrees of freedom.  
-Under appropriate conditions, $n\varhat(\ybb)$ is a consistent estimator of $\sigma^2$.
+Under appropriate conditions, $n\varhat(\ybb)$ is a consistent estimator of $\sigma^2$ \citep{alexo_enc_06}.
 
 \subsubsection{Overlapping Batch Means}
 \label{ssec:overlap}
@@ -319,7 +320,7 @@ When only half of the observations overlap
 
 
 A $(1-\alpha)$-level approximate CI on the mean can be formed using overlapping batches by $\ybb \pm t_{d_{\gammab}(k-1),\alpha/2}$ $\sqrt{\vartg{\ybb}}$, where the degrees of freedom increase $d_{\gammab}$ is the multiplicative inverse of (\ref{eq:var_reduct_formula}).  
-For the maximally overlapping batch means, the degrees of freedom factor is $d_{\gammab} = \frac{3}{2}$.
+For the maximally overlapping batch means, the degrees of freedom increase is $d_{\gammab} = \frac{3}{2}$.
 
  
 \subsection{Multiple Replications Procedure} 
@@ -333,7 +334,7 @@ Taking $n$ observations of $\xit$ and splitting them into $k$ {\it nonoverlappin
 where $\xs_j$ denotes an optimal solution to (\ref{eq:sto_prog_m}) of batch $j$ given on the right-hand side of (\ref{eq:mrp_gap}).    
 Since we are assessing the quality of a given solution $\xh \in \X$, we suppress $\xh$ from the notation $\gb_j$.
 The optimality gap estimator $\gb_j$ is similar to the nonoverlapping $\yb_j$ with individual observations $y^{m(j-1)+i} = f(\xh,\xit^{m(j-1)+i}) - f(\xs_j,\xit^{m(j-1)+i})$, for $i=1,\ldots,m$ and $j=1,\ldots, k$.
-Notice that in this case, $y^i$ not only depends on observation $i$ of batch $j$, $\xit^{m(j-1)+i}$, but on all the observations in that batch,  $\xit^{m(j-1)+1},\xit^{m(j-1)+2},\ldots,\xit^{mj}$ because $\xs_j$ is an optimal solution to (\ref{eq:sto_prog_m}) given in (\ref{eq:mrp_gap}).   
+Notice that in this case, $y^i$ not only depends on observation $i$ of batch $j$, $\xit^{m(j-1)+i}$, but on all the observations in that batch,  $\xit^{m(j-1)+1},\xit^{m(j-1)+2},\ldots,\xit^{mj}$, because $\xs_j$ is an optimal solution to (\ref{eq:sto_prog_m}) given in (\ref{eq:mrp_gap}).   
 As before, after $k$ batch-means estimators are obtained, the overall mean of these estimators $\gbb = \frac{1}{k} \sum_{j=1}^k \gb_j$ provides a point estimator of the optimality gap.  
 The variance estimator is obtained as in (\ref{eq:var}) by $\varhat(\gbb) = \frac{1}{k} \frac{1}{k-1} \sum_{j=1}^k (\gb_j - \gbb)^2$, which results in an approximate $(1-\alpha)$-level one-sided CI, $\left[0, \gbb + t_{k-1,\alpha} \sqrt{\varhat(\gbb)} \right]$.
 
@@ -571,10 +572,10 @@ It suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \right) \xrig
 
 \begin{proof}
 	For simplicity of exposition, we drop the subscript $l$ and the $\frac{n_l}{m_l}$ for now and add them in later.  
-        Further, we use abbreviations $n_b = \nbl$ to denote the number of batches and $dt = \left(\tfrac{n_l}{m_l} - 1\right) \left(\nbl\right)$ to denote the denominator term in $VG_l$ and $VD_l$. We have
+        Further, we use abbreviations $n_b = \nbl$ to denote the number of batches and $\tau = \left(\tfrac{n_l}{m_l} - 1\right) \left(\nbl\right)$ to denote the denominator term in $VG_l$ and $VD_l$. We have
 	\begin{align}
-		\e{(nVG - nVD)^2} & = \left( \frac{n}{dt} \right)^2 \e{ \left( \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right] \right)^2 } \notag \\
-		& \leq \left( \frac{n}{dt} \right)^2 \e{ n_b \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \label{eq:vvar_conv_pf_1}
+		\e{(nVG - nVD)^2} & = \left( \frac{n}{\tau} \right)^2 \e{ \left( \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right] \right)^2 } \notag \\
+		& \leq \left( \frac{n}{\tau} \right)^2 \e{ n_b \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \label{eq:vvar_conv_pf_1}
 	\end{align}
 	by the Cauchy-Schwartz inequality, where the second vector in the Cauchy-Schwartz inequality is taken as a vector of ones.  
         By examining the batch structure in Figure \ref{fig:overlap_nonint} and the definition of $\gbb$ in (\ref{eq:gbb}), one can see that the terms of the expectation in (\ref{eq:vvar_conv_pf_1}) are not identically distributed.  
@@ -591,16 +592,16 @@ It suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \right) \xrig
 		  Furthermore, let $A_j^c$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, n_b - \left\lceil \gammab^{-1} \right\rceil$ denote the center batches, and let $A_j^f$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$ and $A_j^e$, $j=n_b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,n_b$ denote the fringe batches at the front and end of each set of nonoverlapping batches, respectively.  
 		  Continuing from (\ref{eq:vvar_conv_pf_1}),
 	\begin{align*}
-		& \left( \frac{n}{dt} \right)^2 n_b \e{ \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
-		 =  & \left( \frac{n}{dt} \right)^2 n_b \e{\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \left( A_j^f \right)^2 \
+		& \left( \frac{n}{\tau} \right)^2 n_b \e{ \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
+		 =  & \left( \frac{n}{\tau} \right)^2 n_b \e{\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \left( A_j^f \right)^2 \
 		 + \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \left( A_j^c \right)^2 \
 		 + \sum_{j=n_b-\left\lceil \gammab^{-1} \right\rceil+1}^{n_b} \left( A_j^e \right)^2 
 		} \\
-		 = & \left( \frac{n}{dt} \right)^2 n_b \left(n_b - 2\left\lceil \gammab^{-1} \right\rceil \right) \e{ \left( A_j^c \right)^2 }
-		+ \left( \frac{n}{dt} \right)^2  2 n_b \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left( A_j^f \right)^2 }.
+		 = & \left( \frac{n}{\tau} \right)^2 n_b \left(n_b - 2\left\lceil \gammab^{-1} \right\rceil \right) \e{ \left( A_j^c \right)^2 }
+		+ \left( \frac{n}{\tau} \right)^2  2 n_b \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left( A_j^f \right)^2 }.
 	\end{align*}	
 	The last equality follows because each front-fringe batch's $\e{(A_j^f)^2}$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$  has an identical pair in an end-fringe batch's $\e{(A_j^e)^2}$, $j=n_b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,n_b$, and all center batches have identical values of $\e{(A_j^c)^2}$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, n_b - \left\lceil \gammab^{-1} \right\rceil$.  
-	As a result, we have $\left\lceil \gammab^{-1} \right\rceil + 1$ expectation terms, each of which has a coefficient that is less than $\left(\frac{n}{dt}\right)^2n_b^2 < (2m)^2$.  
+	As a result, we have $\left\lceil \gammab^{-1} \right\rceil + 1$ expectation terms, each of which has a coefficient that is less than $\left(\frac{n}{\tau}\right)^2n_b^2 < (2m)^2$.  
         Removing the notation for fringe or center batch for simplicity, each expectation can be bounded by
 	\begin{align}
 		\left( 2m \right)^2 \e{ \left( A_j \right)^2 } & = \left( 2m \right)^2 \e{ \left((\gb_j - \gbb) - (\db_j - \dbb)\right)^2 \left((\gb_j - \gbb) + (\db_j - \dbb)\right)^2 } \notag \\
@@ -675,7 +676,7 @@ We empirically tested the effectiveness of OMRP on four test problems.
 All test problems are two-stage stochastic programs with recourse and were selected to study the behavior of OMRP under a variety of different situations---we will discuss this below.
 The characteristics of these problems are given in Table \ref{tb:test_problems}. 
 The first test problem is a newsvendor problem with demand distributed uniformly on $\{0, 0.0001, 0.0002, \dots, 10\}$; we denote it as NVD.
-The instance of the newsvendor problem can be found in \citep{Bayraksan2006}, except here we used a discrete uniform demand distribution.
+The instance of the newsvendor problem can be found in \cite{Bayraksan2006}, except here we used a discrete uniform demand distribution.
 The second is a capacity expansion planning problem, denoted CEP1, with random demand vector $\xit$ of dimension 3, with 216 total realizations \citep{higle1996}.
 The third is a stochastic knapsack problem denoted 10D, with 10 stochastic parameters and 10 binary decision variables \citep{kleywegt2002sample}.
 The final problem is a stochastic vehicle routing problem, denoted DB1, with 46 stochastic parameters and a total of $4.5 \times 10^{25}$ realizations \citep{donohue1995upper}.
@@ -712,7 +713,7 @@ In contrast, DB1 is a large-scale problem with an unknown optimal solution.
 This final test problem allows us to investigate how OMRP works on large-scale problems.
 
 
-The candidate solutions used for NVD and CEP1 and their characteristics can be found in \citep{Bayraksan2006}.
+The candidate solutions used for NVD and CEP1 and their characteristics can be found in \cite{Bayraksan2006}.
 We used the candidate solution (0, 0, 1, 1, 1, 0, 1, 1, 0, 1) for 10D with $\mu_{\xh} = 158.579$ and the candidate solution (11, 14, 8, 11, 7) for DB1 with an estimated $\mu_{\xh} = 1.08$. 
 Because the optimal solution of DB1 is unknown, we used a Latin hypercube sample of size 50,000 to estimate $\mu_{\xh}$.
 We then used this value of $\mu_{\xh}$ to estimate the coverage probability of the OMRP CIs for DB1.
@@ -739,11 +740,11 @@ In all cases, we used the Mersenne Twister algorithm of \citet{matsumoto_nishimu
 
 
 \subsection{Results of Experiments}
-\label{ssec:results}
+\label{ssec:results} 
 
-A summary of results from these experiments is depicted in Figures~\ref{fig:varvar1}--\ref{fig:nv}.
-Figures~\ref{fig:varvar1} and \ref{fig:varvar2} show the variance of OMRP variance estimators, normalized with respect to $\var{nVG}$ of the nonoverlapping case (MRP). 
-The solid lines in these figures show the theoretical relative decreases in variance from \citep{Welch1987} given by (\ref{eq:var_reduct_formula}). 
+A summary of results from these experiments is depicted in Figures~\ref{fig:varvar1} and \ref{fig:nv}.
+Figure~\ref{fig:varvar1} shows the variance of OMRP variance estimators, normalized with respect to $\var{nVG}$ of the nonoverlapping case (MRP). 
+The solid lines in these figures show the theoretical relative decreases in variance from \cite{Welch1987} given by (\ref{eq:var_reduct_formula}). 
 Empirical results agree with the theoretical values well, with more variability observed in CEP1, 10D, and DB1. 
 These experiments suggest that lower variances can be achieved in stochastic programming by overlapping the batches, even with small sample sizes.
 The variance of OMRP variance estimators for DB1 can be less than the asymptotic result established in Theorem \ref{thm:varvar_conv}.
@@ -759,28 +760,21 @@ Even with the relatively small sample sizes compared to the size of this problem
 	\subfloat[][CEP1]{
 	   \label{fig:cep1_varvar}
 	   \includegraphics[width=.5\textwidth]{images/cep1_varvar}}
-	\caption{
-		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the case of nonoverlapping batches) for test problems
-		(a) NVD and
-		(b) CEP1
-	}
-\label{fig:varvar1}
-\end{figure}
-
-\begin{figure}[htb!]
-	\centering
+	\\
 	\subfloat[][10D]{
 	   \label{fig:10d_varvar}
 	   \includegraphics[width=.5\textwidth]{images/10D_varvar}}
 	\subfloat[][DB1]{
 	   \label{fig:db1_varvar}
 	   \includegraphics[width=.5\textwidth]{images/db1_varvar}}
-		\caption{
-		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the nonoverlapping batches) for test problems
-		(a) 10D and
-		(b) DB1
-		}
-\label{fig:varvar2}
+	\caption{
+		$\var{n VG}$ relative to the nonoverlapping counterpart across various values of $\gamma/m$ ($\gamma/m=1$ denotes the case of nonoverlapping batches) for test problems
+		(a) NVD,
+		(b) CEP1,
+		(c) 10D, and
+		(d) DB1
+	}
+\label{fig:varvar1}
 \end{figure}
 
 
@@ -811,7 +805,7 @@ Those graphs are omitted for brevity.
 Finally, Figure~\ref{fig:nv}(b) shows the coverage probability of CIs generated by OMRP for several values of $m$ across varying values of $\gamma/m$ for the newsvendor problem.  
 The results of the overlapping batches estimators from the simulation literature show that coverage probability does not change with the degree of overlap, which we can  empirically see in this figure for OMRP for NVD.
 We observed the same for CEP1, 10D, and DB1.  
-The coverage probabilities from applying the (nonoverlapping) MRP algorithm to these problems presented in \citep{Bayraksan2006} agree with our results: for the newsvendor problem, coverage probability drops as $m$ increases and the coverage probability of CEP1 (not shown for brevity) remains fairly constant around the desired value of $90\%$. 
+The coverage probabilities from applying the (nonoverlapping) MRP algorithm to these problems presented in \cite{Bayraksan2006} agree with our results: for the newsvendor problem, coverage probability drops as $m$ increases and the coverage probability of CEP1 (not shown for brevity) remains fairly constant around the desired value of $90\%$. 
 Coverage probability for 10D (not shown) and {\it estimated} coverage probability for DB1 (also not shown) were very high, more than $0.99$.  
 The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much more significant than the variance.
 
@@ -820,8 +814,8 @@ The bias from solving (\ref{eq:sto_prog_m}) for these problems seems to be much 
 \label{ssec:compeff}
 
 
-The increased computational workload from solving overlapping batches raises the question of the computational efficiency of this method to estimate $VG$.
-In this setting, computational efficiency can be defined as $[T(\gammab)\var{VG}]^{-1}$, where $T(\gammab)$ is the computation time spent to generate $VG$ for a given value of $\gammab$.
+The increased computational workload from applying overlapping batches to assessing solution quality raises the question of computational efficiency to estimate $VG$ in this context.
+Computational efficiency can be defined as $[T(\gammab)\var{VG}]^{-1}$, where $T(\gammab)$ is the computation time spent to generate $VG$ for a given value of $\gammab$.
 Because the variance of the overlapping variance estimator relative to the nonoverlapping (MRP) variant is known from (\ref{eq:var_reduct_formula}), we need only examine the computation time, which can be decomposed as $T(\gammab) = t(\gammab)\left(\nb\right)$. 
 Here, $t(\gammab)$ is the average computation time per batch, which is multiplied by the number of batches.
 Warm starting an algorithm may be used to decrease the computation time per batch for $\gammab < 1$, leading to a possible increase in computational efficiency. 
@@ -831,7 +825,7 @@ The results for various values of $p$ are shown in Figure \ref{fig:efficiency}(a
 This figure is constructed using $m = 1,000$, but the results do not change substantially with different values of $m$.
 The graph is also scaled so that nonoverlapping batches produces a computational efficiency of 1. 
 Efficiency gains increase with larger exponent $p$ but are positive even for small values of $p$ when $\gammab$ is sufficiently close to 1.
-At $p=1$, i.e., for problems where computation time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches of \cite{Meketon1984}.
+At $p=1$, i.e., for problems where computation time is proportional to the number of samples replaced in the batch, computational efficiency is maximized with maximally overlapping batches.
 When $p=0.9$, computational efficiency is maximized at around $\gammab=0.3$.
 When $p$ is $0.71$, on the other hand, computational efficiency is observed for values of $\gammab$ ranging from slightly lower than $0.3$ to $1$, and efficiency is maximized at a relatively flat region between $\gammab=0.5$ and $\gammab=0.8$.
 
@@ -848,33 +842,30 @@ When $p$ is $0.71$, on the other hand, computational efficiency is observed for 
 		Computational efficiency of the OMRP variance estimator relative to the (nonoverlapping) MRP variance estimator measured
 		(a) theoretically and
 		(b) empirically for NVD using insertion sort
-%		(graphs are scaled so that nonoverlapping batches produces a computational efficiency of 1)
 		}
 \label{fig:efficiency}
 \end{figure}
 
-%All theoretical curves in this section were computed using $m = 1000$, but the results do not change substantially with increasing batch size.
-%Newsvendor computations used $m = 1000$ with $10,000$ replications.
 
 We tested this theoretical relationship using the newsvendor problem solved with insertion sort.
 Insertion sort is an efficient algorithm when the values are already largely sorted. 
 Therefore, as overlapping increases, insertion sort results in a decreased solution time per batch for the NVD problem. 
 To test computational efficiency, we used $m = 1,000$ with $10,000$ runs.
 The average computation time per batch was found empirically to be well approximated ($R^2 = 0.994$) by the power law with $p = 0.71$.
-The empirically measured computational efficiency is compared to the theoretical result in Figure \ref{fig:efficiency}(b), where the theoretical computational efficiency, shown in solid line, is repeated from Figure \ref{fig:efficiency}(a).
-It appears that empirical observations match the theoretical efficiency calculations well. 
+The empirically measured computational efficiency is compared to the theoretical result in Figure \ref{fig:efficiency}(b), where the theoretical computational efficiency, shown by a solid line, is repeated from Figure \ref{fig:efficiency}(a).
+It appears that the empirical observations match the theoretical efficiency calculations well. 
 
 
 A related question on computational efficiency asks whether OMRP is more efficient than nonoverlapping MRP with a larger number of batches.
 When generating observations is cheap, one could alternatively increase the number of batches in MRP to obtain estimators with lower variances. 
-In the nonoverlapping case, $\var{VG} \propto \frac{1}{k}$; so, decreasing $\var{VG}$ to the level of maximally overlapping batches of \cite{Meketon1984} requires a $50\%$ increase in the number of batches, and thus a $50\%$ increase in computation time.
+In the nonoverlapping case, $\var{VG} \propto \frac{1}{k}$; so, decreasing $\var{VG}$ to the level of maximally overlapping batches requires a $50\%$ increase in the number of batches, and thus a $50\%$ increase in computation time.
 Continuing on in this way for various values of $\gammab$, we obtain the solid black curve in Figure \ref{fig:comp_work_comparison}. 
-This curve shows the increased computational effort in MRP because of an increased number of batches to obtain the same variance as OMRP across $\gammab$.
+This curve shows the increased computational effort for MRP because of an increased number of batches to obtain the same variance as OMRP across $\gammab$.
 If the work increase by OMRP is less than this solid black curve, then OMRP is computationally more efficient than increasing the number of batches in MRP. 
 Again, assuming average computation time per batch can be represented as $T(\gammab) \propto \gammab^p$, Figure \ref{fig:comp_work_comparison}(a) compares the increase in computational work for OMRP for several values of $p$ to the work increase for MRP to get an equivalent decrease in variance.
 We again see that OMRP is advantageous for larger values of $p$.
 For small values of $p$, some efficiency gain is observed at $\gammab$ values close to 1.
-We again tested this empirically on NVD using insertion sort with $m=1,000$, taking an average of $10,000$ independent runs. 
+We tested this assertion empirically on NVD using insertion sort with $m=1,000$, taking an average of $10,000$ independent runs. 
 The results, shown in Figure \ref{fig:comp_work_comparison}(b), appear to match the theory well. 
 
 
@@ -885,13 +876,11 @@ The results, shown in Figure \ref{fig:comp_work_comparison}(b), appear to match 
 	   \includegraphics[width=.51\textwidth]{images/work_comparison}}
 	\subfloat[][Empirical for NVD]{
 	   \label{fig:comp_work_comparison_nv}
-	   \includegraphics[width=.49\textwidth]{images/nv_work_comparison}}
+	   \includegraphics[width=.48\textwidth]{images/nv_work_comparison2}}
 		\caption{
-		Comparison of computational work required to get equivalent variance between MRP variance estimator with increased number of batches and OMRP variance estimator measured
+		Comparison of computational work required to obtain equivalent variance between the MRP variance estimator with increased number of batches and the OMRP variance estimator measured
 		(a) theoretically and 
 		(b) empirically for NVD using insertion sort
-%		(Left) A theoretical comparison of the computational work required to get equivalent variance reduction between OMRP and MRP when the number of batches are increased.
-%		(Right) Measured computational work for NVD compared with the theoretical results.
 		}
 \label{fig:comp_work_comparison}
 \end{figure}
@@ -899,7 +888,7 @@ The results, shown in Figure \ref{fig:comp_work_comparison}(b), appear to match 
 
 In cases where the exponent $p$ can be estimated, the above theoretical method may be used to determine a reasonable value for $\gammab$.
 We recommend that users perform preliminary computations to determine how computation time per batch changes as $\gammab$ changes when warm starting is available. 
-We can see in Figure \ref{fig:efficiency} that for some values of $p$, efficiency gain is nearly flat over a region of $\gammab$.
+We can see in Figure \ref{fig:efficiency} that for some values of $p$, the efficiency gain is nearly flat over a region of $\gammab$.
 In this case, we recommend choosing $\gammab$ near the right side of this region.
 This choice keeps efficiency high while decreasing computation time and preventing large decreases in efficiency in the event that $p$ was overestimated.
 For example, in the case of NVD, we recommend the use of $\gammab=0.8$ 
@@ -912,7 +901,7 @@ This allows for some increase in efficiency while remaining robust in the event 
 \section{Conclusions}
 \label{sec:concl}
 
-We have applied the overlapping batch means method from simulation output analysis \citep{Meketon1984,Song1992,Welch1987} to assessing solution quality in stochastic programming, in particular, to Monte Carlo simulation-based estimators of optimality gaps \citep{Mak1999}. 
+We have applied the overlapping batch means method from simulation output analysis \citep{Meketon1984,Song1992,Welch1987} to the problem of assessing solution quality in stochastic programming, in particular, to Monte Carlo simulation-based estimators of optimality gaps \citep{Mak1999}. 
 We have provided conditions under which (i) the resulting point estimator of the optimality gap and its associated variance estimator are consistent, (ii) OMRP variance estimators achieve asymptotically lower variances relative to the MRP variance estimator, and (iii) OMRP CIs are asymptotically valid. 
 Empirical results indicate that asymptotic reductions in variance of the variance estimator show a similar decrease in OMRP at small sample sizes, while bias and coverage probability remain unaffected. 
 
@@ -920,9 +909,7 @@ Overlapping may increase the computational burden in the stochastic optimization
 By jointly considering computation time and variance, we have examined the computational efficiency of OMRP, and we have empirically demonstrated  efficiency by solving a newsvendor problem using insertion sort.
 Our analysis illustrates that when warm starting is effective, computational efficiency gains can be observed across a wide range of overlapping degrees.
 Even when warm starting is less effective, efficiency slightly increases for low degrees of overlap. 
-Maximizing efficiency and then minimizing total computation time, we recommend  selecting the lowest degree of overlap across all the degrees with the highest efficiency for a given problem and solution method (with warm starting) combination. 
-
-%Finally, based on our study of computational efficiency, we have provided guidelines on selecting the degree of overlap in OMRP. 
+Maximizing efficiency and then minimizing total computation time, we recommend  selecting the lowest degree of overlap across all the degrees with the highest efficiency for a given problem and solution method (with warm starting). 
 
 Overall, the results in this paper suggest that OMRP could be an efficient method to estimate optimality gaps for a class of stochastic programs when warm starting is available and/or generating the observations is costly.
  
@@ -933,8 +920,7 @@ The authors thank Andrzej Ruszczy{\'{n}}ski and Artur {\'{S}}wietanowski for
 access to their regularized decomposition code, which was used to solve CEP1 and DB1. 
 The authors are grateful to the associate editor and two anonymous referees for valuable suggestions that significantly improved both the content and the presentation of the paper. 
 This research has been supported in part by the National Science Foundation under Grants DMS-0602173 and CMMI-1345626.
-%EFRI-0835930
-An earlier version of this paper appeared in \citep{love2011overlapping}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{abbrvnat}
