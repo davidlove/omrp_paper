@@ -65,7 +65,8 @@
 \newcommand{\xiti}{\xit^i}
 \newcommand{\zs}{z^*}
 \newcommand{\nb}{\left\lfloor\tfrac{n-m}{\gamma}\right\rfloor+1}
-\newcommand{\nbl}{\left\lfloor\tfrac{n_l-m_l}{\gamma_l}\right\rfloor+1}
+%\newcommand{\nbl}{\left\lfloor\tfrac{n_l-m_l}{\gamma_l}\right\rfloor+1}
+\newcommand{\nbl}{b_l}
 \newcommand{\gammab}{\bar{\gamma}}
 \newcommand{\ogb}{\tfrac{1}{\gammab}}
 \newcommand{\cogb}{\left\lceil\ogb\right\rceil}
@@ -279,15 +280,15 @@ In this paper, we use the {\it batch nonoverlap parameter} $1 \leq \gamma \leq m
 For instance, $\gamma = m$ corresponds to the case of nonoverlapping batches and $\gamma = 1$ corresponds to the maximally overlapping case of \citet{Meketon1984}.  
 In general, $\gamma$ can take any integer value between and including $[1,m]$. 
 Let $\lfloor \cdot \rfloor$ be the greatest integer that is less than or equal to its argument. 
+Here, $b=\nb$ batches are formed given $n$, $m$, and $\gamma$. 
 The sample mean of each overlapping batch is calculated similarly, 
 $
-\yb_j = \frac{1}{m} \sum_{i=1}^m y^{\gamma(j-1) + i},\ \  j = 1, 2, \dots, \nb, 
+\yb_j = \frac{1}{m} \sum_{i=1}^m y^{\gamma(j-1) + i},\ \  j = 1, 2, \dots, b, 
 $
-now taking into account $\gamma$.  
-Here, $\nb$ batches are formed given $n$, $m$, and $\gamma$.  
+now taking into account $\gamma$.   
 The variance estimator is updated to
 \begin{equation} \label{eq:variance_gamma}
-	\vartg{\ybb} = \frac{1}{\left( \tfrac{n}{m} - 1 \right) \left( \nb \right)}  \sum_{j=1}^{\nb} (\yb_j - \ybb)^2.
+	\vartg{\ybb} = \frac{1}{b \left( \tfrac{n}{m} - 1 \right) }  \sum_{j=1}^{b} (\yb_j - \ybb)^2.
 \end{equation}
 
 The overlapping variance estimator using $1 \leq \gamma < m$ has (i) nearly the same bias as the standard nonoverlapping variance estimator, and it has (ii) a lower asymptotic variance than its nonoverlapping counterpart. 
@@ -385,26 +386,24 @@ We are now ready to define the OMRP estimators.
 \end{figure}
 
 In order to apply overlapping batches to MRP, we need to keep track of solutions to sampling problems (SP$_m$) for each batch of size $m$.  
-Toward this end, let $B(i)$ denote the set of batches $j \in \left\{1, 2, \dots, \nb \right\}$ observation $\xiti$ is used in, $i = 1, 2, \dots, n$.  
+Toward this end, let $B(i)$ denote the set of batches $j \in \left\{1, 2, \dots, b \right\}$ observation $\xiti$ is used in, $i = 1, 2, \dots, n$.  
 See Figure \ref{fig:overlap_nonint} for an example with $n=18$, $m = 6$, and $\gamma = 2$.  
 Here, the first batch uses observations $\xit^1, \xit^2, \xit^3, \xit^4, \xit^5, \xit^6$, the second batch uses $\xit^3, \xit^4, \xit^5, \xit^6, \xit^7, \xit^8$, and so on.  
 So, $B(1) = \{1\}$, $B(3) = \{1,2\}$, and $B(7)=\{2,3,4\}$.  
-As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$_m$) formed using the $j$th batch, which may not be unique; so we set $\xs_j \in \argmin_{\x \in X} \frac{1}{m} \sum_{i=1}^m f(\x,\xit^{\gamma(j-1) + i})$, $j = 1, 2, \dots, \nb$. 
-
-The set of optimal solutions to The sampling problem (SP$_m$) formed using the $j$th batch might not be a singleton; there might be multiple optimal solutions. 
-
+As before, we use $\xs_j$ to denote an optimal solution to sampling problem (SP$_m$) formed using the $j$th batch, which may not be unique; so we set $\xs_j \in \argmin_{\x \in X} \frac{1}{m} \sum_{i=1}^m f(\x,\xit^{\gamma(j-1) + i})$, $j = 1, 2, \dots, b$. 
 
 The results on overlapping batch means discussed in \S \ref{ssec:overlap} occur in the limit as $n, m, k=n/m \rightarrow \infty$.  
 Let $n_l, m_l$, and $k_l$ be sequences of numbers satisfying these requirements, so that the limits will be taken as $l \rightarrow \infty$.  
 We assume a batching structure where $m_l = \lfloor n_l ^r \rfloor$ for some $0<r<1$, as is typical in simulation, and $n_l$ tends to infinity as $l \rightarrow \infty$.  
 In addition, we may desire that the batch nonoverlap parameter change with $l$, to ensure that $\gamma_l / m_l = \gammab_l$ converges to the constant $\gammab$.  
+The notation for the number of batches is updated to $b_l = \left\lfloor\tfrac{n_l-m_l}{\gamma_l}\right\rfloor+1$.
 The OMRP estimators are defined as follows:
 \begin{align}
 	\gb_{lj} & = \frac{1}{m_l} \sum_{i=1}^{m_l} \left[ f(\xh,\xit^{\gamma_l(j-1)+i}) - f(\xs_j,\xit^{\gamma_l(j-1)+1}) \right],\ \ \ j = 1, 2, \dots, \nbl, \label{eq:gbar} 
 \end{align}
 \begin{align}
 	\gbb_l & = \frac{1}{n_l} \sum_{i=1}^{n_l} \frac{1}{|B(i)|} \sum_{j \in B(i)} \left[ f(\xh,\xiti) - f(\xs_j,\xiti) \right], \label{eq:gbb} \\
-	VG_l & = \dfrac{1}{\left( \tfrac{n_l}{m_l} - 1 \right) \left(\nbl\right)} \sum_{j=1}^{\nbl} (\gb_{lj} - \gbb_l)^2. \label{eq:vg}
+	VG_l & = \dfrac{1}{ \nbl \left( \tfrac{n_l}{m_l} - 1 \right)} \sum_{j=1}^{\nbl} (\gb_{lj} - \gbb_l)^2. \label{eq:vg}
 \end{align}
 
 The optimality gap estimator for each batch $\gb_{lj}$ is defined like (\ref{eq:mrp_gap}) for general values of the nonoverlap parameter $\gamma_l$.  
@@ -463,7 +462,7 @@ To overcome this problem, we introduce the following unbiased optimality gap est
 \begin{align}
 	\db_{lj} & = \frac{1}{m_l} \sum_{i=1}^{m_l} \left[ f(\xh,\xit^{\gamma_l(j-1)+i}) - f(\xs,\xit^{\gamma_l(j-1)+i}) \right],\ \ \ j = 1, 2, \dots, \nbl, \label{eq:dbar} \\
 	\dbb_l & = \frac{1}{n_l} \sum_{i=1}^{n_l} \left[ f(\xh,\xiti) - f(\xs,\xiti) \right], \label{eq:dbb} \\
-	VD_l & = \frac{1}{\left( \tfrac{n_l}{m_l} - 1 \right) \left(\nbl\right)} \sum_{j=1}^{\nbl} (\db_{lj} - \dbb_l)^2. \label{eq:vd}
+	VD_l & = \frac{1}{\nbl \left( \tfrac{n_l}{m_l} - 1 \right)} \sum_{j=1}^{\nbl} (\db_{lj} - \dbb_l)^2. \label{eq:vd}
 \end{align}
 These are essentially the same as the overlapping batches estimators in \S \ref{ssec:overlap} with $y^i = f(\xh,\xiti) - f(\xs,\xiti)$.  
 These are also defined identically to the original estimators (\ref{eq:gbar})--(\ref{eq:vg}) with the exception that $\xs_j$ from (\ref{eq:gbar}) and (\ref{eq:gbb}) is replaced by the optimal solution $\xs$ in (\ref{eq:dbar}) and (\ref{eq:dbb}).  
@@ -493,7 +492,7 @@ Using this upper bound and continuing on, we obtain
 	\begin{align}
 		\p{\dbb_l - \gbb_l \neq 0} & \leq \p{\left( \bigcap_{j=1}^{\nbl} \{\xs_{j} = \xs\} \right)^C} \notag \\
 		& = \p{ \bigcup_{j=1}^{\nbl} \{\xs_{j} \neq \xs\}} \notag \\
-		& \leq \left( \nbl\right) \p{ \xs_{m_l} \neq \xs }. \notag
+		& \leq \nbl \, \p{ \xs_{m_l} \neq \xs }. \notag
 	\end{align}
 	With a batching structure in which $m_l = \lfloor n_l^{r} \rfloor$ for some $0<r<1$,  $\gamma_l \geq 1$, and by A3, the desired result follows.
 \end{proof}
@@ -572,36 +571,36 @@ It suffices to show $\sqrt{{n_l}/{m_l}} \left( n_l VG_l - n_l VD_l \right) \xrig
 
 \begin{proof}
 	For simplicity of exposition, we drop the subscript $l$ and the $\frac{n_l}{m_l}$ for now and add them in later.  
-        Further, we use abbreviations $n_b = \nbl$ to denote the number of batches and $\tau = \left(\tfrac{n_l}{m_l} - 1\right) \left(\nbl\right)$ to denote the denominator term in $VG_l$ and $VD_l$. We have
+        Further, we use abbreviation $\tau = \nbl \left(\tfrac{n_l}{m_l} - 1\right)$ to denote the denominator term in $VG_l$ and $VD_l$. We have
 	\begin{align}
-		\e{(nVG - nVD)^2} & = \left( \frac{n}{\tau} \right)^2 \e{ \left( \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right] \right)^2 } \notag \\
-		& \leq \left( \frac{n}{\tau} \right)^2 \e{ n_b \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \label{eq:vvar_conv_pf_1}
+		\e{(nVG - nVD)^2} & = \left( \frac{n}{\tau} \right)^2 \e{ \left( \sum_{j=1}^{b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right] \right)^2 } \notag \\
+		& \leq \left( \frac{n}{\tau} \right)^2 \e{ b \sum_{j=1}^{b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \label{eq:vvar_conv_pf_1}
 	\end{align}
 	by the Cauchy-Schwartz inequality, where the second vector in the Cauchy-Schwartz inequality is taken as a vector of ones.  
         By examining the batch structure in Figure \ref{fig:overlap_nonint} and the definition of $\gbb$ in (\ref{eq:gbb}), one can see that the terms of the expectation in (\ref{eq:vvar_conv_pf_1}) are not identically distributed.  
         We will separate these into identically distributed ``center'' batches and ``fringe'' batches.  
         For example, in Figure \ref{fig:overlap_nonint}, only batch 4 is a center batch, while the others are fringe batches.  
         Notice in Figure \ref{fig:overlap_nonint}, we see $\left\lceil \gammab^{-1} \right\rceil = 3$ sets of nonoverlapping batches $\{1,4,7\}$, $\{2,5\}$, and $\{3,6\}$, each of which has two fringe batches.  
-        In general, there are $\left\lceil \gammab^{-1} \right\rceil$ sets of nonoverlapping batches, each of which will have two fringe batches, and $n_b - 2\left\lceil \gammab^{-1} \right\rceil$ center batches.
+        In general, there are $\left\lceil \gammab^{-1} \right\rceil$ sets of nonoverlapping batches, each of which will have two fringe batches, and $b - 2\left\lceil \gammab^{-1} \right\rceil$ center batches.
 	
 	The fringe batches come in identically distributed pairs.  
         The first and last batch are identically distributed, as are the second and second-to-last, etc.  
         We know this because we could reverse the order of the i.i.d.\ sample and perform the batching again to get the same batch structure.  
 		  The center batches are identically distributed.  
         Let $A_j = (\gb_j - \gbb)^2 - (\db_j - \dbb)^2$.
-		  Furthermore, let $A_j^c$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, n_b - \left\lceil \gammab^{-1} \right\rceil$ denote the center batches, and let $A_j^f$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$ and $A_j^e$, $j=n_b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,n_b$ denote the fringe batches at the front and end of each set of nonoverlapping batches, respectively.  
+		  Furthermore, let $A_j^c$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, b - \left\lceil \gammab^{-1} \right\rceil$ denote the center batches, and let $A_j^f$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$ and $A_j^e$, $j=b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,b$ denote the fringe batches at the front and end of each set of nonoverlapping batches, respectively.  
 		  Continuing from (\ref{eq:vvar_conv_pf_1}),
 	\begin{align*}
-		& \left( \frac{n}{\tau} \right)^2 n_b \e{ \sum_{j=1}^{n_b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
-		 =  & \left( \frac{n}{\tau} \right)^2 n_b \e{\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \left( A_j^f \right)^2 \
-		 + \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{n_b-\left\lceil \gammab^{-1} \right\rceil} \left( A_j^c \right)^2 \
-		 + \sum_{j=n_b-\left\lceil \gammab^{-1} \right\rceil+1}^{n_b} \left( A_j^e \right)^2 
+		& \left( \frac{n}{\tau} \right)^2 b \, \e{ \sum_{j=1}^{b} \left[ (\gb_j - \gbb)^2 - (\db_j - \dbb)^2 \right]^2 } \\
+		 =  & \left( \frac{n}{\tau} \right)^2 b \, \e{\sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \big( A_j^f \big)^2 \
+		 + \sum_{j=\left\lceil \gammab^{-1} \right\rceil+1}^{b-\left\lceil \gammab^{-1} \right\rceil} \big( A_j^c \big)^2 \
+		 + \sum_{j=b-\left\lceil \gammab^{-1} \right\rceil+1}^{b} \big( A_j^e \big)^2 
 		} \\
-		 = & \left( \frac{n}{\tau} \right)^2 n_b \left(n_b - 2\left\lceil \gammab^{-1} \right\rceil \right) \e{ \left( A_j^c \right)^2 }
-		+ \left( \frac{n}{\tau} \right)^2  2 n_b \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \left( A_j^f \right)^2 }.
+		 = & \left( \frac{n}{\tau} \right)^2 b \left(b - 2\left\lceil \gammab^{-1} \right\rceil \right) \e{ \big( A_j^c \big)^2 }
+		+ \left( \frac{n}{\tau} \right)^2  2 b \sum_{j=1}^{\left\lceil \gammab^{-1} \right\rceil} \e{ \big( A_j^f \big)^2 }.
 	\end{align*}	
-	The last equality follows because each front-fringe batch's $\e{(A_j^f)^2}$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$  has an identical pair in an end-fringe batch's $\e{(A_j^e)^2}$, $j=n_b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,n_b$, and all center batches have identical values of $\e{(A_j^c)^2}$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, n_b - \left\lceil \gammab^{-1} \right\rceil$.  
-	As a result, we have $\left\lceil \gammab^{-1} \right\rceil + 1$ expectation terms, each of which has a coefficient that is less than $\left(\frac{n}{\tau}\right)^2n_b^2 < (2m)^2$.  
+	The last equality follows because each front-fringe batch's $\e{\big(A_j^f\big)^2}$, $j=1,\ldots,\left\lceil \gammab^{-1} \right\rceil$  has an identical pair in an end-fringe batch's $\e{\big(A_j^e\big)^2}$, $j=b - \left\lceil \gammab^{-1} \right\rceil+1,\ldots,b$, and all center batches have identical values of $\e{\big(A_j^c\big)^2}$, $j=\left\lceil \gammab^{-1} \right\rceil+1, \ldots, b - \left\lceil \gammab^{-1} \right\rceil$.  
+	As a result, we have $\left\lceil \gammab^{-1} \right\rceil + 1$ expectation terms, each of which has a coefficient that is less than $\left(\frac{n}{\tau}\right)^2b^2 < (2m)^2$.  
         Removing the notation for fringe or center batch for simplicity, each expectation can be bounded by
 	\begin{align}
 		\left( 2m \right)^2 \e{ \left( A_j \right)^2 } & = \left( 2m \right)^2 \e{ \left((\gb_j - \gbb) - (\db_j - \dbb)\right)^2 \left((\gb_j - \gbb) + (\db_j - \dbb)\right)^2 } \notag \\
