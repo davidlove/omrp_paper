@@ -37,8 +37,11 @@
 \pagebreak
 
 \begin{center}
-\textbf{\Large Response to Referee 1} 
+\textbf{\Large Response to Reviewer 1} 
 \medskip
+
+on the revision of\\ 
+
 
 {\large Overlapping Batches for the Assessment of Solution Quality in Stochastic Programs}
 \medskip
@@ -48,301 +51,60 @@
 
 \bigskip
 
-\bigskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \noi
-We thank the referee for the helpful comments and suggestions. 
-We incorporated all of the recommended changes and believe the paper is improved as a result. 
+We thank the Reviewer for the careful read and the helpful suggestions. 
+We incorporated all of the recommended changes. 
 Below, we go through in detail these changes. 
 \medskip
 
 \bigskip 
 
-\noi  
-{\large \bf ``Major'' comments:}
-\medskip 
-
 \begin{itemize}
-\item[\textbf{M1.}] \textit{In the typical simulation setting, the computational effort required to produce the output dominates, and hence one would like to ``make the most'' of the output in terms of analysis. 
-Sometimes, a similar motivation can arise in stochastic optimization because there may be a computationally expensive underlying simulation model that must be run to produce the i.i.d.\ realizations that are then used in an SAA approach. 
-(While they don't now, the authors could include this as motivation for
-their work.)}
+\item \textit{p6, l47: The sentence with ``are no longer independent'' doesn't quite make sense, given the context introduced so far in which the observations of y can be dependent.}
 \end{itemize}
 
 \noi 
-Thank you for this suggestion. 
-You are right.
-There are cases when generating scenarios is expensive in the stochastic optimization setting as well. 
-We changed the introduction based on your, the associate editor, and the other reviewer's comments. 
-We specifically added this as a motivation in the first full paragraph on page four of the revised paper. 
+Deleted this sentence. 
+Thank you; good catch! 
+We revised and rearranged the beginning of this paragraph for better flow.  
 \medskip
 
 \begin{itemize}
-\item[] \textit{However, perhaps more often, sampling the i.i.d. realizations is computationally cheap compared to solving the resulting SAA instances in stochastic optimization. 
-In this latter case, we have a choice between simply increasing the number of batches in a non-overlapping method or using the overlapping batch means approach (with some degree of overlap) in order to reduce variance.
-Based on the paper's results, perhaps the computational effort required to achieve a level of variance reduction should guide this choice. 
-The authors do point to the fact that warm starts in a stochastic
-optimization algorithm can be exploited much more easily when using overlapping batch means than when not using overlapping batches. 
-Some attempt to explore this tradeoff would be valuable. 
-The computational results use sorting (for the news vendor problem), a dynamic programming algorithm (for a stochastic knapsack model), and a decomposition method (for two-stage stochastic linear programs). 
-While I am not suggesting that this exploration needs to be made for all three types of algorithms, even exploring it in the case of the sorting algorithm (where some algorithms are well suited for almost-sorted lists) could provide valuable insight.}
+\item \textit{p11, l16: Delete extra space in \S4.4.}
 \end{itemize}
 
 \noi 
-We studied computational efficiency of the OMRP variance estimators and demonstrated efficiency on the newsvendor problem using insertion sort. 
-The results of this study are presented in a new section, \S 5.4 (Computational Efficiency).
-We first approached efficiency by the reciprocal of variance multiplied by the computation time, per the associate editor's suggestion. 
-Maximizing computational efficiency defined in this manner provided guidelines on selecting the degree of overlap. 
-We then looked at how OMRP compared to increasing the number batches in MRP to reach an equivalent variance level.
-We examined computational efficiency theoretically---assuming a functional form of the solution time per batch---and also empirically. 
-For empirical evaluation, we used the newsvendor problem with insertion sort, based on your suggestions; thank you. 
-We found that when effective warm starting is available, overlapping can lead to more efficient estimators than (nonverlapping) MRP, both when the direct nonoverlapping counterpart is used or when the number of batches in MRP is increased to match the variance of the overlapping counterpart.  
-We believe the study of computational efficiency significantly improved the paper. 
-Thank you.\smallskip 
-
-\noi
-{\it Note:} Please also see our response to your minor comment 19 below.
+Done. 
 \medskip
 
 
 
 \begin{itemize}
-\item[\textbf{M2.}] \textit{The choice of the lower bound that is embedded in equation (8) is interesting. 
-(The upper bound in equation (8) is completely natural as the sample mean of the $n_l$ realizations of the function evaluated at $\hat{x}$.) 
-It seems that there are also other natural choices that could be made here for the lower bound. 
-There is some discussion of this choice in the text that follows equations (7)-(9), but can the authors say more? For example, do the consistency and asymptotic validity results that follow hinge on this choice? Or, do those results also hold for other choices, like forming $\gbb$ as a sample
-mean of the underlying $\gb$ values. 
-We know that the individual gap estimators in (7) are nonnegative, and if we formed $\gbb$ as a sample mean of $\gb$ values, it would be nonnegative. 
-Is the $\gbb$, as specified in (8), nonnegative? 
-Have the authors computationally explored other choices here? 
-Any insight in this vein would be valuable to the reader in understanding the choice made in equation (8).}
+\item \textit{p13, l21-22: I know what the authors mean, but I can't quite parse the last sentence of the proof of Lemma 2.}
 \end{itemize}
 
 \noi
-You are right; we did not fully motivate this choice of $\gbb$.  
-We added explanations after the definition of the OMRP estimators, motivating this choice and relating it to the theoretical results presented in the paper.\smallskip 
-
-
-\noi 
-As you pointed out for the upper bound in (8), this $\gbb$ was chosen for each observation to have equal weight when the sampling problems yield optimal solutions $x_j^* = x^*, \ \forall j$. 
-This fact is used in Lemmas 1 and 2, which are then used---directly or indirectly---in proving Theorems 1--3. 
-When the alternative $\gbb$, formed as a sample mean of $\gb$ values, is used, 
-a subset of the theoretical results can be established (e.g., $\gbb$ converges almost surely to $\mu_{\hat{x}}$). 
-However, we had difficulty establishing the same asymptotically lower variances for the new $VG$. 
-An alternative is to concurrently adjust the coefficients of the $\dbb$ terms to establish convergence of the new $\gbb$, $VG$, etc.\ to their nonoptimized counterparts $\dbb$, $VD$, etc.
-When the coefficients of $\dbb$ are adjusted, however, $\dbb$ and $VD$ are {\it not exactly} the same as the overlapping estimators of simulation output analysis. 
-Because our results depend on the asymptotic properties of the overlapping estimators already established in the simulation literature, we did not want to make any changes to $\dbb$. 
-It may be still be possible to recover the same results on overlapping using this alternative  $\dbb$ but we did not pursue it here. 
-Due to the lack of theoretical results explained above, we decided not to include or discuss $\gbb$ formed as a sample mean of $\gb$ values, even though it appears as a natural choice. 
-Instead, we expanded the text motivating the current choice of $\gbb$. 
-Based on your comments, we also expanded the text regarding the nonnegativity of $\gbb$. 
-Thank you for your insightful comments. 
+Deleted this sentence. Shortened the paragraph as suggested by Reviewer 2. 
 \medskip 
-
-\bigskip 
-
-\noi {\large \bf Minor comments:}
-
-\bigskip
-
 
 
 \begin{itemize}
-\item[1.] \textit{p1, l49: Suggest: The Overlapping \ldots }
+\item \textit{p13, l37: Suggest: is nearly identical to that above.}
 \end{itemize}
 
 \noindent 
-Done. 
-\medskip 
-
-\begin{itemize}
-\item[2.] \textit{p2, l16, l22: overlapping is misspelled twice.}
-\end{itemize}
-
-\noindent 
-Corrected. Thanks for catching these typos.
+Deleted this sentence as suggested by Reviewer 2. 
 \medskip 
 
 
 \begin{itemize}
-\item[3.] \textit{p3, l23: Do the authors mean ``relaxations'' rather than ``relations''?}
-\end{itemize}
-
-\noindent 
-Yes. Corrected. 
-\medskip 
-
-
-\begin{itemize}
-\item[4.] \textit{p3, l38: Suggest: estimator of the optimality gap \ldots}
+\item \textit{p17, l58: ``solving'' could be deleted so we don't have the notion of ``solving ... runs''; this may appear elsewhere, too.}
 \end{itemize}
 
 \noindent 
 Done.
 \medskip 
-
-
-\begin{itemize}
-\item[5.] \textit{p4, l34: Suggest: once the data are generated through a simulation, they \ldots}
-\end{itemize}
-
-\noindent 
-Done. 
-\smallskip 
-
-\noi 
-{\it Note:} This sentence now appears in the second paragraph of \S 3 (Overlapping Multiple Replications Procedure) as a result of restructuring the introduction based on the comments of the associate editor and the other referee. 
-\medskip 
-
-
-\begin{itemize}
-\item[6.] \textit{p4, l42: Suggest: Partial overlap results in fewer batches, hence fewer optimization \ldots}
-\end{itemize}
-
-\noindent 
-We revised this paragraph in order to improve exposition. 
-We used `smaller number of batches' based on the comments of the other referee in the new sentence. 
-\medskip 
-
-\noi 
-{\it Note:} The revised sentence now appears in the second paragraph of \S 3 (Overlapping Multiple Replications Procedure) as a result of restructuring the introduction based on the comments of the associate editor and the other referee. 
-\medskip 
-
-
-\begin{itemize}
-\item[7.] \textit{p6, l32: Suggest: The degrees \ldots make \ldots}
-\end{itemize}
-
-\noindent 
-We now use denominator instead of degrees of freedom. 
-Therefore, we used `\ldots denominator makes \ldots '
-\medskip 
-
-
-\begin{itemize}
-\item[8.] \textit{p7, l18: While a confidence level of $1-\alpha$ may be consistent with a level of significance of $\alpha$, perhaps this could be reworded (as it seemed to distract this reader a bit).}
-\end{itemize}
-
-\noindent  
-Changed the wording here. Thank you. 
-\medskip 
-
-
-\begin{itemize}
-\item[9.] \textit{p10, l23: Suggest: convergence of the sampled solution \ldots}
-\end{itemize}
-
-\noindent 
-Done. 
-\medskip 
-
-
-\begin{itemize}
-\item[10.] \textit{p12, l53: Suggest: Strong consistency \ldots has been \ldots}
-\end{itemize}
-
-\noindent 
-Done. 
-\medskip 
-
-
-\begin{itemize}
-\item[11.] \textit{p14, l13-14: Suggest: The fringe batches come \ldots The first and last batch are identically \ldots}
-\end{itemize}
-
-\noindent 
-Done. 
-\medskip 
-
-
-\begin{itemize}
-\item[12.] \textit{ p14, l23: Please add $j = 1$ to the sum.}
-\end{itemize}
-
-\noindent 
-Added. Thanks for catching this.
-\medskip 
-
-
-\begin{itemize}
-\item[13.] \textit{p14, l35: The authors have gone to some length to distinguish different types of $A_j$ terms.
-However, this equation has an $\mathbb{E}A_j^2$ term that has been collapsed from a sum, but we don't know ``which $j$''. 
-Should there be a $\max_j \mathbb{E}A_j^2$ or some other treatment here?}
-\end{itemize}
-
-\noindent 
-This is because the center batches are identically distributed. 
-As a result, $\mathbb{E}A_j^2$ for all the center batches $j=\lceil \bar{\gamma}^{-1} \rceil, \ldots,n_b - \lceil \bar{\gamma}^{-1} \rceil$ are the same. 
-To make this clear, we introduced the notation $A_j^c$ for center batches and $A_j^f$ and $A_j^e$ for the fringe batches that appear at the front and end of each set of nonoverlapping batches, respectively. 
-We also emphasized that each front fringe batch has an identically distributed pair at the end fringes, and that all the center batches are identically distributed. 
-\medskip 
-
-\noi 
-{\it Note:} We added brackets to expectations to improve readability as suggested by the other referee.
-We also removed the second equality to save some space because this equality's result was also equally expressed in the last inequality. 
-\medskip 
-
-
-\begin{itemize}
-\item[14.] \textit{p15, Theorem 3: A hypothesis in the theorem is that $\hat{x} \neq x^*$, and yet the proof starts with the case that $\hat{x} = x^*$. 
-That hypothesis could be removed if the claim had a ``$\geq$'' or this statement could be removed or modified.}
-\end{itemize}
-
-\noindent Thank you for pointing this out and for your careful review.  
-We removed this statement from the proof of Theorem 3 and added it as a remark to the paragraph after the theorem.
-\medskip 
-
-
-
-\begin{itemize}
-\item[15.] \textit{p17, l44: Suggest: A summary of results \ldots experiments is depicted \ldots}
-\end{itemize}
-
-\noindent 
-Done.
-\medskip 
-
-
-\begin{itemize}
-\item[16.] \textit{p17, l55: Perhaps add a comment on why DB1 may not experience the asymptotic variance reduction? 
-(Is it because it may lack a unique solution?)}
-\end{itemize}
-
-\noindent
-Done.
-\medskip 
-
-
-\begin{itemize}
-\item[17.] \textit{p18, figures: The figures are a bit small and hence can be hard to read without enlarging them (but perhaps this will be taken care of at production).}
-\end{itemize}
-
-\noindent 
-We split these two figures into three and enlarged each graph. 
-We also enlarged the legends in these graphs to improve readability.
-All the new graphs added to the paper in \S 5.4 (Computational Efficiency) are also larger, with legible legends. 
-\medskip 
-
-
-\begin{itemize}
-\item[18.] \textit{p18, l57: The authors speak of coverage probabilities for DB1, but how can this be done without knowing an optimal solution to DB1?}
-\end{itemize}
-
-\noindent 
-We used a Latin hypercube sample of size 50,000 estimate $\mu_{\hat{x}}$ for DB1, which was then used to estimate the coverage probability of the OMRP confidence intervals for this test problem.
-We explain this at the end of \S 5.1 (Test Problems). 
-We also changed the wording in \S 5.3 (Results of Experiments) to make it clear that the coverage probability is estimated for DB1. 
-\medskip 
-
-
-\begin{itemize}
-\item[19.] \textit{p19: It may be possible to expand on the last paragraph of \S 5, in giving guidance on selecting the degree of overlap, depending on the authors' response to comment M1 above.}
-\end{itemize}
-
-\noindent 
-Based on our study of computational efficiency of the OMRP estimators, we  provided an updated and expanded guidance on selecting the degree of overlap. 
-This guidance appears in the last paragraph of \S 5.4 (Computational Efficiency). 
-Thank you for this suggestion. 
 
 \end{document}

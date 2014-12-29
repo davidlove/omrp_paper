@@ -28,10 +28,12 @@
 
 \pagebreak
 
-\
 \begin{center}
-\textbf{\Large Response to Referee 2} 
+\textbf{\Large Response to Reviewer 2} 
 \medskip
+
+on the revision of\\ 
+
 
 {\large Overlapping Batches for the Assessment of Solution Quality in Stochastic Programs}
 \medskip
@@ -43,288 +45,62 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\noi 
-We thank the referee for the helpful comments and suggestions. 
-We incorporated all of the recommended changes and believe the paper is improved as a result. 
+\noi
+We thank the Reviewer for the careful read and the helpful suggestions. 
+We incorporated all of the recommended changes. 
 Below, we go through in detail these changes. 
 \medskip
 
 \bigskip 
 
-
-\noi  
-{\large \bf General Comments:}
-\medskip 
-
-
 \begin{itemize}
-\item[1.] \textit{The main contributions of the paper need to be stated more clearly and succinctly.}
+\item \textit{Page 1, Abstract: Minor suggested changes as mentioned on annotated copy.}
 \end{itemize}
-
-\noindent 
-You are right. 
-We changed the introduction to clearly state the main contributions of the paper.  
-Please see page four of the revised manuscript. 
-We also clarified the motivation for the work, included new contributions based on the study of computational efficiency (contribution (iv)), and provided a comparison with the proceedings version of the paper (based on the editor-in-chief's suggestion).
-\medskip 
 
 \noi 
-As a result of the revised introduction---aimed to clearly state the contributions of the paper---we decided to move the technical discussion on using overlapping batches in simulation output analysis versus assessing solution quality in stochastic optimization to \S 3 (Overlapping Multiple Replications Procedure).
-We provided `{\it Note:}'s whenever a sentence was moved when addressing your minor comments below. 
-We believe the presentation of the paper significantly improved.  
-Thank you.
-\medskip 
+Done. 
+\medskip
 
 \begin{itemize}
-\item[2.] \textit{It is not necessary to go into such detail in the OBM review.}
+\item \textit{2, 6 (and elsewhere): ``Active'' citations should be of the form ``Smith [2013]'', while ``passive'' (``parenthetical'') cites should be of the form ``[Smith, 2013]''.}
 \end{itemize}
 
-\smallskip 
+\noi 
+Checked all and corrected as needed. 
+\medskip
+
+
+\begin{itemize}
+\item \textit{2, 8: Minor wording suggestions as on annotated copy.}
+\end{itemize}
+
 
 \noindent 
-We shortened and streamlined the OBM review, focusing on the main results used in the paper, by combining two previous sections---\S 2.1 (Overlapping Batch Means) and \S 3.1 (Variably Overlapping Batches)---along with other explanations on OBM that appeared later in the paper. 
-The combined review is in the background section, \S 2.1 (Batch Means). 
-To improve readability, we created two subsections: \S 2.1.1 (Nonoverlapping Batch Means) and \S 2.1.2 (Overlapping Batch Means). 
-While we removed a number of equations and shortened the text, we kept some explanations that are necessary for a reader who is not familiar with OBM (e.g., readers with an optimization focus) to follow the main ideas.   
-We hope to reach a broader audience this way. 
-As a result of these changes: 
-\begin{itemize}
-	\item[(i)]  instead of former equations (2) and (5), both on overlapping batch means variance estimator, we have only one equation (2); 
-	
-	\item[(ii)]  the confidence interval estimation using OBM is discussed only once;
-
-	\item[(iii)] the former equation (3) is removed;
-
-	\item[(iv)] the discussion that appeared at the beginning of \S 4.4 (previously: Variance Reduction, now: Asymptotically Lower Variances) is moved to this review section.\medskip 
-
-{\it Note:} While making the changes, we realized that notation `$\alpha$' was overloaded. 
-It was used in the current equation (3) and the statement of Theorem 2 to represent the relative variances, and it was used as the level of significance in confidence intervals.  
-To remedy this issue, we changed `$\alpha$' in equation (3) and Theorem 2 to `$\beta_{\bar{\gamma}}$'. 
-\end{itemize}
-
-\noi
-With these changes, the OBM review became more streamlined, focusing on the main results used later in the paper. 
-Thank you for this suggestion.
+Done. 
 \medskip 
 
 
 \begin{itemize}
-\item[3.] \textit{The English needs to be tightened up somewhat.}
+\item \textit{5, -3: Footnote can go in main text. Also, $\bar{\bar{y}}$ was already defined.}
 \end{itemize}
 
 \noindent  
-We went through the paper and tightened up the prose. 
-We also incorporated all the changes you suggested below and believe the exposition of the paper is improved as a result.
-Thank you for your careful review that significantly improved the presentation of the paper. 
-\medskip 
-
-\bigskip 
-
-
-\noi  
-{\large \bf Specific Comments:}
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{Page 1, Line 32 (and elsewhere): I believe that you ``apply the OBM method to stochastic programming'' rather than extend it.}
-\end{itemize}
-
-\noi
-Yes. Done.  
-We also went through the paper to correct other occurrences. 
-In particular, this was also used in \S 6 (Conclusions). 
-We changed the first sentence of \S 6 (Conclusions) to use the word `apply' instead of `extend'. 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{1, 35 (and elsewhere): ``We give conditions'' instead of ``We show conditions''}
-\end{itemize}
-
-\noi
 Done. 
-We also went through the paper and corrected other occurrences. 
-The current version of the paper either has `give conditions' or `provide conditions'. 
 \medskip 
 
 
 \begin{itemize}
-\item[] \textit{1, 37: What are the classical results? Reference?}
+\item \textit{6, 2: Naive question: Are the $y_i$'s independent or possibly correlated in your specific problem application?}
 \end{itemize}
 
 \noi
-We reworded this sentence to improve clarity and provided references.   
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{1, 49: Suggested rewrite to reduce ambiguity: ``The overlapping batch means (OBM) \ldots to obtain variance estimators having variances that are comparatively lower than their nonoverlapped counterparts. 
-In the context of steady-state simulation, OBM is often used to estimate the variance of the sample mean, which is itself an estimator for the mean. 
-Schmeiser et al.\ [1990] use overlapping estimators to estimate the
-variance of estimators for non-means. 
-More recently, overlapping estimators based on standardized time series (as opposed to batch means) have been evaluated [Alexopoulos et al., 2007a,b].'' 
-In this rewrite, note the use of active and passive referencing formats.}
-\end{itemize}
-
-\noi
-Thank you for this suggestion of rewrite and for your careful and detailed review of the paper. 
-We rewrote this paragraph based on your corrections.
-We also went through the paper and made changes to the language, paying specific attention to active and passive referencing formats. 
+Correlated in a particular way. 
+Added a comment on this in Section 2.1.1.
 \medskip 
 
 
 \begin{itemize}
-\item[] \textit{2, 5: ``never before been studied . . . context.''}
-\end{itemize}
-
-\noi
-Done.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 7: By ``same benefits'', you mean moderate bias and comparatively low variance, right?}
-\end{itemize}
-
-\noi
-Yes. We reworded this sentence. 
-We also went through the paper and made the context clear whenever phrases like `same benefits', `desired statistical properties', etc.\ were used.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 8: Start a new paragraph with ``A natural setting\ldots ''.}
-\end{itemize}
-
-\noi
-Done.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 10: ``especially'' instead of ``esp.''. 
-Also, ``This'' instead of ``Assessing solution quality in stochastic programming'' (since it's repetitive)}
-\end{itemize}
-
-\noi
-Both done.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 13: ``Because optimality gap''}
-\end{itemize}
-
-\noi
-Done.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 24: ``under which the resulting gap estimators exhibit reduced variance when compared to their counterparts obtained via nonoverlapping batches.''}
-\end{itemize}
-
-\noi
-Done.
-\medskip 
-
-\noi
-{\it Note:}  We moved this sentence from the paragraph on page two to later in the introduction to clearly and succinctly state the contributions of the paper. 
-It now appears as contribution (ii) on page four of the revised manuscript.
-\medskip 
-
-\begin{itemize}
-\item[] \textit{2, 24 (and elsewhere): Note: I would be careful about the use of the term ``variance reduction'', which usually refers to the class of techniques such as common random numbers, antithetics, importance sampling, etc. 
-I view what you're doing in this paper as simply proposing a new estimator whose variance is lower than that of a competing estimator.}
-\end{itemize}
-
-\noi
-You are right. 
-Thanks for pointing this out. 
-We corrected the wording throughout the paper, avoiding the use of the term `variance reduction'. 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 27: ``and that the interval \ldots valid. 
-We also present''}
-\end{itemize}
-
-\noi
-We made the change to the first sentence above. 
-We reworded the second sentence because it starts a new set of contributions in the revised paper. 
-\medskip 
-
-\noi
-{\it Note:}
-The first sentence now appears as part of contribution (ii) and the second sentence as part of contribution (iii) on page four of the revised manuscript. 
-\medskip 
-
-\begin{itemize}
-\item[] \textit{2, 28: ``Our experiments indicate that the use of overlapping estimators results in gap estimators achieving lower variance than their nonoverlapping counterparts, along with comparable bias and interval coverage --- for both small- and large-sample cases.}
-\end{itemize}
-
-\noi
-Done.
-\medskip 
-
-\noi
-{\it Note:} 
-This sentence now appears as part of contribution (iii) on page 4 of the revised manuscript.
-\medskip 
-
-\begin{itemize}
-\item[] \textit{2, 34 (and elsewhere): Might want to boldface all vectors.}
-\end{itemize}
-
-\noi
-Done.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 42 (and elsewhere): ``more-restrictive moment'' (hyphenate certain non-adverbial compound adjectives)}
-\end{itemize}
-
-\noi
-Done.  
-We checked for other compound adjectives and changed them according to the Chicago Manual of Style. 
-For instance, the manual recommends not to hyphenate `adverb ending in ly + participle or adjective' even it appears before a noun (e.g., maximally overlapping batches); therefore we removed the hyphen from this phrase. 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{2, 51: You can delete ``(SAA)'', since the notation isn't used again in the paper.}
-\end{itemize}
-
-\noi
-Done.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{3, 11: ``solution; and''}
-\end{itemize}
-
-\noi
-Done.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{3, 24 (and elsewhere): ``Lagrangian, or'' (comma after penultimate entry in a conjunctive list)}
-\end{itemize}
-
-\noi
-Done.  
-We went through the paper and added commas before `and' and `or' in a list of items with three or more items.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{3, 37: ``we can simply use $z_m^*$''}
+\item \textit{7: Suggest that you include a couple of references where indicated in annotated copy.}
 \end{itemize}
 
 \noi
@@ -333,352 +109,7 @@ Done.
 
 
 \begin{itemize}
-\item[] \textit{3, 38: ``estimator of the optimality''}
-\end{itemize}
-
-\noi
-Done.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{3, 53: ``The sample variance of these estimators is used to form confidence intervals for the optimality gap (we further review MRP in \S 2.2).''}
-\end{itemize}
-
-\noi
-Done. 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 5 (and elsewhere): ``see, e.g., Bertocchi et al. [2000]; \ldots ''}
-\end{itemize}
-
-\noi
-We put a comma after `see'; however, we still kept the same referencing style `[Bertocchi et al., 2000; \ldots]' as this sentence refers to the papers and not directly to the authors. 
-We also went through the paper to make sure all `see, e.g.,' have the appropriate commas.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 14: Delete the sentence ``Especially \ldots '' since it doesn't really add anything to the discussion.}
-\end{itemize}
-
-\noi
-Deleted.
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 17: ``interest is that of estimating''}
-\end{itemize}
-
-\noi
-Done.  
-\medskip 
-
-\noi
-{\it Note:}
-This sentence now appears in \S 3 (Overlapping Multiple Replications Procedure). 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 20--27: Even though I believe everything, these lines are a bit awkward and confusing.}
-\end{itemize}
-
-\noi
-You are right. 
-We removed the comment on the central limit theorem on the minimized sample means as it is not relevant to the paper. 
-We also reworded these sentences to improve clarity. 
-\medskip 
-
-\noi
-{\it Note:}
-The revised sentences now appear in \S 3 (Overlapping Multiple Replications Procedure). 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 31: What are the desired statistical properties?}
-\end{itemize}
-
-\noi
-Thanks for pointing out the ambiguity here. 
-We reworded this sentence, divided it into two sentences to improve readability, and added further explanations to remove any remaining ambiguities. 
-\medskip 
-
-\noi
-{\it Note:}
-The revised sentences now appear in \S 3 (Overlapping Multiple Replications Procedure). 
-\medskip 
-
-\begin{itemize}
-\item[] \textit{4, 33: ``Another difference is that''. By the way, what is ``difference'' referring to?}
-\end{itemize}
-
-\noi
-Done.
-We also changed the sentence to make it clear what the ``difference'' is referring to. 
-\medskip 
-
-\noi
-{\it Note:}
-This sentence now appears in \S 3 (Overlapping Multiple Replications Procedure). 
-\medskip 
-
-\begin{itemize}
-\item[] \textit{4, 36: ``due to the need to solve sampling problem"}
-\end{itemize}
-
-\noi
-Changed it to ``\dots because we need to solve \ldots '' to improve readability.  
-\medskip 
-
-\noi
-{\it Note:}
-This sentence now appears in \S 3 (Overlapping Multiple Replications Procedure). 
-\medskip 
-
-\begin{itemize}
-\item[] \textit{4, 42: ``Partial overlapping results in a smaller number of batches; hence, fewer optimization''}
-\end{itemize}
-
-\noi
-We revised this section in order to improve exposition. 
-We used `smaller number of batches' based on your suggestion in the revised sentence. 
-\medskip 
-
-\noi 
-{\it Note:} This sentence now appears in the second paragraph of \S 3 (Overlapping Multiple Replications Procedure). 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 45: The sentence ``Second, \ldots '' needs some clarification, since it states a conclusion that hasn't so far been justified.}
-\end{itemize}
-
-\noi
-You are right. 
-While we removed the sentence that started with `Second' in an effort to improve readability, we referred to the computational efficiency study added to the paper to justify this remark.   
-\medskip 
-
-\noi
-{\it Note:}
-This sentence now appears in \S 3 (Overlapping Multiple Replications Procedure). 
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 51: ``discuss overlapping''}
-\end{itemize}
-
-\noi
-Done.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{4, 54 (and elsewhere): When you refer to ``variable amounts of overlap'', that is really nothing new. Certainly, any overlapping estimator will have end effects in which the overlap amounts differ from those in the ``middle'' region of the data.}
-\end{itemize}
-
-\noi
-We meant to say that the degree of overlap is parametrized and this parameter can be chosen by the user. 
-We reworded this sentence to reflect this. 
-We went through the paper and removed other occurrences of phrases like `variable amounts of overlap', `variably overlapping batches', etc.
-We also avoided using these terms in the newly added text. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{4, 57 (and elsewhere): ``classical case'' refers to nonoverlapping batch means, right?}
-\end{itemize}
-
-\noi
-No. By `classical case', we meant the use of overlapping batches in simulation output analysis (as opposed to assessment of solution quality in stochastic programming). 
-We reworded this sentence. 
-%Based on your earlier comments, we avoided the term `variance reduction' in the revised sentence.
-We also went through the paper and removed several uses of the word `classical' that referred to nonoverlapping batches.
-Any remaining sentences with the word `classical' only refer to the use of overlapping batches in simulation output analysis. 
-%In the current version of the paper, `classical case' is used to only indicate  the use of overlapping batches in simulation output analysis. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{5, 12: Does $\sigma^2$ refer to the marginal variance or the ``variance parameter'' (sum of the covariances at all lags)?}
-\end{itemize}
-
-\noi
-Variance parameter. 
-Thank you.
-We revised this sentence and added a footnote defining the variance parameter for readers who might not be familiar with this term (e.g., readers with an optimization focus). 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{5, 14: ``realization of the univariate stochastic''}
-\end{itemize}
-
-\noi
-Done.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{5, 35 (and elsewhere): Careful! This isn't quite the sample variance! This is actually the sample variance multiplied by $m/n$.}
-\end{itemize}
-
-\noi
-Thanks for catching this. 
-We corrected this sentence. 
-Please note that we split this sentence into two to avoid long sentences and to improve exposition. 
-We also checked for other uses of the term `sample variance' throughout the paper and corrected these as needed.
-Thank you.  
-\medskip 
-
-
-\begin{itemize}
-\item[] \textit{5, 43: You could have introduced the notation ``CI'' earlier.}
-\end{itemize}
-
-\noi
-You are right. 
-We now introduce this abbreviation the first time we use the term `confidence interval' in the introduction. 
-From this point on, we use the abbreviated form `CI' throughout the paper, except for the title of \S 4.5 (Asymptotic Validity of the Confidence Intervals). 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{5: You can significantly reduce the discussion on OBM here and in \S 3.1. 
-Just let the reader know the main results that you'll use.}
-\end{itemize}
-
-\noi
-We removed \S 3.1 (Variably Overlapping Batches) from the paper. 
-We merged this section with \S 2.1.2 (Overlapping Batch Means), focusing on the results used in the paper. 
-We believe the presentation of the paper improved as a result. 
-Thank you for this suggestion. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{6, 13: ``corresponding overlapping batch means''}
-\end{itemize}
-
-\noi
-Done.  
-We removed the word `corresponding' as part of the rewrite but added the word `overlapping' based on your suggestion.
-\medskip 
-
-\begin{itemize}
-\item[] \textit{6, 29: Note that you use ``Note that'' too often.}
-\end{itemize}
-
-\noi
-We went through the paper and removed most of the ``note that'' phrases. 
-We decided to leave some as is (as ``notice that'') because they highlight important characteristics.  
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{6, 30: Explicitly say what the d.f.\ in (2) is.}
-\end{itemize}
-
-\noi
-We changed this sentence and directly referred to the denominator.
-We decided to avoid the `degrees of freedom' here. 
-This is because we wanted to focus on the degrees of freedom for confidence interval construction, which is an important component of both our theoretical and computational results.\medskip  
-
-\noi 
-{\it Note:} This section has been restructured based on your comments. 
-Equation (2) now gives the general overlapping variance estimator with the parametrized amount of overlap. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{7, 46: Does $\gamma$ need to be an integer? 
-You seem to be using it that way, so maybe state the requirement.}
-\end{itemize}
-
-\noi
-Yes. We explicitly stated this in a sentence after we introduce $\gamma$.
-\medskip 
-
-\noi 
-{\it Note:} This sentence now appears in \S 2.1.2 (Overlapping Batch Means). 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{8, 4 (and elsewhere): Define notations such as floor and ceiling functions.}
-\end{itemize}
-
-\noi
-Done. 
-\smallskip  
-
-\noi 
-{\it Note:} Both definitions appear in \S 2.1.2 (Overlapping Batch Means).
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{8, 11: In addition to the fact that I don't think ``variance reduction'' is quite the right term, the phrase ``variance reduction in this estimator'' is awkward.}
-\end{itemize}
-
-\noi
-Reworded.\smallskip 
-
-\noi 
-{\it Note:} This sentence now appears in \S 2.1.2 (Overlapping Batch Means). 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{8, 53--57: The various OBM references should have been discussed earlier.}
-\end{itemize}
-
-\noi
-You are right. 
-We moved these references---in particular, Damerdji (1994, 1995)---to \S 2.1.2 (Overlapping Batch Means) and added a brief discussion.  
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{10, 11 (and elsewhere): ``$E[f(x, \xi)^4]$'' instead of ``$Ef(x, \xi)^4$'' (never hurts to use some brackets to reduce ambiguity)}
-\end{itemize}
-
-\noi
-Changed.
-In fact, we now use brackets for all the expectations in the paper to improve clarity. 
-Thank you.
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{11, 33: It might be helpful to add a step before the first inequality in the proof.}
-\end{itemize}
-
-\noi
-Instead of adding another step before the first inequality in the proof of Lemma 1, we added explanations at the beginning of the proof to make this inequality clear.   
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{12, 52: ``$n_l VD_l$ has been studied''}
+\item \textit{9, -9: Maybe mention that $x_j^*$ may not be unique.}
 \end{itemize}
 
 \noi
@@ -686,81 +117,18 @@ Done.
 \medskip 
 
 
-
 \begin{itemize}
-\item[] \textit{13, 12 (and elsewhere): I may have missed this, but has the notation $\sigma_{\hat{x}}$ been established yet?}
+\item \textit{10, 2 (and elsewhere): Save time and space by defining $n_b =\left\lfloor\tfrac{n_l-m_l}{\gamma_l}\right\rfloor+1$.}
 \end{itemize}
 
 \noi
-This notation was defined before Theorem 1. 
-We moved the definitions of $\sigma_{\hat{x}}$ and $\mu_{\hat{x}}$ to the end of \S 4.2 (Nonoptimized Counterparts) to improve clarity and added explanations to provide context. 
+Done.
+We used the notation $b$ (instead of $n_b$) to denote the number of batches in the general case (Section 2), and we used $b_l$ to denote the above quantity to make the dependence on $l$ explicit.  
 \medskip 
-
 
 
 \begin{itemize}
-\item[] \textit{In any case, some of the verbiage in this paragraph is a bit repetitive.}
-\end{itemize}
-
-\noi
-We moved the discussion in the first half of this paragraph to the new, combined OBM review in \S 2.1.2 (Overlapping Batch Means). 
-We referred to equation (3) here to remind the readers the basis of the proof.
-The second half of this paragraph deals with the batching structure, and this discussion is moved to the paragraph after the theorem's proof. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{13, 44: Is the expression for d.f. too big?}
-\end{itemize}
-
-\noi
-We now denote it as `dt' to represent the whole denominator term. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{13, 53: The reader might need another step besides C-S to get that inequality.}
-\end{itemize}
-
-\noi
-This is a direct application of the Cauchy-Schwartz inequality $\left(\sum_{j=1}^{n}x_j y_j\right)^2 \leq \sum_{j=1}^{n}x_j^2 \sum_{j=1}^{n}y_j^2$, where the $y_j$ are all set to $1$. 
-We added a brief explanation after this inequality to make it clear. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{15, 25: Do you discuss $t_{d_l,\alpha}$ at all in Theorem 3?}
-\end{itemize}
-
-\noi
-No, we had not.   
-We added explanations in the proof Theorem 3, discussing how $t_{d_l(k_l - 1),\alpha}$ factors in the proof. 
-\medskip 
-
-\noi 
-{\it Note:}
-While making this revision we noticed a typo. 
-We changed $t_{d_l,\alpha}$ to $t_{d_l(k_l - 1),\alpha}$, where $k_l=\left\lfloor \frac{n_l}{m_l} \right\rfloor$ is the number of batches used in the nonoverlapping counterpart. 
-\medskip 
-
-\newpage
-\begin{itemize}
-\item[] \textit{18: Your figures are very difficult to read, even with the pdf file.}
-\end{itemize}
-
-\noi
-We split these two figures into three and enlarged each graph. 
-We also enlarged the legends in these graphs to improve readability.
-All the new graphs added to the paper in \S 5.4 (Computational Efficiency) are also larger, with legible legends. 
-\medskip 
-
-
-
-\begin{itemize}
-\item[] \textit{20, 47: ``4th edition''}
+\item \textit{13, 7: Not necessary to give all of the details for (ii) (since they're so similar to (i)).}
 \end{itemize}
 
 \noi
@@ -768,13 +136,39 @@ Done.
 \medskip 
 
 
-
 \begin{itemize}
-\item[] \textit{21, 23: ``\it Jackknife''}
+\item \textit{14, -9: Pick other notation for ``$dt$'' looks too much like an integrator.}
 \end{itemize}
 
 \noi
-Corrected. Thank you. 
+Changed it to $\tau$.
+\medskip 
 
+
+\begin{itemize}
+\item \textit{16, -5: Why the ``complicated'' expression for $Z_l$?}
+\end{itemize}
+
+\noi
+Simplified.
+\medskip 
+
+
+\begin{itemize}
+\item \textit{19--20: Can you combined Figs. 2 and 3?}
+\end{itemize}
+
+\noi
+Done.  
+\medskip 
+
+
+\begin{itemize}
+\item \textit{21, 9: ``solving overlapping batches'' sounds funny.}
+\end{itemize}
+
+\noi
+Reworded.
+\medskip 
 
 \end{document}
